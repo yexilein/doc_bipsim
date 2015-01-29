@@ -1,0 +1,52 @@
+% ----------------------------------------------------------------
+% Article Class (This is a LaTeX2e document)  ********************
+% ----------------------------------------------------------------
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{color,ulem}
+% THEOREMS -------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{assum}[thm]{Assumption}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\numberwithin{equation}{section}
+
+% ----------------------------------------------------------------
+\begin{document}
+\normalem
+
+\title{{IMSV}: bacteria simulator specifications and architecture}%
+\author{M.~Dinh}%
+%\address{er}%
+%\thanks{zq}%
+\date{}%
+% ----------------------------------------------------------------
+\maketitle
+\begin{abstract}
+  XXX
+\end{abstract}
+% ----------------------------------------------------------------
+\section{Introduction}
+
+The objective of the project is to develop a simulator for a generic bacteria. The project is performed in parallel to the creation of an ontology and the associated database that describes living systems. This document presents the specifications of the simulator.
+
+
+\section{Specifications}
+\input{spec.tex}
+
+\section{Data and states}
+\input{dataState.tex}
+
+\section{Processes}
+\input{process.tex}
+
+\end{document}
+% ----------------------------------------------------------------
