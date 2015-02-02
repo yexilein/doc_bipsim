@@ -1,0 +1,61 @@
+It is recommended to implement the simulator with the following architecture
+\begin{description}
+  \item Simulation object
+  \begin{enumerate}
+    \item Time (state)
+    \item Interface between extracellular conditions (processes)
+    \item Extracellular conditions 1 (object):
+    \begin{enumerate}
+      \item concentration of entities (glucose, metabolites, AA… or whatever) (state)
+      \item evolution of the concentration (process)
+    \end{enumerate}
+    \item Extracellular conditions 2
+    \item ...
+    \item Extracellular conditions n
+    \item Cell 1 (object)
+    \begin{enumerate}
+      \item Interface between volumes (which volume interact with which other volume and the corresponding surface) (object)
+      \item Volume 1 (object)
+      \begin{enumerate}
+        \item Extracellular conditions (processes, numbers, surfaces) (should allow for interaction between cells through a virtual extracellular conditions)
+        \item Volume (state)
+        \item Number of ribosome in different states or specific ribosome and its state (Ribosome i, free occupied…) (state)
+        \item Number of mRNA in different states or specific mRNA and its state (state)
+        \item ...
+        \item Number of metabolites in different states (state)
+        \item Volume Chromosome 1: table of the same size describing the state of the chromosome (state)
+        \item Volume Chromosome 2
+        \item ...
+        \item Volume Chromosome n (the same number as for the cell) (state)
+        \item Internal (to the volume) processes
+      \end{enumerate}
+      \item Volume 2
+      \item ...
+      \item Volume n
+      \item Cell Chromosome 1 (object):
+      \begin{enumerate}
+        \item Table of ‘mère’ / ‘filles’ (state)
+        \item Table (size = number of structure (gene or codon or groups of codons) x maximal number of ‘brindilles’) with the number of the cell containing the structure. By convention, 0 = non active/does not exist; -1 = to fork (go the chromosomes ‘filles’); -2 = from fork (go the chromosome ‘mère’) (state)
+        \item Description of the structures (which AA needed), description of the genes (which structures, to produce what) (data)
+      \end{enumerate}
+      \item Cell Chromosome 2 if needed
+      \item ...
+      \item Cell Chromosome n if needed
+      \item Internal (to the cell) processes, typically replication or DNA movement from a volume to another one
+      \end{enumerate}
+    \item Cell 2
+    \item ...
+    \item Cell n
+  \end{enumerate}
+\end{description}
+Basically, cell only communicate with extracellular conditions. Each cell is divided into volumes that can communicate either with extracellular conditions or other volumes of the same cell. The chromosome is divided into 'cell chromosome' which handles the continuity of the chromosome and 'volume chromosome' which handles transcription and translation.
+
+
+
+\subsection{Chromosome}
+\input{dataState/chromosome.tex}
+
+\subsection{mRNA}
+\input{dataState/mRNA.tex}
+
+

@@ -1,0 +1,236 @@
+There are 'cell chromosome' and 'volume chromosome' because we wish that only a higher level object may access to the data and state of a lower object; this distinction is otherwise not needed and the chromosome object should be placed at cell level. 'Cell chromosome' mainly handles the continuity of the chromosome of the cell through all the volumes. 'Volume chromosome' directly handles the biological process internally to each volume. 'Cell chromosome' and 'volume chromosome' must be coherent.
+
+
+\paragraph{Representation} A chromosome is represented in a condensed way in the simulator. In fact depending on the aggregation performed, the representation can be more or less fine.
+\begin{center}
+\begin{tabular}{|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  Codon 1  & \multirow{1}{*}{Codon aggregation 1} \\
+  \hline
+  Codon 2  & \multirow{3}{*}{Codon aggregation 2} \\
+  Codon 3  &  \\
+  Codon 4  &  \\
+  \hline
+  Codon 5  & \multirow{5}{*}{Codon aggregation 3} \\
+  Codon 6  &  \\
+  Codon 7  &  \\
+  Codon 8  &  \\
+  Codon 9  &  \\
+  \hline
+  Codon 10 & \multirow{2}{*}{Codon aggregation 4} \\
+  Codon 11 &  \\
+  \hline
+  Codon 12 & \multirow{10}{*}{Codon aggregation 5} \\
+  Codon 13 &  \\
+  Codon 14 &  \\
+  Codon 15 &  \\
+  Codon 16 &  \\
+  Codon 17 &  \\
+  Codon 18 &  \\
+  Codon 19 &  \\
+  Codon 20 &  \\
+  Codon 21 &  \\
+  \hline
+  Codon 22 & \multirow{9}{*}{Codon aggregation 6} \\
+  Codon 23 &  \\
+  Codon 24 &  \\
+  Codon 25 &  \\
+  Codon 26 &  \\
+  Codon 27 &  \\
+  Codon 28 &  \\
+  Codon 29 &  \\
+  \hline
+  Codon 30 & \multirow{1}{*}{Codon aggregation 7} \\
+  \hline
+\end{tabular}
+\end{center}
+Note that with this aggregation, there are some conflicts between DNA replication / transcription and DNA damage / repair / mutation... Unless some rules are enforced to solve the conflicts, it is not possible to have different kind of process be performed the same time on a codon aggregation.
+\begin{assum}
+\begin{enumerate}
+  \item To avoid change of a volume state to another one due to, for instance, a polymerase changing of volume, it is assumed that a gene is necessary contained in one volume;
+  \item The decomposition into codon aggregations applies to any biological process related to DNA (replication, transcription, translation and manipulation).
+\end{enumerate}
+\end{assum}
+\noindent This assumption should not too drastic as a gene is much smaller than a chromosome.
+
+
+\subsubsection{Cell Chromosome}
+\paragraph{Evolution state} For DNA replication purpose, it is needed to represent fork. It is assumed that the maximal number of forks $n$ in known and that the considered chromosome is represented by $m$ codon aggregations. Then, the chromosome can be represented by 3 tables:
+\begin{enumerate}
+  \item a main table of size $m \times \sum_{i=0}^n2^i$ containing the number of the volume where it is. Moreover, -1 means go to 'mother', -2 means go to 'daughters' and -3 means go both to 'mother' and 'daughters';
+  \item a 'mother' table of size $1 \times \sum_{i=0}^n2^i$ representing one strand of the fork;
+  \item a 'daughters' table of size $2 \times \sum_{i=0}^n2^i$ representing the two last strands of the fork.
+\end{enumerate}
+
+\medskip
+
+We now illustrate how it works. Assume that the chromosome (with $n=2$ and $m=10$) does not have any fork yet and is contained in the volume 2, then the tables are
+\begin{center}
+  \begin{tabular}{|c|r|r|r|r|r|r|r|}
+     \hline
+     % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+     \multirow{10}{*}{Main table} & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     \hline \hline
+     'Mother' table & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     \hline \hline
+     \multirow{2}{*}{'Daughters' table} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     \hline
+   \end{tabular}
+\end{center}
+Now assume that the codon aggregation 1 to 5 and 7 to 10 were replicated, one strand being in the volume 2 and the other one in the volume 1, the tables are
+\begin{center}
+  \begin{tabular}{|c|r|r|r|r|r|r|r|}
+     \hline
+     % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+     \multirow{10}{*}{Main table} & 0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     & -2 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  2 & -1 & -1 & 0 & 0 & 0 & 0 \\
+     & -2 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     &  0 &  2 &  1 & 0 & 0 & 0 & 0 \\
+     \hline \hline
+     'Mother' table & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+     \hline \hline
+     \multirow{2}{*}{'Daughters' table} & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     & 3 & 0 & 0 & 0 & 0 & 0 & 0 \\
+     \hline
+   \end{tabular}
+\end{center}
+Assume that there is another fork in the volume 1 for the codon aggregation 1 only contained in volume 1 also while a part of the strand moved to volume 3, then the tables are
+\begin{center}
+  \begin{tabular}{|c|r|r|r|r|r|r|r|}
+     \hline
+     % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+     \multirow{10}{*}{Main table} & 0 &  2 & -2 &  1 &  1 & 0 & 0 \\
+     &  0 &  2 &  1 & -1 & -1 & 0 & 0 \\
+     &  0 &  2 &  1 &  0 &  0 & 0 & 0 \\
+     &  0 &  2 &  1 &  0 &  0 & 0 & 0 \\
+     & -2 &  2 &  1 &  0 &  0 & 0 & 0 \\
+     &  2 & -1 & -1 &  0 &  0 & 0 & 0 \\
+     & -2 &  2 &  3 &  0 &  0 & 0 & 0 \\
+     &  0 &  2 &  3 &  0 &  0 & 0 & 0 \\
+     &  0 &  2 &  3 &  0 &  0 & 0 & 0 \\
+     &  0 &  2 &  3 & -1 & -1 & 0 & 0 \\
+     \hline \hline
+     'Mother' table & 0 & 1 & 1 & 3 & 3 & 0 & 0 \\
+     \hline \hline
+     \multirow{2}{*}{'Daughters' table} & 2 & 0 & 4 & 0 & 0 & 0 & 0 \\
+     & 3 & 0 & 5 & 0 & 0 & 0 & 0 \\
+     \hline
+   \end{tabular}
+\end{center}
+Finally assume that the last fork is performed on codon aggregations 1 to 5 (even if it is a weird as it would mean that the replication is performed only in one direction, see the continuation of this example below) and that the resulting strands are contained in volume 3 even if the 'mother' strand is contained in volume 2, then the tables are
+\begin{center}
+  \begin{tabular}{|c|r|r|r|r|r|r|r|}
+     \hline
+     % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+     \multirow{10}{*}{Main table} & 0 & -2 & -2 &  1 &  1 & 3 & 3 \\
+     &  0 &  0 &  1 & -1 & -1 &  3 &  3 \\
+     &  0 &  0 &  1 &  0 &  0 &  3 &  3 \\
+     &  0 &  0 &  1 &  0 &  0 &  3 &  3 \\
+     & -2 & -2 &  1 &  0 &  0 &  3 &  3 \\
+     &  2 & -1 & -1 &  0 &  0 & -1 & -1 \\
+     & -2 &  2 &  3 &  0 &  0 &  0 &  0 \\
+     &  0 &  2 &  3 &  0 &  0 &  0 &  0 \\
+     &  0 &  2 &  3 &  0 &  0 &  0 &  0 \\
+     &  0 &  2 &  3 & -1 & -1 & -1 & -1 \\
+     \hline \hline
+     'Mother' table & 0 & 1 & 1 & 3 & 3 & 2 & 2 \\
+     \hline \hline
+     \multirow{2}{*}{'Daughters' table} & 2 & 6 & 4 & 0 & 0 & 0 & 0 \\
+     & 3 & 7 & 5 & 0 & 0 & 0 & 0 \\
+     \hline
+   \end{tabular}
+\end{center}
+
+
+\paragraph{Original chromosome data} This state contains other needed information for transcription and translation purposes. Moreover, they do not change as often that the evolution state but it can be the case whenever something happens to the DNA. The needed information are
+\begin{itemize}
+  \item Transcription: the location of the genes, which bases are needed, \textcolor[rgb]{1.00,0.00,0.00}{kinetic parameters (typically how long does it takes to replicate or transcript it)};
+  \item Translation: the needed AA, \textcolor[rgb]{1.00,0.00,0.00}{the protein produced which is the property of the gene};
+  \item \textcolor[rgb]{1.00,0.00,0.00}{Manipulation: is it an original codon aggregation?}
+\end{itemize}
+
+\medskip
+
+With a 10 codon aggregations chromosome, the following original information state table
+\begin{center}
+\footnotesize
+  \begin{tabular}{|ccccc|c|cccc|ccccc|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    \multicolumn{5}{|c|}{Gene} &  & \multicolumn{4}{|c|}{Base} & \multicolumn{5}{|c|}{AA} \\
+    number & oriC & terC & Start & Stop & Nb of codons & A & T & C & G & AA 1 & ... & AA i & ... & AA n \\
+    \hline
+     1  &   1  &   0  &  0    &   0  & 1 &    1   &    1   &    0   &    1   &   0  & ... &  0   & ... &  0 \\
+     2  &   0  &   0  &  1    &   0  & 1 &    1   &    0   &    1   &    1   &   0  & ... &  0   & ... &  0 \\
+     2  &   0  &   0  &  0    &   0  & 5 &    5   &    4   &    5   &    1   &   1  & ... &  2   & ... &  2 \\
+     2  &   0  &   0  &  0    &   0  & 4 &    2   &    1   &    5   &    4   &   1  & ... &  1   & ... &  0 \\
+     2  &   0  &   0  &  0    &   1  & 1 &    2   &    1   &    0   &    0   &   0  & ... &  0   & ... &  0 \\
+     3  &   0  &   1  &  0    &   0  & 1 &    0   &    1   &    1   &    1   &   0  & ... &  0   & ... &  0 \\
+     4  &   0  &   0  &  1    &   0  & 1 &    1   &    0   &    1   &    1   &   0  & ... &  0   & ... &  0 \\
+     4  &   0  &   0  &  0    &   0  & 5 &    1   &    1   &   12   &    1   &   0  & ... &  0   & ... &  1 \\
+     4  &   0  &   0  &  0    &   0  & 3 &    3   &    3   &    0   &    3   &   0  & ... &  3   & ... &  0 \\
+     4  &   0  &   0  &  0    &   1  & 1 &    2   &    1   &    0   &    0   &   0  & ... &  0   & ... &  0 \\
+    \hline
+  \end{tabular}
+\end{center}
+indicates
+\begin{itemize}
+  \item oriC as gene 1, encoded in codon aggregation 1. The corresponding codon is any combination of bases ATG;
+  \item terC as gene 3, encoded in codon aggregation 6. The corresponding codon is any combination of bases TCG;
+  \item 2 real genes (2 and 4) encoded between codon aggregations 2 and 5 and between codon aggregations 7 and 10;
+  \item both genes have the same start and stop codon (coded by any combination of ACG and AAT) and the do not need any AA;
+  \item the translation elongation of codon aggregation 3 would need 4 AA 1, ..., 1 AA i, ... and 8 AAn. Its transcription needs the equivalent of 5 bases A, 4 bases T, 5 bases C and 1 base G whereas its replication would need the double of bases;
+  \item in my little head, a codon is composed of 3 bases and each codon encodes one AA. The column 'Number of codons' should be consistent with the 'Base' and 'AA' columns. The AA coded bu aggregation 3 are all displayed in the table whereas it is not the case for codon aggregation 4 (it lacks 2 AA).
+\end{itemize}
+Note that with this kind of modeling, the oriC, terC, start and stop codons can be aggregated with others. \emph{This is not recommended however}. Another way would be to delete the oriC and terC property and reserve some values (1 and -1 for example) in the Gene number to them.
+
+\textcolor[rgb]{1.00,0.00,0.00}{Note, for gene 4 and more generally in this part of the chromosome, the replication and the translation go in reverse way => conflict.}
+
+\medskip
+
+\textcolor[rgb]{1.00,0.00,0.00}{In fact, not gene but rather operons are described for transcription. Delete the part from AA on the chromosome description and add something about the the operons. Dissociate for each operons the number of mRNAs possible that are created from on operon, and for each mRNA the number for proteins that are created.}
+
+\medskip
+
+\textcolor[rgb]{1.00,0.00,0.00}{\emph{In fact, it might be easier to not use the codon aggregations and directly code every codon...}}
+
+\paragraph{Current chomosome state}
+\textcolor[rgb]{1.00,0.00,0.00}{It is the same as the original data except that it indicates the current state of the DNA. The original table allows to retrieve the original DNA when a DNA repair has been performed on a damaged DNA. In that sense, the current table also contains infirmation about the DNA damages.}
+
+
+\paragraph{Gene state}
+\textcolor[rgb]{1.00,0.00,0.00}{Should just be something that tells for each gene what it produces. As I see only proteins at the moment as output, is there something else potentially? How do we store this information?}
+
+
+
+\subsubsection{Volume Chromosome}
+Volume chromosome contains information about the gene and codon aggregations that are inside the volume. They also contains information necessary for an independent processing of transcription and translation, but not DNA replication (which is a cell process).
+
+\medskip
+
+The information needed for modeling are
+\begin{itemize}
+  \item what are the different state, more precisely, how other entities can bind to DNA for transcription;
+  \item in what step is the elongation (all the bases are in place?);
+  \item in order to manage conflict with replication, a state about occupation by replication is added.
+\end{itemize}
+The volume chromosome is organized by operons with the same codon aggregations. Also adds an information about the tracking of the strand of the operon.
+
+\textcolor[rgb]{1.00,0.00,0.00}{Mind backtrack: per operon, the number, the strand it comes from.}

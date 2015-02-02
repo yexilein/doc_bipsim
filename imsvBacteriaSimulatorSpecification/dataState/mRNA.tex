@@ -1,0 +1,108 @@
+A mRNA has the same kind of structure as an operon. \textcolor[rgb]{1.00,0.00,0.00}{Add binding site (and a stop site?) to Chromosome characteristics.}
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c||c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Codon & AA 1 & AA 2 & AA 3 & AA 4 & Aggregation & Binding site & Stop site & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+      1   &  0   &  0   &   0  &   0  &       1     &      1       &     0     &   0  &  0   &   0  &   0  \\
+    \hline
+      2   &  0   &  0   &   1  &   0  &  \multirow{3}{*}{2} & \multirow{3}{*}{0} & \multirow{3}{*}{0} & \multirow{3}{*}{1} & \multirow{3}{*}{0} & \multirow{3}{*}{2} & \multirow{3}{*}{0} \\
+      3   &  1   &  0   &   0  &   0  & & & & & & & \\
+      4   &  0   &  0   &   1  &   0  & & & & & & & \\
+    \hline
+      5   &  0   &  0   &   0  &   1  &  \multirow{2}{*}{3} & \multirow{2}{*}{0} & \multirow{2}{*}{0} & \multirow{2}{*}{1} & \multirow{2}{*}{0} & \multirow{2}{*}{0} & \multirow{2}{*}{1} \\
+      6   &  1   &  0   &   0  &   0  & & & & & & & \\
+    \hline
+      7   &  0   &  0   &   0  &   0  &      4      &      0       &     1     &   0  &  0   &   0  &   0  \\
+    \hline
+  \end{tabular}
+\end{center}
+So an mRNA is represented by
+\begin{enumerate}
+  \item what it produces (how this information is stored?);
+  \item the aggregated table of information;
+  \item per aggregation, the state. Basically, for a brief description, we assume that the translation is performed in the following steps
+  \begin{enumerate}
+    \item binding with 30S;
+    \item binding with 50S. Here we assume that the 50S binds only if the 30S is already binded to form a 70S;
+    \item elongation: binding of tRNA (charged or not), binding of ATP and step forward (one step). This step is repeated until the end;
+    \item stop (not described here in term of state because on't know how it works).
+  \end{enumerate}
+\end{enumerate}
+Follows an example. Assume that there is already a 70S at the beginning of the aggregation 2.
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Aggregation & 30S & 50S & non charged tRNA & tRNA 1 & tRNA 2 & tRNA 3 & tRNA 4 & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+         2      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+  \end{tabular}
+\end{center}
+Now assume that a tRNA charged with an AA 1 is binded.
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Aggregation & 30S & 50S & non charged tRNA & tRNA 1 & tRNA 2 & tRNA 3 & tRNA 4 & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+         2      &  0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+  \end{tabular}
+\end{center}
+Then elongation is performed. Of course an ATP would be consumed but it is not here to be modeled.
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Aggregation & 30S & 50S & non charged tRNA & tRNA 1 & tRNA 2 & tRNA 3 & tRNA 4 & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+         2      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+    \hline
+  \end{tabular}
+\end{center}
+Now assume that a 30S binds to the binding site, and then a 50S also binds to form a 70S. The state would evolve like follows.
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Aggregation & 30S & 50S & non charged tRNA & tRNA 1 & tRNA 2 & tRNA 3 & tRNA 4 & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+         2      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+         1      &  1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+  \end{tabular}
+\end{center}
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Aggregation & 30S & 50S & non charged tRNA & tRNA 1 & tRNA 2 & tRNA 3 & tRNA 4 & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+         2      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+         1      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+  \end{tabular}
+\end{center}
+Now we assume that we allow the 70S in aggregation 1 to go to aggregation 2 because we are very happy with this happening (!).
+\begin{center}
+  \tiny
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Aggregation & 30S & 50S & non charged tRNA & tRNA 1 & tRNA 2 & tRNA 3 & tRNA 4 & AA 1 & AA 2 & AA 3 & AA 4 \\
+    \hline
+         2      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+         2      &  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+  \end{tabular}
+\end{center}
+It is possible to be less detailed about the tracking of each ribosome.
