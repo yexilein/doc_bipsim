@@ -1,2 +1,194 @@
-\textcolor[rgb]{1.00,0.00,0.00}{Would be able to model assembly of 30S, 50S and tRNA charging (hum...) if each pool is correctly encoded somewhere as a state. By simple, we understand that the reaction is performed in one step and that it is independent of anything else. It would then be a matter of changing the pool in the associated state.
-}
+By simple, it is understood that the reaction is performed in one step, instantaneously. The result of a reaction is to change the pools of the reactants and products whenever the reaction happens. {\em When the reaction happens is dealt with in another process}. To describe a reaction, the needed information is thus the pools of the reactants and the enzyme as well as the stoichiometry of the reaction.
+
+\medskip
+
+Let us consider the reaction written in the conventional direction:
+$$
+  \reaction{\underbrace{\sum_{l\in \mathcal{I}_S} m_{l}^SS_{l}}_{Substracts \text{ } S}}{\underbrace{\sum_{l\in\mathcal{I}_P}m_{l}^PP_l}_{Products \text{ } P}}{E}.
+$$
+Note that if this is an enzymatic reaction, then the reaction should not be possible without the enzyme. So that the process is defined by:
+\begin{itemize}
+  \item inputs:
+  \begin{itemize}
+    \item the direction of the reaction;
+    \item the pool(s) $S_l^{pool}$ of the substract(s);
+    \item the pool(s) $E^{pool}$ of the enzyme(s);
+    \item the pool(s) $X_l^{pool}$ of the product(s);
+  \end{itemize}
+  \item parameters: the stoichiometry $m_{l}^S$ and $m_{l}^P$;
+  \item processes: if $E^{pool}>0$ (otherwise nothing changes) then change
+  \begin{itemize}
+    \item if the reaction is in the forward direction: $S_l^{pool} = S_l^{pool} - m_{l}^S$ and $P_l^{pool} = P_l^{pool} + m_{l}^P$;
+    \item if the reaction is in the backward direction: $P_l^{pool} = P_l^{pool} - m_{l}^P$ and $S_l^{pool} = S_l^{pool} + m_{l}^S$.
+  \end{itemize}
+\end{itemize}
+
+\medskip
+
+The above mechanism for process modeling works well as long as every possible 'state' of the reactants are states of the simulator. For instance, we consider the simple reaction (without enzyme for the sake of simplification)
+$$
+  \reaction{P_1+P_2}{P_1P_2}{} \longrightarrow Q_1Q_2
+$$
+In reality, both $P_1$ and $P_2$ have a property, say phosphorized or not. We then have the possible reactions
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1+P_2}{P_1P_2}{} \longrightarrow Q_1Q_2 \\
+      \reaction{P_1^*+P_2}{P_1^*P_2}{} \longrightarrow Q_1^*Q_2 \\
+      \reaction{P_1+P_2^*}{P_1P_2^*}{} \longrightarrow Q_1Q_2^* \\
+      \reaction{P_1^*+P_2^*}{P_1^*P_2^*}{} \longrightarrow Q_1^*Q_2^* \\
+    \end{array}
+  \right.
+$$
+In addition, we can also have the reactions
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1 + X}{P_1^*}{} \\
+      \reaction{P_2 + X}{P_2^*}{} \\
+      \reaction{P_1P_2 + X}{P_1^*P_2}{} \\
+      \reaction{P_1P_2 + X}{P_1P_2^*}{} \\
+%      \reaction{P_1P_2 + 2X}{P_1^*P_2^*}{} \\
+      \reaction{P_1^*P_2 + X}{P_1^*P_2^*}{} \\
+      \reaction{P_1P_2^* + X}{P_1^*P_2^*}{} \\
+      \reaction{Q_1Q_2 + X}{Q_1^*Q_2}{} \\
+      \reaction{Q_1Q_2 + X}{Q_1Q_2^*}{} \\
+%      \reaction{Q_1Q_2 + 2X}{Q_1^*Q_2^*}{} \\
+      \reaction{Q_1^*Q_2 + X}{Q_1^*Q_2^*}{} \\
+      \reaction{Q_1Q_2^* + X}{Q_1^*Q_2^*}{} \\
+    \end{array}
+  \right.
+$$
+Of course, if one puts all the states as described above, the process described above is fine. In this case, the simulator state would be the pools of
+$$
+  X,\,P_1,\,P_1^*,\,P_2,\,P_2^*,\,P_1P_2,\,P_1^*P_2,\,P_1P_2^*,\,P_1^*P_2^*,\,Q_1Q_2,\,Q_1^*Q_2,\,Q_1Q_2^*,\,Q_1^*Q_2^*
+$$
+that is 13 states. We want to decrease the number of state. The idea is that the intermediate state are can be computed from the information on $P_1$, $P_1^*$, $P_2$ and $P_2^*$ if we also know the number that are used for these intermediate reactants. Assume, we need the pools of
+$$
+  X,\,P_1,\,P_1^*,\,P_2,\,P_2^*,\,Q_1Q_2,\,Q_1^*Q_2,\,Q_1Q_2^*,\,Q_1^*Q_2^*.
+$$
+One would then split in two pools (free and used for $P_1$ and $P_2$ type reactant) the ones of $P_1$, $P_1^*$, $P_2$ and $P_2^*$ leading to also 13 states. Moreover, there is a need for computation to recover the pools of $P_1P_2$, $P_1^*P_2$ , $P_1P_2^*$, and $P_1^*P_2^*$, which is really bad. The relations would have been
+$$
+  P_{1used}^{pool}+P_{1used}^{*pool} = P_{2used}^{pool}+P_{2used}^{*pool} = (P_1P_2)^{pool}+(P_1^*P_2)^{pool}+(P_1P_2^*)^{pool}+(P_1^*P_2^*)^{pool}
+$$
+along with
+$$
+  \left\{
+    \begin{array}{l}
+      (P_1P_2)^{pool} = \min(P_{1used}^{pool},P_{2used}^{pool}) \\
+      (P_1^*P_2^*)^{pool} = \min(P_{1used}^{*pool},P_{2used}^{*pool}) \\
+      (P_1^*P_2)^{pool} = P_{2used}^{pool} - (P_1P_2)^{pool} = P_{1used}^{*pool} - (P_1^*P_2^*)^{pool} \\
+      (P_1P_2^*)^{pool} = P_{1used}^{pool} - (P_1P_2)^{pool} = P_{2used}^{*pool} - (P_1^*P_2^*)^{pool} \\
+    \end{array}
+  \right.
+$$
+Now assume that we only need for the reactant of type $Q_1Q_2$ only the pool of $Q_1Q_2$ separately and that the other pools are not necessary:
+$$
+  X,\,P_{1free},\,P_{1used},\,P_{1free}^*,\,P_{1used}^*,\,P_{2free},\,P_{2used},\,P_{2free}^*,\,P_{2used}^*,\,Q_1Q_2
+$$
+We only have 10 states but there is a loss of information as it is now impossible to distinguish between $P_1P_2$ and $Q_1Q_2$ type of reactants. The relation are now
+$$
+  \left\{
+    \begin{array}{l}
+      (P_1P_2)^{pool} = \min(P_{1used}^{pool},P_{2used}^{pool}) \\
+      (P_1^*P_2^*)^{pool} + (Q_1^*Q_2^*)^{pool} = \min(P_{1used}^{*pool},P_{2used}^{*pool}) \\
+      (P_1^*P_2)^{pool} + (Q_1^*Q_2)^{pool} = P_{2used}^{pool} - (P_1P_2)^{pool} = P_{1used}^{*pool} - \min(P_{1used}^{*pool},P_{2used}^{*pool}) \\
+      (P_1P_2^*)^{pool} + (Q_1Q_2^*)^{pool} = P_{1used}^{pool} - (P_1P_2)^{pool} = P_{2used}^{*pool} - \min(P_{1used}^{*pool},P_{2used}^{*pool}) \\
+    \end{array}
+  \right.
+$$
+Not worth the bother (imagine for 2 properties on $P_1$ and $P_2$ instead of only 1!!!). Use the full information case or limit the number of properties or use the following intermediate solution with the state
+$$
+  X,\,P_1,\,P_1^*,\,P_2,\,P_2^*,\,Q_1Q_2,\,Q_1^*Q_2,\,Q_1Q_2^*,\,Q_1^*Q_2^*
+$$
+and with
+$$
+  (P_1P_2)_{all},\, X_{used}
+$$
+$(P_1P_2)_{all}$ standing for the whole $P_1P_2,$ $P_1^*P_2$, $P_1P_2^*$ and $P_1^*P_2^*$ and $X_{used}$ standing for $X$ used in $(P_1P_2)_{all}$. A condition for feasibility is then $X_{used}^{pool} \leq 2 (P_1P_2)_{all}^{pool}$. One would have the following possible reactions
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1+P_2}{(P_1P_2)_{all}}{} \longrightarrow Q_1Q_2 \\
+      \reaction{P_1^*+P_2}{(P_1P_2)_{all}+X_{used}}{} \longrightarrow Q_1^*Q_2 \\
+      \reaction{P_1+P_2^*}{(P_1P_2)_{all}+X_{used}}{} \longrightarrow Q_1Q_2^* \\
+      \reaction{P_1^*+P_2^*}{(P_1P_2)_{all}+2 X_{used}}{} \longrightarrow Q_1^*Q_2^* \\
+    \end{array}
+  \right.
+$$
+In addition, we can also have the reactions
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1 + X}{P_1^*}{} \\
+      \reaction{P_2 + X}{P_2^*}{} \\
+      \reaction{(P_1P_2)_{all} + X}{(P_1P_2)_{all} + X_{used}}{} \\
+%      \reaction{(P_1P_2)_{all} + 2X}{(P_1P_2)_{all} + 2X_{used}}{} \\
+      \reaction{Q_1Q_2 + X}{Q_1^*Q_2}{} \\
+      \reaction{Q_1Q_2 + X}{Q_1Q_2^*}{} \\
+%      \reaction{Q_1Q_2 + 2X}{Q_1^*Q_2^*}{} \\
+      \reaction{Q_1^*Q_2 + X}{Q_1^*Q_2^*}{} \\
+      \reaction{Q_1Q_2^* + X}{Q_1^*Q_2^*}{} \\
+    \end{array}
+  \right.
+$$
+The difficulty would be to decide when these reactions can occur. An even 'more' intermediate solution would be to use the states (assuming that $Q_1^*Q_2$ is the reactant of interest since otherwise it is too simple!)
+$$
+  X,\,P_1,\,P_1^*,\,P_2,\,P_2^*,\,Q_1^*Q_2
+$$
+and with
+$$
+  (P_1P_2)_{all},\, X_{Pused},\,(Q_1Q_2)_{all},\, X_{Qused}
+$$
+with the same constraint as above. The set of reactions are then
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1+P_2}{(P_1P_2)_{all}}{} \longrightarrow (Q_1Q_2)_{all} \\
+      \reaction{P_1^*+P_2}{(P_1P_2)_{all}+X_{Pused}}{} \longrightarrow Q_1^*Q_2 \\
+      \reaction{P_1+P_2^*}{(P_1P_2)_{all}+X_{Pused}}{} \longrightarrow (Q_1Q_2)_{all}+X_{Qused} \\
+      \reaction{P_1^*+P_2^*}{(P_1P_2)_{all}+2 X_{Pused}}{} \longrightarrow (Q_1Q_2)_{all}+X_{Qused} \\
+    \end{array}
+  \right.
+$$
+In addition, we can also have the reactions
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1 + X}{P_1^*}{} \\
+      \reaction{P_2 + X}{P_2^*}{} \\
+      \reaction{(P_1P_2)_{all} + X}{(P_1P_2)_{all} + X_{used}}{} \\
+%      \reaction{(P_1P_2)_{all} + 2X}{(P_1P_2)_{all} + 2X_{used}}{} \\
+      \reaction{(Q_1Q_2)_{all} + X}{Q_1^*Q_2}{} \\
+      \reaction{(Q_1Q_2)_{all} + X_{Qused}}{Q_1^*Q_2 + X}{} \\
+      \reaction{(Q_1Q_2)_{all} + X}{(Q_1Q_2)_{all} + X_{Qused}}{} \\
+%      \reaction{Q_1Q_2 + 2X}{Q_1^*Q_2^*}{} \\
+    \end{array}
+  \right.
+$$
+Again, the difficulty would be to decide when these reactions can occur.
+
+Finally, it could also be possible to loose even more information by deciding that there only an active form and some non-active forms (one non-active form per type: phosphorized or non-folded -- hum mauvais exemple, pas grave -- for instance). Only the active form can go forward in the pathway; the non-active form must go back into its previous state. Going back to our example with the pathway being:
+$$
+  \reaction{P_1+P_2}{P_1P_2}{} \longrightarrow Q_1Q_2 .
+$$
+One would consider with this pathway the non-active forms phosphorized and non-folded:
+$$
+  \left\{
+    \begin{array}{l}
+      \reaction{P_1^{nonFold}}{P_1}{C_1} \\
+      \reaction{P_2^{nonFold}}{P_2}{C_2} \\
+      \reaction{P_1 + X}{P_1^{phosphorized}}{} \\
+      \reaction{P_2 + X}{P_2^{phosphorized}}{} \\
+      \reaction{(P_1P_2)^{nonFold}}{P_1P_2}{C} \\
+      \reaction{P_1P_2 + X}{(P_1P_2)^{phosphorized}}{} \\
+    \end{array}
+  \right.
+$$
+
+
+
+\medskip
+
+\textcolor[rgb]{1.00,0.00,0.00}{Would be able to model assembly of 30S, 50S and tRNA charging (hum...) if each pool is correctly encoded somewhere as a state.
+} 
