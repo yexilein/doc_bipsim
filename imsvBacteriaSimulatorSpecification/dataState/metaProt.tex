@@ -1,0 +1,138 @@
+The difference between metabolites and proteins (and macro-proteins) is delimited by properties:
+\begin{itemize}
+  \item metabolites do not have properties;
+  \item proteins do have properties (such as folded, phosphorilized...).
+\end{itemize}
+Moreover, the distinction between protein and macro-protein is defined here as:
+\begin{itemize}
+  \item a macro-protein is the association of two or more proteins for which the properties can be applied indifferently on each of the protein;
+  \item whatever else proteinic entity. Any entity that comes directly from the translation is considered to be a protein and not a macro-protein.
+\end{itemize}
+
+\subsubsection{Metabolites}
+Of course, only concerns the ones that are not already described elsewhere. No problem of representation: as there is not any property, the state is the pool of metabolite. A proposed way is to list all the metabolites (let's say there are $m$ types metabolites), to number them and to represent the pool of metabolites by a vector of size $m$ containing the pool of each metabolites.
+
+\subsubsection{Proteins and macro-proteins}
+Of course, only concerns the ones that are not already described elsewhere.
+
+\medskip
+
+Information needed for proteins are:
+\begin{description}
+  \item[degradation] the composition of the 'standard' protein (no property) and what more entities a property comes with;
+  \item[allowed processes] the properties that can take place with this protein (maybe some proteins cannot be phosphorized!!!).
+\end{description}
+
+\medskip
+
+Depends on how degradation works (or rather what do we want to model). If degradation of a macro-protein is modeled at the level of the proteins or of the AA, the data and state are not the same. 
+
+\medskip
+
+Consider
+$$
+  \reaction{P_1+P_2}{P_1P_2}{}
+$$
+where $P_1$ and $P_2$ are proteins. Assume that:
+\begin{itemize}
+  \item there are 10 AA, $P_1$ is composed of 10 AA1, 2 AA4 and 4 AA9 and $P_2$ is composed of 37 AA7;
+  \item 4 properties are defined for the proteins; for $P_1$ processes 1, 2 and 4 are allowed whereas only process 2 and 3 are allowed for $P_2$;
+  \item there are 5 'standard' proteins of each $P_1$ and $P_2$. No $P_1P_2$.
+\end{itemize}
+One would have as data and state
+\begin{enumerate}
+  \item[$P_1$] is a protein
+  \begin{description}
+    \item[composition] is a vector $compP1$ of size 10 (the number of AA) and it contains the number of AA of the composition
+    $$
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+        AA1 & AA2 & AA3 & AA4 & AA5 & AA6 & AA7 & AA8 & AA9 & AA10 \\ \hline
+        10 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 4 & 0 \\
+        \hline
+      \end{tabular}
+    $$
+    \item[allowed processes] is a vector $procP1$ of size 4 (the number of processes) and it contains booleans
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      \multicolumn{4}{|c|}{Property} \\
+      1 & 2 & 3 & 4 \\ \hline
+      1 & 1 & 0 & 1 \\
+      \hline
+    \end{tabular}
+    \item[state] is a matrix $stateP1$ of size $5\times 4$ (number of $P_1$ proteins $\times$ number of processes) and it contains booleans representing the state of {\em each} protein. Here 5 'standard' (no property) proteins $P_1$
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      Protein & \multicolumn{4}{|c|}{Property} \\
+      & 1 & 2 & 3 & 4 \\ \hline
+      1 & 0 & 0 & 0 & 0 \\
+      2 & 0 & 0 & 0 & 0 \\
+      3 & 0 & 0 & 0 & 0 \\
+      4 & 0 & 0 & 0 & 0 \\
+      5 & 0 & 0 & 0 & 0 \\
+      \hline
+    \end{tabular}
+  \end{description}
+  \item[$P_2$] is a protein
+  \begin{description}
+    \item[composition] is a vector $compP2$ of size 10 (the number of AA) and it contains the number of AA of the composition
+    $$
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+        AA1 & AA2 & AA3 & AA4 & AA5 & AA6 & AA7 & AA8 & AA9 & AA10 \\ \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 37 & 0 & 0 & 0 \\
+        \hline
+      \end{tabular}
+    $$
+    \item[allowed processes] is a vector $procP2$ of size 4 (the number of processes) and it contains booleans
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      \multicolumn{4}{|c|}{Property} \\
+      1 & 2 & 3 & 4 \\ \hline
+      0 & 1 & 1 & 0 \\
+      \hline
+    \end{tabular}
+    \item[state] is a matrix $stateP2$ of size $5\times 4$ (number of $P_2$ proteins $\times$ number of processes) and it contains booleans representing the state of {\em each} protein. Here 5 'standard' (no property) proteins $P_2$
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      Protein & \multicolumn{4}{|c|}{Property} \\
+      & 1 & 2 & 3 & 4 \\ \hline
+      1 & 0 & 0 & 0 & 0 \\
+      2 & 0 & 0 & 0 & 0 \\
+      3 & 0 & 0 & 0 & 0 \\
+      4 & 0 & 0 & 0 & 0 \\
+      5 & 0 & 0 & 0 & 0 \\
+      \hline
+    \end{tabular}
+  \end{description}
+  \item[$P_1P_2$] is a macro-protein
+  \begin{description}
+    \item[composition] is a matrix $compP1P2$ of size $1\times 10 \times 2$ (10 for the number of AA and 2 for the number of protein composing the macro-protein) and it contains the detailed composition with $compP1P2(1,:,1) = compP1$ and $compP1P2(1,:,2) = compP2$;
+    \item[allowed processes] is a matrix $procP1P2$ of size $1\times 4\times 2$ with $procP1P2(1,:,1) = procP1$ and $procP1P2(1,:,2) = procP2$;
+    \item[state] is a matrix $stateP1P2$ that is void.
+  \end{description}
+\end{enumerate}
+Basically with the representation, the 'size' of the state depends on the pool of proteins and the number of properties. The state contain booleans only.
+
+\medskip
+
+As a quick benchmark, with Matlab 2012a on Biosys1:
+\begin{itemize}
+  \item initializing both a false matrix and a true matrix of size $3e6 \times 20$ takes 0.13 seconds;
+  \item changing all the boolean in a matrix, using linear indexing in a loop, takes 2 seconds;
+  \item changing all the boolean in a matrix, using 2 loops on row and column indexes, takes 3.3 seconds;
+  \item there are around 3e6 proteins, each proteins having around 200 AA each. Subtilis cycle is 20 minutes, so there are at least 3e6*200/(20*60) = 5e5 events per second. Changing 5e5 booleans in a matrix, using row and column indexing, takes 5.5e-3 seconds.
+\end{itemize}
+We thus hope that a fine description of the DNA and proteins is possible.
+
+\medskip
+
+\textcolor[rgb]{1.00,0.00,0.00}{Need to decide what is modeled as a protein and what is modeled as a macro-protein.}
+
+
