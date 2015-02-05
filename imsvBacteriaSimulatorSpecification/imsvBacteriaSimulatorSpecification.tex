@@ -20,7 +20,9 @@
 \numberwithin{equation}{section}
 
 \usepackage{amssymb}
-\newcommand{\reaction}[3]{#1 \stackrel{#3}{\leftrightharpoons} #2}
+\newcommand{\reactionRev}[4]{#1 \,\, \displaystyle{\mathop{\rightleftarrows}_{#4}^{#3}} \,\, #2}
+\newcommand{\reactionIrr}[4]{#1 \,\, \displaystyle{\mathop{\rightarrow}^{#3}} \,\, #2} % For compatibility with reactionRev
+
 % ----------------------------------------------------------------
 \begin{document}
 \normalem

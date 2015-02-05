@@ -4,7 +4,7 @@ By simple, it is understood that the reaction is performed in one step, instanta
 
 Let us consider the reaction written in the conventional direction:
 $$
-  \reaction{\underbrace{\sum_{l\in \mathcal{I}_S} m_{l}^SS_{l}}_{Substracts \text{ } S}}{\underbrace{\sum_{l\in\mathcal{I}_P}m_{l}^PP_l}_{Products \text{ } P}}{E}.
+  \reactionRev{\underbrace{\sum_{l\in \mathcal{I}_S} m_{l}^SS_{l}}_{Substracts \text{ } S}}{\underbrace{\sum_{l\in\mathcal{I}_P}m_{l}^PP_l}_{Products \text{ } P}}{E}{}.
 $$
 Note that if this is an enzymatic reaction, then the reaction should not be possible without the enzyme. So that the process is defined by:
 \begin{itemize}
@@ -27,16 +27,16 @@ Note that if this is an enzymatic reaction, then the reaction should not be poss
 
 The above mechanism for process modeling works well as long as every possible 'state' of the reactants are states of the simulator. For instance, we consider the simple reaction (without enzyme for the sake of simplification)
 $$
-  \reaction{P_1+P_2}{P_1P_2}{} \longrightarrow Q_1Q_2
+  \reactionIrr{\reactionRev{P_1+P_2}{P_1P_2}{}{}}{Q_1Q_2}{}{}.
 $$
 In reality, both $P_1$ and $P_2$ have a property, say phosphorized or not. We then have the possible reactions
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1+P_2}{P_1P_2}{} \longrightarrow Q_1Q_2 \\
-      \reaction{P_1^*+P_2}{P_1^*P_2}{} \longrightarrow Q_1^*Q_2 \\
-      \reaction{P_1+P_2^*}{P_1P_2^*}{} \longrightarrow Q_1Q_2^* \\
-      \reaction{P_1^*+P_2^*}{P_1^*P_2^*}{} \longrightarrow Q_1^*Q_2^* \\
+      \reactionIrr{\reactionRev{P_1+P_2}{P_1P_2}{}{}}{Q_1Q_2}{}{} \\
+      \reactionIrr{\reactionRev{P_1^*+P_2}{P_1^*P_2}{}{}}{Q_1^*Q_2}{}{} \\
+      \reactionIrr{\reactionRev{P_1+P_2^*}{P_1P_2^*}{}{}}{Q_1Q_2^*}{}{} \\
+      \reactionIrr{\reactionRev{P_1^*+P_2^*}{P_1^*P_2^*}{}{}}{Q_1^*Q_2^*}{}{} \\
     \end{array}
   \right.
 $$
@@ -44,18 +44,16 @@ In addition, we can also have the reactions
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1 + X}{P_1^*}{} \\
-      \reaction{P_2 + X}{P_2^*}{} \\
-      \reaction{P_1P_2 + X}{P_1^*P_2}{} \\
-      \reaction{P_1P_2 + X}{P_1P_2^*}{} \\
-%      \reaction{P_1P_2 + 2X}{P_1^*P_2^*}{} \\
-      \reaction{P_1^*P_2 + X}{P_1^*P_2^*}{} \\
-      \reaction{P_1P_2^* + X}{P_1^*P_2^*}{} \\
-      \reaction{Q_1Q_2 + X}{Q_1^*Q_2}{} \\
-      \reaction{Q_1Q_2 + X}{Q_1Q_2^*}{} \\
-%      \reaction{Q_1Q_2 + 2X}{Q_1^*Q_2^*}{} \\
-      \reaction{Q_1^*Q_2 + X}{Q_1^*Q_2^*}{} \\
-      \reaction{Q_1Q_2^* + X}{Q_1^*Q_2^*}{} \\
+      \reactionRev{P_1 + X}{P_1^*}{}{} \\
+      \reactionRev{P_2 + X}{P_2^*}{}{} \\
+      \reactionRev{P_1P_2 + X}{P_1^*P_2}{}{} \\
+      \reactionRev{P_1P_2 + X}{P_1P_2^*}{}{} \\
+      \reactionRev{P_1^*P_2 + X}{P_1^*P_2^*}{}{} \\
+      \reactionRev{P_1P_2^* + X}{P_1^*P_2^*}{}{} \\
+      \reactionRev{Q_1Q_2 + X}{Q_1^*Q_2}{}{} \\
+      \reactionRev{Q_1Q_2 + X}{Q_1Q_2^*}{}{} \\
+      \reactionRev{Q_1^*Q_2 + X}{Q_1^*Q_2^*}{}{} \\
+      \reactionRev{Q_1Q_2^* + X}{Q_1^*Q_2^*}{}{} \\
     \end{array}
   \right.
 $$
@@ -109,10 +107,10 @@ $(P_1P_2)_{all}$ standing for the whole $P_1P_2,$ $P_1^*P_2$, $P_1P_2^*$ and $P_
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1+P_2}{(P_1P_2)_{all}}{} \longrightarrow Q_1Q_2 \\
-      \reaction{P_1^*+P_2}{(P_1P_2)_{all}+X_{used}}{} \longrightarrow Q_1^*Q_2 \\
-      \reaction{P_1+P_2^*}{(P_1P_2)_{all}+X_{used}}{} \longrightarrow Q_1Q_2^* \\
-      \reaction{P_1^*+P_2^*}{(P_1P_2)_{all}+2 X_{used}}{} \longrightarrow Q_1^*Q_2^* \\
+      \reactionIrr{\reactionRev{P_1+P_2}{(P_1P_2)_{all}}{}{}}{Q_1Q_2}{}{} \\
+      \reactionIrr{\reactionRev{P_1^*+P_2}{(P_1P_2)_{all}+X_{used}}{}{}}{Q_1^*Q_2}{}{} \\
+      \reactionIrr{\reactionRev{P_1+P_2^*}{(P_1P_2)_{all}+X_{used}}{}{}}{Q_1Q_2^*}{}{} \\
+      \reactionIrr{\reactionRev{P_1^*+P_2^*}{(P_1P_2)_{all}+2 X_{used}}{}{}}{Q_1^*Q_2^*}{}{} \\
     \end{array}
   \right.
 $$
@@ -120,15 +118,13 @@ In addition, we can also have the reactions
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1 + X}{P_1^*}{} \\
-      \reaction{P_2 + X}{P_2^*}{} \\
-      \reaction{(P_1P_2)_{all} + X}{(P_1P_2)_{all} + X_{used}}{} \\
-%      \reaction{(P_1P_2)_{all} + 2X}{(P_1P_2)_{all} + 2X_{used}}{} \\
-      \reaction{Q_1Q_2 + X}{Q_1^*Q_2}{} \\
-      \reaction{Q_1Q_2 + X}{Q_1Q_2^*}{} \\
-%      \reaction{Q_1Q_2 + 2X}{Q_1^*Q_2^*}{} \\
-      \reaction{Q_1^*Q_2 + X}{Q_1^*Q_2^*}{} \\
-      \reaction{Q_1Q_2^* + X}{Q_1^*Q_2^*}{} \\
+      \reactionRev{P_1 + X}{P_1^*}{}{} \\
+      \reactionRev{P_2 + X}{P_2^*}{}{} \\
+      \reactionRev{(P_1P_2)_{all} + X}{(P_1P_2)_{all} + X_{used}}{}{} \\
+      \reactionRev{Q_1Q_2 + X}{Q_1^*Q_2}{}{} \\
+      \reactionRev{Q_1Q_2 + X}{Q_1Q_2^*}{}{} \\
+      \reactionRev{Q_1^*Q_2 + X}{Q_1^*Q_2^*}{}{} \\
+      \reactionRev{Q_1Q_2^* + X}{Q_1^*Q_2^*}{}{} \\
     \end{array}
   \right.
 $$
@@ -144,10 +140,10 @@ with the same constraint as above. The set of reactions are then
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1+P_2}{(P_1P_2)_{all}}{} \longrightarrow (Q_1Q_2)_{all} \\
-      \reaction{P_1^*+P_2}{(P_1P_2)_{all}+X_{Pused}}{} \longrightarrow Q_1^*Q_2 \\
-      \reaction{P_1+P_2^*}{(P_1P_2)_{all}+X_{Pused}}{} \longrightarrow (Q_1Q_2)_{all}+X_{Qused} \\
-      \reaction{P_1^*+P_2^*}{(P_1P_2)_{all}+2 X_{Pused}}{} \longrightarrow (Q_1Q_2)_{all}+X_{Qused} \\
+      \reactionIrr{\reactionRev{P_1+P_2}{(P_1P_2)_{all}}{}{}}{(Q_1Q_2)_{all}}{}{} \\
+      \reactionIrr{\reactionRev{P_1^*+P_2}{(P_1P_2)_{all}+X_{Pused}}{}{}}{Q_1^*Q_2}{}{} \\
+      \reactionIrr{\reactionRev{P_1+P_2^*}{(P_1P_2)_{all}+X_{Pused}}{}{}}{(Q_1Q_2)_{all}+X_{Qused}}{}{} \\
+      \reactionIrr{\reactionRev{P_1^*+P_2^*}{(P_1P_2)_{all}+2 X_{Pused}}{}{}}{(Q_1Q_2)_{all}+X_{Qused}}{}{} \\
     \end{array}
   \right.
 $$
@@ -155,14 +151,12 @@ In addition, we can also have the reactions
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1 + X}{P_1^*}{} \\
-      \reaction{P_2 + X}{P_2^*}{} \\
-      \reaction{(P_1P_2)_{all} + X}{(P_1P_2)_{all} + X_{used}}{} \\
-%      \reaction{(P_1P_2)_{all} + 2X}{(P_1P_2)_{all} + 2X_{used}}{} \\
-      \reaction{(Q_1Q_2)_{all} + X}{Q_1^*Q_2}{} \\
-      \reaction{(Q_1Q_2)_{all} + X_{Qused}}{Q_1^*Q_2 + X}{} \\
-      \reaction{(Q_1Q_2)_{all} + X}{(Q_1Q_2)_{all} + X_{Qused}}{} \\
-%      \reaction{Q_1Q_2 + 2X}{Q_1^*Q_2^*}{} \\
+      \reactionRev{P_1 + X}{P_1^*}{}{} \\
+      \reactionRev{P_2 + X}{P_2^*}{}{} \\
+      \reactionRev{(P_1P_2)_{all} + X}{(P_1P_2)_{all} + X_{used}}{}{} \\
+      \reactionRev{(Q_1Q_2)_{all} + X}{Q_1^*Q_2}{}{} \\
+      \reactionRev{(Q_1Q_2)_{all} + X_{Qused}}{Q_1^*Q_2 + X}{}{} \\
+      \reactionRev{(Q_1Q_2)_{all} + X}{(Q_1Q_2)_{all} + X_{Qused}}{}{} \\
     \end{array}
   \right.
 $$
@@ -170,18 +164,18 @@ Again, the difficulty would be to decide when these reactions can occur.
 
 Finally, it could also be possible to loose even more information by deciding that there only an active form and some non-active forms (one non-active form per type: phosphorized or non-folded -- hum mauvais exemple, pas grave -- for instance). Only the active form can go forward in the pathway; the non-active form must go back into its previous state. Going back to our example with the pathway being:
 $$
-  \reaction{P_1+P_2}{P_1P_2}{} \longrightarrow Q_1Q_2 .
+  \reactionIrr{\reactionRev{P_1+P_2}{P_1P_2}{}{}}{Q_1Q_2}{}{} .
 $$
 One would consider with this pathway the non-active forms phosphorized and non-folded:
 $$
   \left\{
     \begin{array}{l}
-      \reaction{P_1^{nonFold}}{P_1}{C_1} \\
-      \reaction{P_2^{nonFold}}{P_2}{C_2} \\
-      \reaction{P_1 + X}{P_1^{phosphorized}}{} \\
-      \reaction{P_2 + X}{P_2^{phosphorized}}{} \\
-      \reaction{(P_1P_2)^{nonFold}}{P_1P_2}{C} \\
-      \reaction{P_1P_2 + X}{(P_1P_2)^{phosphorized}}{} \\
+      \reactionRev{P_1^{nonFold}}{P_1}{C_1}{} \\
+      \reactionRev{P_2^{nonFold}}{P_2}{C_2}{} \\
+      \reactionRev{P_1 + X}{P_1^{phosphorized}}{}{} \\
+      \reactionRev{P_2 + X}{P_2^{phosphorized}}{}{} \\
+      \reactionRev{(P_1P_2)^{nonFold}}{P_1P_2}{C}{} \\
+      \reactionRev{P_1P_2 + X}{(P_1P_2)^{phosphorized}}{}{} \\
     \end{array}
   \right.
 $$
@@ -191,4 +185,4 @@ $$
 \medskip
 
 \textcolor[rgb]{1.00,0.00,0.00}{Would be able to model assembly of 30S, 50S and tRNA charging (hum...) if each pool is correctly encoded somewhere as a state.
-} 
+}

@@ -9,6 +9,9 @@ Moreover, the distinction between protein and macro-protein is defined here as:
   \item whatever else proteinic entity. Any entity that comes directly from the translation is considered to be a protein and not a macro-protein.
 \end{itemize}
 
+\textcolor[rgb]{0.00,0.00,0.00}{How to store weird things? Unfinished proteins, degradated ones...}
+
+
 \subsubsection{Metabolites}
 Of course, only concerns the ones that are not already described elsewhere. No problem of representation: as there is not any property, the state is the pool of metabolite. A proposed way is to list all the metabolites (let's say there are $m$ types metabolites), to number them and to represent the pool of metabolites by a vector of size $m$ containing the pool of each metabolites.
 
@@ -25,13 +28,13 @@ Information needed for proteins are:
 
 \medskip
 
-Depends on how degradation works (or rather what do we want to model). If degradation of a macro-protein is modeled at the level of the proteins or of the AA, the data and state are not the same. 
+Depends on how degradation works (or rather what do we want to model). If degradation of a macro-protein is modeled at the level of the proteins or of the AA, the data and state are not the same.
 
 \medskip
 
 Consider
 $$
-  \reaction{P_1+P_2}{P_1P_2}{}
+  \reactionRev{P_1+P_2}{P_1P_2}{}{}
 $$
 where $P_1$ and $P_2$ are proteins. Assume that:
 \begin{itemize}

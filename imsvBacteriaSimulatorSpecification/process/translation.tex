@@ -1,1 +1,80 @@
+It is assumed here that the 30S and 50S complexes are modeled somewhere else as well as for the metabolites.
+
+\textcolor[rgb]{1.00,0.00,0.00}{Something equivalent to non coding DNA? Non coding codon???} \\
+\textcolor[rgb]{1.00,0.00,0.00}{Put RBS (Ribosome Binding Site) somewhere in the mRNA properties.} \\
+\textcolor[rgb]{1.00,0.00,0.00}{Mettre des propriétés sur la protéine qui devrait sortir du ribosome pour éventuellement prendre en compte des évènements sur la future protéine pendant la traduction (genre N-myristoylation, N-acyliation, euh non, ca c'est de la post traduction. Y a-t-il des trucs qui se passent sur la future proteine pendant la traduction?)} \\
+\textcolor[rgb]{1.00,0.00,0.00}{Ecrire un truc à part pour la formation du ribosome = rRNA + protéines. En février 2009, la revue Nature a publié un article rédigé par des biophysiciens de l'Université de Montréal : ils y expliquent les mécanismes de formation de cette molécule qui peut contenir jusqu'à 300 000 atomes1. Ces explications permettraient de mieux comprendre les mécanismes de création des êtres vivants.} \\
+\textcolor[rgb]{1.00,0.00,0.00}{Mettre une propriété pour une mauvaise traduction: mauvais AA pendant la traduction.} \\
+
+\subsubsection{Initialisation of translation}
+In Biology, the initialisation starts from the association of the metabolite IF3 to the 30S complex and ends with the formation of the 70S complex. It follows the following steps:
+\begin{enumerate}
+  \item binding of the metabolites of $IF_3$, then $IF_1$ and finally a form $IF_2$ to the $30S$ complex, referred to as $30S_{312}$. The different forms of $IF_2$ are:
+  \begin{enumerate}
+    \item $IF_2$: the GTPase without co-factor (?). The corresponding complex is referred to as $30S_{312}$ (it can be assumed that this does never happen),
+    \item $IF_{2a}$: the active form coming from the reaction $\reactionRev{IF_2+GTP}{IF_{2a}}{}{}$. The corresponding complex is referred to as $30S_{312a}$,
+    \item $IF_{2d}$: an inactive form coming from the reaction $\reactionRev{IF_2+GDP}{IF_{2d}}{}{}$. The corresponding complex is referred to as $30S_{312d}$,
+    \item $IF_{2p}$: an inactive form coming from the reaction $\reactionRev{IF_2+ppGpp}{IF_{2p}}{}{}$. The corresponding complex is referred to as $30S_{312p}$;
+  \end{enumerate}
+  \item the $30S$ complex then binds to the mRNA following
+  $$
+    \left\{
+      \begin{array}{l}
+%        \reactionRev{30S_{312}+mRNA}{m30S_{312}}{}{} \\
+        \reactionRev{30S_{312a}+mRNA}{m30S_{312a}}{}{} \\
+        \reactionRev{30S_{312d}+mRNA}{m30S_{312d}}{}{} \\
+        \reactionRev{30S_{312p}+mRNA}{m30S_{312p}}{}{} \\
+      \end{array}
+    \right.
+  $$
+  \item the $m30S_{312a}$ complex has a high affinity with charged tRNA with $fMET$ (denoted by $tRNA_{fMET}$) \textcolor[rgb]{1.00,0.00,0.00}{How does the charging of tRNA works?}. It is assumed that $m30S_{312p}$ does not allow this binding:
+      $$
+      \left\{
+        \begin{array}{l}
+          \reactionIrr{m30S_{312a}+tRNA_{fMET}}{mt30S_{312afMET}}{}{} \\
+          \reactionRev{m30S_{312d}+tRNA_{fMET}}{mt30S_{312dfMET}}{}{} \\
+        \end{array}
+      \right. ;
+      $$
+  \item $IF_3$ is then released:
+        $$
+      \left\{
+        \begin{array}{l}
+          \reactionRev{mt30S_{312afMET}}{mt30S_{12afMET}+IF_3}{}{} \\
+          \reactionRev{mt30S_{312dfMET}}{mt30S_{12dfMET}+IF_3}{}{} \\
+        \end{array}
+      \right. ;
+      $$
+  \item finally, the $50S$ complex binds to form the $70S$ complex and $IF_1$ and $IF_2$ are released. Only an active form allows this binding:
+  $$
+    \reactionIrr{mt30S_{12afMET}+50S}{70S+IF_1+IF_{2d}}{}.
+  $$
+\end{enumerate}
+
+\subsubsection{Elongation}
 See mRNA state for evolution.
+\textcolor[rgb]{1.00,0.00,0.00}{Ne pas oublier l'eau dans la formation des protéines: $\reactionIrr{AA_1+AA_2}{A_1A_2+H_2O}{}{}$. Illustration de wikipédia est bien.}
+
+Euh vouais, ca a l'air complexe la.
+
+\subsubsection{End of elongation}
+When the ribosome encounters a stop codon, it release the mRNA and the protein.
+Stop codon means the binding of a release factor (proteins). From wikipédia
+
+\subsubsection{tRNA charging or loading}
+There are 64 possibilities for a codon. Let's number them with $i$. Each one of these possibilities comes with a type of tRNA, $tRNAi$. The mechanism of charging the tRNA is performed by an enzyme, an aminoacyl tRNA synthetase (aaRS), and is described below:
+$$
+  \left\{
+    \begin{array}{l}
+      \reactionRev{aaRSi + ATP}{aaRSi_a}{}{} \\
+      \reactionIrr{aaRSi_a + AAi}{aaRSi_c+PP_i}{}{} \\
+      \reactionIrr{aaRSi_c + tRNAi}{aaRSi + tRNAi_c + AMP}{}{} \\
+    \end{array}
+  \right.
+$$
+with $PP_i=P_2O_7^{4-}$, $P_i=HPO_4^{2-}$ and $\reactionIrr{PP_i+H_2O}{2P_i}{}{}$.
+
+\textcolor[rgb]{1.00,0.00,0.00}{Comme l'élongation crée une molécule d'eau, c'est pas mal ça. En revanche, pour chaque protéine créee, on a une molécule d'eau en plus (histoire de plots et d'intervalles). On en fait qoi de cette molécule d'eau?}
+
+\textcolor[rgb]{1.00,0.00,0.00}{On en fait quoi du AMP? Mettre un cycle énergétique quelque part.}
+
