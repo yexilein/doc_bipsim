@@ -7,6 +7,20 @@
 \usepackage{amsfonts}
 \usepackage{multirow}
 \usepackage{color,ulem}
+\usepackage{graphicx}
+%\usepackage{mdframed}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{MyFrame}{%
+    linecolor=blue,
+    outerlinewidth=1pt,
+%    roundcorner=20pt,
+%    innertopmargin=\baselineskip,
+    innertopmargin=3pt,
+%    innerbottommargin=\baselineskip,
+%    innerrightmargin=20pt,
+%    innerleftmargin=20pt,
+%    backgroundcolor=gray!50!white
+    }
 % THEOREMS -------------------------------------------------------
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{cor}[thm]{Corollary}
@@ -19,9 +33,9 @@
 \newtheorem{rem}[thm]{Remark}
 \numberwithin{equation}{section}
 
-\usepackage{amssymb}
-\newcommand{\reactionRev}[4]{#1 \,\, \displaystyle{\mathop{\rightleftarrows}_{#4}^{#3}} \,\, #2}
-\newcommand{\reactionIrr}[4]{#1 \,\, \displaystyle{\mathop{\rightarrow}^{#3}} \,\, #2} % For compatibility with reactionRev
+\usepackage{mhchem}
+\newcommand{\reactionRev}[4]{#1 \ce{<=>[#3][#4]} #2}
+\newcommand{\reactionIrr}[4]{#1 \ce{->[#3][#4]} #2}
 
 % ----------------------------------------------------------------
 \begin{document}
