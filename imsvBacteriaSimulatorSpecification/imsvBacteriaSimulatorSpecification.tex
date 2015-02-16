@@ -8,9 +8,14 @@
 \usepackage{multirow}
 \usepackage{color,ulem}
 \usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{makeidx}
+  \makeindex
+\usepackage[hidelinks]{hyperref}
+%\AtBeginDocument{\let\textlabel\label} % When problem with \label in align environment
 %\usepackage{mdframed}
 \usepackage[framemethod=TikZ]{mdframed}
-\mdfdefinestyle{MyFrame}{%
+  \mdfdefinestyle{MyFrame}{%
     linecolor=blue,
     outerlinewidth=1pt,
 %    roundcorner=20pt,
@@ -41,15 +46,15 @@
 \begin{document}
 \normalem
 
-\title{{IMSV}: bacteria simulator specifications and architecture}%
+\title{{IMSV}: bacteria simulator specifications and architecture \\ Version 0.0}%
 \author{M.~Dinh}%
 %\address{er}%
 %\thanks{zq}%
-\date{}%
+\date{\today}%
 % ----------------------------------------------------------------
 \maketitle
 \begin{abstract}
-  XXX
+  xxx %\cite{GFS:11}
 \end{abstract}
 % ----------------------------------------------------------------
 \section{Introduction}
@@ -64,8 +69,13 @@ The objective of the project is to develop a simulator for a generic bacteria. T
 \section{Data and states}
 \input{dataState/dataState.tex}
 
-\section{Processes}
+\section{Biological processes}
 \input{process/process.tex}
+
+\bibliographystyle{plain}
+\bibliography{Z:/Documents/Article/bibFiles/dinhBio}
+
+\printindex
 
 \end{document}
 % ----------------------------------------------------------------

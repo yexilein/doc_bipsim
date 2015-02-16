@@ -1,67 +1,73 @@
-\begin{description}
-  \item[Fxx] The simulator shall be able to simulate the following scenario:
-  \begin{itemize}
+
+\begin{enumerate}
+  \item[F10] The simulator shall be able to simulate the following scenario:
+  \begin{enumerate}
     \item different kind of (constant) extracellular conditions;
-    \item upshift and downshift;
+    \item upshift and downshift (change of nutritional condition) and also some stress scenarios;
+    \item •	change of temperature;
     \item entry in stationary phase.
-  \end{itemize}
-  \item[Fxx] It shall be possible to ‘kill’ a cell among others.
-  \item[Fxx] It shall be possible to initialize the state of the simulation. (A nice to have feature: moreover some ‘aggregation’ or ‘division’ of the state may be needed for such an initialization. For instance, if a cell has been simulated with one volume, a state ‘division’ is needed to initialize a simulation with a cell simulated on several volumes.)
-  \item[Fxx] Several stopping criterion shall be implemented:
+  \end{enumerate}
+  \item[F20] It shall be possible to ‘kill’ a cell among others.
+  \item[F30] It shall be possible to initialize the state of the simulation. (A nice to have feature: moreover some ‘aggregation’ or ‘division’ of the state may be needed for such an initialization. For instance, if a cell has been simulated with one volume, a state ‘division’ is needed to initialize a simulation with a cell simulated on several volumes.)
+  \item[F40] Several stopping criterion shall be implemented:
   \begin{itemize}
     \item at the end of cellular division;
     \item simulated time exceeds a certain value;
     \item simulation time exceeds a certain value.
   \end{itemize}
       Any combination of criteria may be active.
-  \item[Fxx] Typical values to be simulated are:
+  \item[F50] Typical values to be simulated are:
   \begin{itemize}
-    \item 3e6 proteins (including ribosomes);
-    \item 1e3 mRNA;
-    \item 5e3 genes, each gene corresponding to 200 codons;
-    \item 1h duration.
+    \item 3e6 proteins (including proteins included in ribosomes);
+    \item $[1e3 1e4]$ mRNA;
+    \item $[4e3 *nb copies DNA]$  genes, each gene corresponding in mean  to  $[430 *3  basis]$;
+    \item time cycle duration typically belongs to  $[20 240]$ min.
   \end{itemize}
-  \item[Fxx] A simulation of the lifetime (cell reproduction) of a cell (Bacillus Subtilis) shall last 8 hours at most.
+  \item[F60] A simulation of the lifetime (cell reproduction) of a cell (Bacillus Subtilis) shall last 8 hours at most.
   \\
 
-  \item[Fxx] The simulator shall output an ASCII logfile containing at least:
+  \item[F70] The simulator shall output an ASCII logfile containing at least:
   \begin{itemize}
     \item the operating system;
     \item the version of the simulator and softs used;
     \item the date, the computer and the user;
     \item the localization of the data and results files.
   \end{itemize}
-  \item[Fxx] The simulator shall be composed of 3 modules:
+  \item[F80] The simulator shall be composed of 3 modules:
   \begin{itemize}
     \item the first module outputs the description of the simulation from queries of the database. This description is contained in an ASCII file that uses SBML tags to the maximum;
     \item the second module is the simulation itself. From the ASCII file provided by the first module, it outputs the simulation results in a set of ASCII files. These files shall be readable from Excel 2013 or Matlab 2012a;
     \item the third module is the analysis and visualization of the simulation results provided by the second module. (A nice to have feature is a visual representation of the simulation.)
   \end{itemize}
-  \item[Fxx] The functionalities of the simulator shall be separated from its data and results.
-  \item[Fxx] It shall be possible to launch a simulation interactively or by batch.
-  \item[Fxx] It shall be possible to select the data to be recorded. By default all data shall be recorded.
+  \item[F90] The functionalities of the simulator shall be separated from its data and results.
+  \item[F100] It shall be possible to launch a simulation interactively or by batch.
+  \item[F110] It shall be possible to select the data to be recorded. By default all data shall be recorded.
+  \item[F115] An option of log data / fill shall save the data necessary to restart the simulation at any given time point. Consequently, the simulator initialization has to be compatible to this data log.
   \\
 
-  \item[Fxx] The cellular processes described in WholeCell shall be simulated. In addition, the stringent response (via RelA) shall be simulated.
-  \item[Fxx] The simulator shall be able to simulate different kind of process modeling. Typically, 4 kinds of modelling are envisaged for the process S -> P
+  \item[F120] The cellular processes described in WholeCell shall be simulated. Beyond the simulation of a large set of cell sub-systems, a key achievement of the simulator is to be able to manage the so-called growth rate management, allowing to handle the resource balance problem. That leads to integrate in a suitable way the stringent control loop (i.e. RelA/GTP/ppGpp).
+  \item[F125] xxx 1 partie moyenne (grossier) et 1 partie stochastique (fine) xxx
+  \item[F130] The simulator shall be able to simulate different kind of process modeling. Typically, 4 kinds of modelling are envisaged for the process $S \ce{->} P$
   \begin{itemize}
-    \item P = f(S): this is a static (steady state) relation. Typically used when the duration is really fast;
-    \item dot{P} = f(S): this is an average kinematic relation. It is what is typically obtained by dynamic RBA;
-    \item P(nk+1) = f(P(nk),...) = P(nk)+1: this is a quantification of the number of products. No averaging, we are at the level of one bacteria. The event (time) is deterministic;
-    \item P(t+) = f(P(t-),...) = P(t-)+1: with stochastic behavior of the event.
+    \item $P = f(S)$: this is a static (steady state) relation. Typically corresponding to the equilibrium manifold of a fast (and attractive) dynamics as e.g. enzymatic dynamics;
+    \item $\dot{P} = f(S)$: a deterministic and continuous dynamical systems,  e.g., a detailed model of a subpart of the metabolic network (the model is deterministic but its “parameters” could be stochastics as e.g. the enzyme levels in a metabolic network);
+    \item $P(nk+1) = f(P(nk),...) = P(nk)+1$: a deterministic and discrete model in time and state i.e.  the states are integer (number of). No averaging, we are at the level of one bacteria. The event (time) is assumed to be deterministic;
+    \item $P(t+) = f(P(t-),...) = P(t-)+1$: a stochastic  and discrete model in time and state –see previous description.  By contrast to the previous one, the time event is assumed to be stochastics (mainly exponential distributed)
   \end{itemize}
-      This process modeling can all be present for a description of a bacteria however a particular process shall be modeled only by one of this modeling.
-  \item[Fxx] This specification assumes that it is possible to obtain metabolite pool during the simulations. The interface between the different modeling granularities is the pool of metabolites.
-  \item[Fxx] It shall be possible to impose the output of a particular process, typically for debug and validation.
+      Furthermore, the global simulator is then  a composite set of different kinds of this modeling (among the four), however a particular sub-cellular process is modeled only by one of this modeling. \\
+      Furthermore, some of the previous modeling are only possible if some “states” are available and then considered in the simulator. That is the case e.g. with respect to the metabolite concentrations.
+  \item[F140] \sout{This specification assumes that it is possible to obtain metabolite pool during the simulations. The interface between the different modeling granularities is the pool of metabolites.}
+  \item[F140] The set of cell-subsystems shall be defined and has to include the definition of interfaces with the the WholeCell, the possible kind of modeling (including compatibility of this modeling with the WholeCell, etc.).
+  \item[F150] It shall be possible to impose the output of a particular process, typically for debug and validation (coupled with the fact that the simulation can be initialized at any time point with respect to a given  datalog of a previous simulation).
   \\
-  
-  \item[Dxx] The development of the simulator shall be versioned.
-  \item[Dxx] The simulator shall be documented with:
+
+  \item[D10] The development of the simulator shall be versioned.
+  \item[D20] The simulator shall be documented with:
   \begin{itemize}
     \item a user manual;
     \item a developer manual.
   \end{itemize}
-  \item[Dxx] The simulator shall be validated on Bacillus Subtilis.
-\end{description}
+  \item[D30] The simulator shall be validated on Bacillus Subtilis.
+\end{enumerate}
 
 

@@ -1,7 +1,85 @@
-\paragraph{Biology} The stringent response is a fundamental regulation of the bacteria as it determines its response to environmental condition such amino acid starvation and stress. It determines the growth rate and acts on transcription and translation.
+\paragraph{Biological process} The stringent response is a fundamental regulation of the bacteria as it determines its response to environmental condition such amino acid starvation and stress. It determines the growth rate and acts on practical all aspects of the cell, such as replication, transcription, translation and even enzyme allosteric regulation. It is based on the the inhibition of the ribosomes by RelA depending on the abundance of amino acids in the cytosol. When there is a starvation of amino acid, RelA creates pppGpp which itself transforms into ppGpp by a phosphohydrolase enzyme. As can be seen on the description of translation, ppGpp binds to the initiation factor $IF_2$ and inhibits the initiation of translation.
 
- \begin{description}
-   \item[Transcription] it affects the ability of the polymerase to bind to the DNA for initiation;
-   \item[Translation] it inhibs the ribosome  
- \end{description}
- It is based on the the inhibition of the ribosomes by RelA depending on the abundance of amino acids in the cytosol.
+The guanosine pentaphosphate pppGpp is created when RelA binds to a ribosome with uncharged tRNA:
+$$
+  \left\{
+    \begin{array}{l}
+      \reactionRev{70S + RelA}{70SRelA}{}{} \\
+      \reactionIrr{Et70S_a^i + RelA}{Et70SRelA_a^i + pppGpp}{}{} \\
+      \reactionRev{Et70S_{ca}^i + RelA}{Et70SRelA_{ca}^i}{}{} \\
+    \end{array}
+  \right.
+$$
+\textcolor[rgb]{1.00,0.00,0.00}{What happens to $Et70SRelA_a^i$?}
+pppGpp is then hydrolizes into guanosine tetraphosphate ppGpp:
+$$
+  \reactionIrr{pppGpp+\ce{H2O}}{ppGpp + P}{?}{}
+$$
+avec
+with $P=\ce{PO4^3-}$ a phosphate group. (\textcolor[rgb]{1.00,0.00,0.00}{how does ppGpp dissapear?})
+
+\medskip
+
+GTP level and the stringent response in B. subtilis. Hum semblerait que le mécanisme soit:
+$$
+  \reactionIrr{tRNA^i_c + (p)ppGpp}{GTP + 2P + tRNA^i_c}{RelA}{}
+$$
+avec
+$$
+  \reactionIrr{tRNA^i + GTP + ATP}{tRNA^i + (p)ppGpp}{RelA}{}
+$$
+CodY has 2 co factors: GTP and BCAA. CodY binds to the promoter and inhibits the transcription initiation. When GTP decreases, CodY has less activity and the genes are up-regulated.
+
+\medskip
+
+The regulation of the metabolism via ppGpp is described now:
+\begin{description}
+  \item[Replication] ppGpp interacts with primase
+in
+B.
+subtilis,
+which
+results
+in
+the
+inhibition
+of
+replication
+elongation (Wang et al., 2007 Wang,
+J.D.,
+Sanders,
+G.M.,
+Grossman,
+A.D.,
+2007.
+Nutritional
+control
+of
+elongation
+of
+DNA
+replication
+by
+(p)ppGpp.
+Cell
+128,
+865–875); Pro-
+teins involved in nucleotide and lipid metabolism and general
+metabolic proteins have also been proposed to be binding tar-
+gets of (p)ppGpp (Kanjee et al., 2012).
+  \item[Transcription] unknown (is ppGpp an anti sigma factor?); repressor CodY:  However, growing evidence suggests that in at least some
+of these species, genes are actually up-regulated by de-repression
+of the CodY regulon most likely resulting from decreased GTP levels
+under stringent conditions.
+  \item[Translation] ppGpp binds to the initiation factor $IF_2$ and inhibits it:
+    $$
+      \left\{
+        \begin{array}{l}
+          \reactionRev{IF_2+ppGpp}{IF_{2p}}{}{} \\
+          \reactionRev{tRNA^{fMet}+IF_{2p}}{tRNA_{2p}^{fMet}}{}{} \\
+        \end{array}
+      \right.
+    $$
+    $tRNA_{2p}^{fMet}$ is a non active form and does not bind to the 30S complex. It thus inhibits the initiation of translation;
+  \item[Enzyme activation] allosteric regulation unknown.
+\end{description}
