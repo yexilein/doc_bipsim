@@ -1,72 +1,44 @@
-\paragraph{Biological process} The stringent response is a fundamental regulation of the bacteria as it determines its response to environmental condition such amino acid starvation and stress. It determines the growth rate and acts on practical all aspects of the cell, such as replication, transcription, translation and even enzyme allosteric regulation. It is based on the the inhibition of the ribosomes by RelA depending on the abundance of amino acids in the cytosol. When there is a starvation of amino acid, RelA creates pppGpp which itself transforms into ppGpp by a phosphohydrolase enzyme. As can be seen on the description of translation, ppGpp binds to the initiation factor $IF_2$ and inhibits the initiation of translation.
-
-The guanosine pentaphosphate pppGpp is created when RelA binds to a ribosome with uncharged tRNA:
-$$
-  \left\{
-    \begin{array}{l}
-      \reactionRev{70S + RelA}{70SRelA}{}{} \\
-      \reactionIrr{Et70S_a^i + RelA}{Et70SRelA_a^i + pppGpp}{}{} \\
-      \reactionRev{Et70S_{ca}^i + RelA}{Et70SRelA_{ca}^i}{}{} \\
-    \end{array}
-  \right.
-$$
-\textcolor[rgb]{1.00,0.00,0.00}{What happens to $Et70SRelA_a^i$?}
-pppGpp is then hydrolizes into guanosine tetraphosphate ppGpp:
-$$
-  \reactionIrr{pppGpp+\ce{H2O}}{ppGpp + P}{?}{}
-$$
-avec
-with $P=\ce{PO4^3-}$ a phosphate group. (\textcolor[rgb]{1.00,0.00,0.00}{how does ppGpp dissapear?})
+\paragraph{Biological process} The stringent response is a fundamental regulation of the bacteria that regulates its growth rate and acts on practical all aspects of the cell. Discovered when amino-acid starving a bacteria (stringent response) compared to a rich nutriment response (relaxed response), the bacteria produces alarmones (p)ppGpp that induces the stringent response. Now stringent response means any response linked to the presence of the alarmones, including other stresses than the amino-acid starvation. The stringent response is different between {\it Escherichia Coli} and {\it Bacillus Subtilis} in its mechanism. The following text is principally based on the reviews of \citet{kriel_direct_2012} and of \citet{wolz_synthesis_2010}.
 
 \medskip
 
-GTP level and the stringent response in B. subtilis. Hum semblerait que le mécanisme soit:
-$$
-  \reactionIrr{tRNA^i_c + (p)ppGpp}{GTP + 2P + tRNA^i_c}{RelA}{}
-$$
-avec
-$$
-  \reactionIrr{tRNA^i + GTP + ATP}{tRNA^i + (p)ppGpp}{RelA}{}
-$$
-CodY has 2 co factors: GTP and BCAA. CodY binds to the promoter and inhibits the transcription initiation. When GTP decreases, CodY has less activity and the genes are up-regulated.
+{\bf Alarmones synthesis / hydrolysis}: Figure \ref{tab:compareColiSubAlarmoneProd} summarizes the current knowledge.
+\begin{figure}[hbtp]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=15cm]{figure/alarmoneProd.png}\\
+  \caption{Comparison of alarmones synthesis and hydrolysis between Escherichia Coli (left) and Bacillus Subtilis (right) \citep{wolz_synthesis_2010}}\label{tab:compareColiSubAlarmoneProd}
+\end{figure}
+Rsh (which is also referred to as RelA) in {\it B. Subtilis} and SpoT in {\it E. Coli} are bifunctional (the others being monofunctional) enzymes that can perform synthesis and hydrolysis. They have two conformations ((p)ppGpp-hydrolase-OFF/(p)ppGpp-synthase-ON and hydrolase-ON/synthase-OFF) that is regulated by the C-terminal domain as its truncation enhances the synthase activity. It is not known if, as in the case of {\it E. Coli}, Rsh binds to a ribosome to sense the amino-acid starvation and more precisely the presence of uncharged tRNA. In {\it E. Coli}, RelA binds to a ribosome and is thought to unbind in the presence of an uncharged tRNA in the A-site. This unbinding activates the synthetase function of RelA and inhibits the rebinding during a period of time. In {\it B. Subtilis}, it is knwon that there are only one bifunctional enzyme (Rsh) and only two monofunctional ones (RelP seems to be connected to competence and is encoded by yjbM whereas RelQ seems to be connected to persistence and virulence and is encoded by ywaC) that lack the \ce{Mn^2+}-dependent hydrolase domain \citep{GaL:15}.
 
 \medskip
 
-The regulation of the metabolism via ppGpp is described now:
-\begin{description}
-  \item[Replication] ppGpp interacts with primase: in B. subtilis, which results in the inhibition of replication elongation (Wang et al., 2007 Wang, J.D., Sanders, G.M., Grossman, A.D., 2007. Nutritional control of elongation of DNA replication by (p)ppGpp. Cell 128, 865–875); Proteins involved in nucleotide and lipid metabolism and general metabolic proteins have also been proposed to be binding targets of (p)ppGpp (Kanjee et al., 2012).
-  \item[Transcription] unknown (is ppGpp an anti sigma factor?); repressor CodY (particularly isoleucine):  However, growing evidence suggests that in at least some of these species, genes are actually up-regulated by de-repression of the CodY regulon most likely resulting from decreased GTP levels under stringent conditions.
-  \item[Translation] ppGpp binds to the initiation factor $IF_2$ and inhibits it:
-    $$
-      \left\{
-        \begin{array}{l}
-          \reactionRev{IF_2+ppGpp}{IF_{2p}}{}{} \\
-          \reactionRev{tRNA^{fMet}+IF_{2p}}{tRNA_{2p}^{fMet}}{}{} \\
-        \end{array}
-      \right.
-    $$
-    $tRNA_{2p}^{fMet}$ is a non active form and does not bind to the 30S complex. It thus inhibits the initiation of translation;
-  \item[Enzyme activation] allosteric regulation unknown.
-\end{description}
+{\bf Overall effect of alarmones}: it is estimated that, in exponential gorwth conditions, the concentration of alarmones is less than 20 pmol per optical-density unit by rises to millimolar levels in response to adverse growth conditions, such as amino acid starvation \citep{ababneh_rela_2015}. The effect of the alarmones on proteobacteria ({\it E. Coli}) and firmicutes ({\it B. Subitlis}) is summarized in Table \ref{tab:compareColiSubPhysiology}. Alarmones affects the majors process of the bacteria: replication, transcription and translation. The means are however different.
+\begin{table}[hbtp]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=17cm]{figure/compareStringentColiSubtilisTable.png}\\
+  \caption{Comparison of stringent response between Escherichia Coli and Bacillus Subtilis \citep{wolz_synthesis_2010}}\label{tab:compareColiSubPhysiology}
+\end{table}
+More generally, it is suggested in \citep{kanjee_direct_2012} that the alarmones can bind in place of GTP in the three GTPase categories: translation elongation (EF-G, EF-Tu, IF2), cell-signalling and cell-division (Obg) and protein translocation.
+
+\medskip
+
+{\bf Alarmones effect on GTP concentration}: in {\it B. Subtilis}, the alarmones regulates the pool of ATP and GTP as shown in Figure \ref{fig:alarmoneEnergyReg}.
+\begin{figure}[hbtp]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=15cm]{figure/alarmoneEnergy.png}\\
+  \caption{Bacillus Subtilis: regulation of ATP and GTP pool by the alarmones \citep{kriel_direct_2012}}\label{fig:alarmoneEnergyReg}
+\end{figure}
+This is illustrated in more details in Figure \ref{fig:alarmoneGTPReg}.
+\begin{figure}[hbtp]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=10cm]{figure/alarmoneGTPPathway1.png} \\ \includegraphics[width=6cm]{figure/alarmoneGTPPathway2.png}\\
+  \caption{Bacillus Subtilis: GTP pathway regulation \citep{kriel_direct_2012}}\label{fig:alarmoneGTPReg}
+\end{figure}
+The regulation of GTP pool via the alarmones is more importantly performed by Gmk and HprT than by GuaB \citep{kriel_direct_2012}. The $IC_{50}$ are: $\approx 20 \mu M$ for Gmk, $\approx 11 \mu M$ for HprT and $\approx 0.3-0.5 mM$ for GuaB.
 
 
-\bigskip
 
-From \cite{KaH:12}, possibility of direct binding of ppGpp to:
-\begin{itemize}
-  \item GTPase: roughly ppGpp is similar to GTP so it can bind where GTP binds normally leads to inhibition. Seems to be competitive inhibition. 5 of such TPase are reported (EF-Tu: increasing translation fidelity; IF2: inhibition of initiation; Obg/CgtA/YhbZ: something about replication; PurA). ppGpp binding is often linked to a spontaneous reaction.
-  \item nucleotide and lipid metabolism: DNA replication (inhibition of DnaG); MazG (cell death regulation); GuaB/GuaC => decrease of GTP pool (and thus increase of (p)ppGpp binding and competitive inhibition?); inhibition of PRT PgsA/YnjF (lipid for membrane enzyme)...
-  \item basic aliphatic amino acid decarboxylases: ??????? Not clear the mechanism and the impact. SpeC/SpeF.
-\end{itemize}
-
-\cite{GaL:15}: (p)ppGpp as a repressor for GC-rich and as an activator for AT-rich for region between -10 and the transcriptional start. In Firmicutes (Subtilis?), alarmone does not interacts directly with RNA polymerase. SAS (short alarmone synthetase) lacks Mn2+ dependent hydrolase domain present in long-RSH. RelP seems connected to competence and RelQ seems to be connected to persistence and virulence. Seems RelQ produces pGpp (from GMP) which has a great inhibition effect on GTP bound molecules
-
-\bigskip
-
-Speicific to Bacillus Subtilis:
-\begin{itemize}
-  \item \cite{KaH:12}: Obg/CgtA/YhbZ binded with (p)ppGpp. Obg may be a (p)ppGpp hydrolase; direct inhibition of DnaG; GuaB and GTP pool (may induced sporulation);
-  \item \cite{Nys:04}: $\sigma^A$ factor for exponential growth and $\sigma^H$ for sporulation.
-  \item \cite{AbH:15}: YwaC (RelQ) and YjbM (RelP) are monofunctional (p)ppGpp synthetase. less than 20 pmol per optical-density during exponential growth, rise to millimolar level for nutriment starvation.
-  \item \cite{GaL:15}: alarmone directly controls GTP by targeting  HprT and Gmk (IC50 ranging from 11 to 80 $\mu$mol).
-\end{itemize} 

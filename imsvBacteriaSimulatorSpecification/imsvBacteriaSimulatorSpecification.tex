@@ -2,6 +2,7 @@
 % Article Class (This is a LaTeX2e document)  ********************
 % ----------------------------------------------------------------
 \documentclass[12pt]{article}
+\usepackage[a4paper,top=2.5cm, bottom=2.5cm, left=2cm , right=2cm]{geometry}
 \usepackage[english]{babel}
 \usepackage{amsmath,amsthm}
 \usepackage{amsfonts}
@@ -9,7 +10,7 @@
 \usepackage{color,ulem}
 \usepackage{graphicx}
 \usepackage{enumitem}
-\usepackage{natbib}
+\usepackage[round]{natbib}
 \usepackage{makeidx}
   \makeindex
 \usepackage[hidelinks]{hyperref}
@@ -48,7 +49,7 @@
 \normalem
 
 \title{{IMSV}: bacteria simulator specifications and architecture \\ Version 0.0}%
-\author{M.~Dinh}%
+\author{M.~Dinh and S.~Fischer}%
 %\address{er}%
 %\thanks{zq}%
 \date{\today}%
@@ -67,14 +68,18 @@ The objective of the project is to develop a simulator for a generic bacteria. T
 \section{Specifications}
 \input{spec/spec.tex}
 
+\clearpage
+
 \section{Data and states}
 \input{dataState/dataState.tex}
+
+\clearpage
 
 \section{Biological processes}
 \input{process/process.tex}
 
-\bibliographystyle{plain}
-\bibliography{Z:/Documents/Article/bibFiles/dinhBio}
+\bibliographystyle{plainnat}
+\bibliography{Z:/Documents/Article/bibFiles/dinhBio,zoteroDinh}
 
 \printindex
 
