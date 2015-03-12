@@ -2,6 +2,8 @@
 
 During exponential growth, the cell needs to duplicate its DNA content in order to proceed to division. Replication of DNA needs to be well coordinated with cell growth and division to ensure viability of the daughter cells. There are three important phases: replication initiation, elongation and termination. These phases are controlled by several (partly unknown) mechanisms to adapt to external conditions and adjust growth rate. For example, several bacteria, including \textit{E. coli} and \textit{B. subtilis}, are able to initiate replication several times during one cell cycle, so that the cell cycle can actually be shorter than the time needed to replicate the full chromosome \citep{reyes-lamothe_chromosome_2012}.
 
+\paragraph{Pre-RC assembly} Before initiation can start, a pre-Replication Complex has to be assembled in order to load the replication fork.
+
 \paragraph{Replication initiation} Replication initiation of the chromosome is an event that appears to be precisely controlled. Replication should only be initiated if growth conditions are favorable. What is more, replication should not be triggered several times during cell cycle (except in excellent growth conditions), implying the existence of mechanisms that inhibit replication initiation once replication has already started.
 
 Initiation is mainly controlled by DnaA, a protein that can bind DNA in its activated form, DnaA-ATP. There are numerous DnaA binding boxes along the chromosomes, but only a few of them are essential for replication initiation. The latter are located next to the \textit{oriC} locus (Figure \ref{fig:dnaA}, top), where the replisomes are loaded and replication actually starts. Interestingly, \textit{oriC} and the \textit{dnaA} gene are colocated in numerous bacteria \citep{briggs_chromosomal_2012}, so that the binding of DnaA inhibits its own expression, autoregulating the levels of DnaA available.
@@ -132,5 +134,28 @@ Similar to initial segregation, final segregation includes decatanation of two c
 
 \subsubsection{DNA transformation}
 
-\textcolor{red}{What processes are involved?}
-\textcolor{red}{What about plasmid integration, exchange and replication???}
+DNA transformation is the incorporation of extracellular DNA into the cell. The role of transformation is not totally understood. Most probably, it allows for generation of bacterial sex and generation of an enhanced genetic diversity in changing environments or stress situation. The master regulator of competence ComK induces more than 150 genes, 30 of which only are known to be directly involved in DNA transformation.
+
+Transformation uses the recombination machinery to integrate the DNA into its own genetic material. Numerous proteins of the SOS response are therefore involved but it seems that the induction of these proteins is mediated by ComK, the master regulator of competence state, and is LexA-independent~\citep{kidane_cell_2012}. DNA transformation is only activated in specific physiological conditions by quorum sensing. ComX and the Competence and Sporulation Factor are secreted, activating ComP-ComA transduction. More than 150 genes are then directly or indirectly induced, including the DNA translocation machinery and the recombination machinery~\citep{kidane_cell_2012}.
+
+The DNA translocation machinery assembles towards the cell pole and is composed of three groups \citep{kidane_cell_2012}:
+\begin{itemize}
+	\item The first group is responsible for binding dsDNA and transforming it into ssDNA. Known proteins are from the ComG family (ComGA, ComGC, ComGD, ComGE, ComGG) that form a pseudopilus able to drag DNA toward the membrane and NucA, which fragments dsDNA, allowing it to be digested to ssDNA by an unknown enzyme.
+	\item The second group translocates ssDNA into the cell. It is composed of proteins from the ComE and ComF families (ComFA, ComEA, ComEC, maybe ComFB, ComFC, ComEB). The junction with the first group is done by ComFA and ComGA.
+	\item The last group binds DNA inside the cell and performs its integration. It is composed of the induced proteins DprA, SsbA, SsbB, CoiA, RecA and the constiutive proteins RecU and RecX. Its association with the rest of the translocation machinery is highly dynamic.
+\end{itemize}
+Once the ssDNA is translocated within the cell, the third group protects it from degradation and recruits protein that are also involved in classical homologous recombination:
+\begin{itemize}
+	\item SsbA and SsbB bind and protect ssDNA from degradation.
+	\item RecN and SsbE stabilize the ends of the DNA.
+	\item DprA and RecO destabilize the SSB proteins and allow RecA loading.
+	\item RecA loading is regulated by RecF, RecX and RecU.
+\end{itemize}
+Once RecA is loaded along the ssDNA, it forms a compact filament that is driven towards the center of the cell. It may be integrated within the genome if it is homologous to an endogeneous sequence (with a probability of up to 40\%~\citep{kidane_cell_2012}) or may be transformed into a plasmid if it has a primosome assembly site (\textit{pas})~\citep{kidane_cell_2012}. If a homologous sequence is found, an invasion similar to Homologous Recombination occurs (see DNA repair process). However, branch migration is not fully understood and HJ resolution may not be mediated by RecU, contrary to classical homologous recombination.
+
+Formation of new plasmid is a little more complex as it may occur according to different mechanisms that are species specific. \citet{kidane_cell_2012} list three possibilites that could contribute to plasmid creation for ssDNA containing a \textit{pas} sequence:
+\begin{itemize}
+	\item Plasmid facilitation: the ssDNA transiently binds to the chromosome, forming a loop that is replicated using the free ends of the ssDNA as primers, closing the loop by adding chromosomal DNA to the ssDNA.
+	\item Plasmid transformation (necessitates internal homologies): in the absence of homology, RecA unbinds and the ssDNA is converted to dsDNA thanks to his \textit{pas}. It is then circularized based on its internal homologies.
+	\item Monomeric activation: poorly understood process that could work even without internal homologies. Does not seem to exist in \textit{B. subtilis}.
+\end{itemize}
