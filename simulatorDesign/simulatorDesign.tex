@@ -1,0 +1,79 @@
+% ----------------------------------------------------------------
+% Article Class (This is a LaTeX2e document)  ********************
+% ----------------------------------------------------------------
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2.5cm, bottom=2.5cm, left=2cm , right=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{color,ulem}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[round]{natbib}
+\usepackage{makeidx}
+  \makeindex
+\usepackage[hidelinks]{hyperref}
+%\AtBeginDocument{\let\textlabel\label} % When problem with \label in align environment
+%\usepackage{mdframed}
+\usepackage[framemethod=TikZ]{mdframed}
+  \mdfdefinestyle{MyFrame}{%
+    linecolor=blue,
+    outerlinewidth=1pt,
+%    roundcorner=20pt,
+%    innertopmargin=\baselineskip,
+    innertopmargin=3pt,
+%    innerbottommargin=\baselineskip,
+%    innerrightmargin=20pt,
+%    innerleftmargin=20pt,
+%    backgroundcolor=gray!50!white
+    }
+% THEOREMS -------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{assum}[thm]{Assumption}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\numberwithin{equation}{section}
+
+\usepackage{mhchem}
+\newcommand{\reactionRev}[4]{#1 \ce{<=>[#3][#4]} #2}
+\newcommand{\reactionIrr}[4]{#1 \ce{->[#3][#4]} #2}
+
+% ----------------------------------------------------------------
+\begin{document}
+\normalem
+
+\title{{IMSV}: bacteria simulator design \\ Version 0.0}%
+\author{M.~Dinh and S.~Fischer}%
+%\address{er}%
+%\thanks{zq}%
+\date{\today}%
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+The aim of this document is not to go into technical details of the implementation (the code is documented using Doxygen, technical details are therefore best found in the Doxygen-generated manual). Rather we wish to walk through the choices in design that have been made. The technical manual hopefully contains necessary information for understanding the concept behind each class and how to use it. However it does not tell you what classes are central in the architecture and it is difficult to see at a glimpse how classes interact.
+
+Describing global design should be more agreeable to read than the purely technical document. It helps understand how we tackled a certain number of efficiency issues (should it be speed or maintainability). Most efficiency issues in programming are related to architecture design rather than class implementation. Efficiency of an architecture can be related to information flowing between classes. Restricting information access through classes and dependencies between classes is generally considered good style, as it limits data corruption and enhances maintainability. Achieving this increases the probabilities that the simulator behaves the way it should and facilitates further expansions.
+
+Once data protection and maintainability are ensured, speed issues are addressed only if they can be identified. Most parts of the simulator are not critical in that regard and do not need a particularly refined design or implementation. If speed issues arise, two level of solutions can be worked on. At the lowest level, class implementations can be changed to perform some routines more quickly (generally leading to at most a couple-fold speed increase). At the highest level, communication between classes can be tuned to ensure that only the necessary computations are done (generally leading to a drastic speed increase and a complexification of the architecture with new classes that "filter" communications).
+
+To sum up, description at a global level gives critical insight into how the simulator works and where speed/design issues have been identified during development. It should facilitate discussions even with non-programmers (or at least non-C++-programmers).
+
+\section{Chemical and Reaction hierarchy}
+
+\section{Solver hierarchy}
+
+
+\end{document}
+% ----------------------------------------------------------------
