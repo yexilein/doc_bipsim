@@ -1,18 +1,10 @@
 It is assumed here that the formation of the 30S and 50S complexes are described and modeled somewhere else as well as for the metabolites.
 
-\textcolor[rgb]{1.00,0.00,0.00}{Something equivalent to non coding DNA? Non coding codon???} \\
-\textcolor[rgb]{1.00,0.00,0.00}{Put RBS (Ribosome Binding Site) somewhere in the mRNA properties.} \\
-\textcolor[rgb]{1.00,0.00,0.00}{Mettre des propriétés sur la protéine qui devrait sortir du ribosome pour éventuellement prendre en compte des évènements sur la future protéine pendant la traduction (genre N-myristoylation, N-acyliation, euh non, ca c'est de la post traduction. Y a-t-il des trucs qui se passent sur la future proteine pendant la traduction?)} \\
-\textcolor[rgb]{1.00,0.00,0.00}{Ecrire un truc à part pour la formation du ribosome = rRNA + protéines. En février 2009, la revue Nature a publié un article rédigé par des biophysiciens de l'Université de Montréal : ils y expliquent les mécanismes de formation de cette molécule qui peut contenir jusqu'à 300 000 atomes. Ces explications permettraient de mieux comprendre les mécanismes de création des êtres vivants.} \\
-\textcolor[rgb]{1.00,0.00,0.00}{Mettre une propriété pour une mauvaise traduction: mauvais AA pendant la traduction.} \\
-
-\bigskip
-
-\textcolor[rgb]{1.00,0.00,0.00}{\Huge Regulation?}
 
 
-\subsubsection{tRNA charging or loading}
-\paragraph{Biological process} A tRNA has an anticodon which corresponds to a specific amino acid. There are 64 possibilities for a codon for twenty or so amino acids. Let's number the possibilities with $i$. Each one of these possibilities leads to a type of tRNA, $tRNA^i$. The mechanism of charging the tRNA is performed by an enzyme, an aminoacyl tRNA synthetase (aaRS), which is also specific to an anticodon sequence. The mechanism is described below:
+\subsubsection{Transfer RNA charging or loading}
+%\paragraph{Biological process}
+A tRNA has an anticodon which corresponds to a specific amino acid. There are 64 possibilities for a codon for twenty or so amino acids. Let's number the possibilities with $i$. Each one of these possibilities leads to a type of tRNA, $tRNA^i$. The mechanism of charging the tRNA is performed by an enzyme, an aminoacyl tRNA synthetase (aaRS), which is also specific to an anticodon sequence. The mechanism is described below:
 $$
   \left\{
     \begin{array}{l}
@@ -23,7 +15,7 @@ $$
   \right.
 $$
 with the pyrophosphate anion $PP_i=\ce{P2O7^4-}$. Pyrophosphate anion is unstable in aqueous solution and hydrolyzes into inorganic phosphate $P_i=\ce{HPO4^2-}$. In short:
-\begin{mdframed}[style=MyFrame]
+%\begin{mdframed}[style=MyFrame]
 $$
   \left\{
     \begin{array}{l}
@@ -32,23 +24,23 @@ $$
   \end{array}
   \right. .
 $$
-\end{mdframed}
+%\end{mdframed}
 Finally, note that during the elongation, a \ce{H2O} is consumed. If we pair both process, it is possible to write
-\begin{mdframed}[style=MyFrame]
+%\begin{mdframed}[style=MyFrame]
 $$
   \reactionIrr{AA^i+ATP+tRNA^i}{tRNA^i_c+AMP+2P_i+\ce{H+}}{aaRS^i}{} \\
 $$
-\end{mdframed}
-\textcolor[rgb]{1.00,0.00,0.00}{On en fait quoi du $P_i$?}
-\textcolor[rgb]{1.00,0.00,0.00}{On en fait quoi du AMP? Mettre un cycle énergétique quelque part.}
+%\end{mdframed}
 
 
-\paragraph{Biological error} The authors are not aware of any biological error that can happen during tRNA loading.
+
+%\paragraph{Biological error} The authors are not aware of any biological error that can happen during tRNA loading.
 
 
 
 \subsubsection{Initiation}
-\paragraph{Biological process} The purpose of the initiation is to locate precisely the initiation $fMet$ amino acid at the Ribosome Binding Site where is located the start codon of the mRNA. The initiation is a complex mechanism that starts from the association of the initiation factors to the $30S$ complex and ends with the formation of the $70S$ complex via the binding of the $50S$ complex to the mRNA. The active steps are illustrated in Figure \ref{fig:initTranslate}.
+%\paragraph{Biological process}
+The purpose of the initiation is to locate precisely the initiation $fMet$ amino acid at the Ribosome Binding Site where is located the start codon of the mRNA. The initiation is a complex mechanism that starts from the association of the initiation factors to the $30S$ complex and ends with the formation of the $70S$ complex via the binding of the $50S$ complex to the mRNA. The active steps are illustrated in Figure \ref{fig:initTranslate}.
 \begin{figure}[hbtp]
   \centering
   % Requires \usepackage{graphicx}
@@ -118,7 +110,7 @@ The steps are detailed hereafter:
         \reactionRev{30S_{31}+mRNA}{m30S_{31}}{}{}{}
         $$
       \end{enumerate}
-    \item the binding of the initiation factor $IF_2$ with a cofactor and to a $tRNA^{fMet}$: \textcolor[rgb]{1.00,0.00,0.00}{comment se forme le $tRNA^{fMet}$? Codon spécifique ou un truc différent? IF2 peut-il se binder a autre chose qu'un tRNAfMet ?}
+    \item the binding of the initiation factor $IF_2$ with a cofactor and to a $tRNA^{fMet}$:
       \begin{itemize}
       \item $IF_2$: the initiation factor without cofactor. It is assumed that $IF_2$ does not bind with a $tRNA^{fMet}$,
 %        $$
@@ -184,7 +176,7 @@ The steps are detailed hereafter:
 \medskip
 
 In summary, we have the possible overall reactions:
-\begin{mdframed}[style=MyFrame]
+%\begin{mdframed}[style=MyFrame]
 $$
   \left\{
     \begin{array}{l}
@@ -198,16 +190,17 @@ $$
     \end{array}
   \right.
 $$
-\end{mdframed}
-\textcolor[rgb]{1.00,0.00,0.00}{On en fait quoi du $P_i$? Oui parce que là, avec le tRNA, ça en fait 3 déjà.}
+%\end{mdframed}
 
 
-\paragraph{Biological error} The authors are not aware of any biological error that can happen during translation initiation.
+
+%\paragraph{Biological error} The authors are not aware of any biological error that can happen during translation initiation.
 
 
 
 \subsubsection{Elongation}
-\paragraph{Biological process} Elongation is the process of creating the protein by putting amino acid one by one. Roughly, the elongation is illustrated in Figure \ref{fig:elongationTranslate}
+%\paragraph{Biological process}
+Elongation is the process of creating the protein by putting amino acid one by one. Roughly, the elongation is illustrated in Figure \ref{fig:elongationTranslate}
 \begin{figure}[hbtp]
   \centering
   % Requires \usepackage{graphicx}
@@ -242,6 +235,7 @@ The steps are explained hereafter, with the current (at A-site) codon being $i_0
             \end{array}
           \right.
           $$
+          It s possible that the charged tRNA that comes to the A-site does not correspond to the anti-codon of the mRNA. The protein produced may still functional due to the redundance of the amino acid coding, or that amino acid location is not crucial for the folding and function of the protein;
           \textcolor[rgb]{1.00,0.00,0.00}{Proofreading (Olivier PhD)}
         \item as an aside, $EFTu_d$ is transformed back to $EFTu_a$ via a GTPase EF-Ts:
           $$
@@ -264,14 +258,15 @@ The steps are explained hereafter, with the current (at A-site) codon being $i_0
     $$
 %    EF-G is normally inhibited by fusidic acid, but resistance has emerged.
 \end{enumerate}
-\textcolor[rgb]{1.00,0.00,0.00}{From Olivier PhD, proofreading !}
 
 
-\paragraph{Biological error} It s possible that the charged tRNA that comes to the A-site does not correspond to the anti-codon of the mRNA, that is $i\neq i_0$. It is possible that the protein produced is still correct due to the redundance of the amino acid coding. Otherwise it is assumed that the protein is non-functional.
+
+%\paragraph{Biological error} It s possible that the charged tRNA that comes to the A-site does not correspond to the anti-codon of the mRNA, that is $i\neq i_0$. It is possible that the protein produced is still functional due to the redundance of the amino acid coding, or that amino acid location is not crucial for the folding and function of the protein.
 
 
 \subsubsection{Termination}
-\paragraph{Biological process} When the ribosome encounters a stop codon, it release the mRNA and the protein. In more details, when after the translocation step of elongation the ribosome encounters at its A-site a stop codon, a release factor (either $RF_1$ or $RF_2$ depending on the stop codon) binds. Note that tRNA are unable to recognize a stop codon. A final GTPase $RF_3$ hydrolysis allows the release of the protein. It can be summarized as follows:
+%\paragraph{Biological process}
+When the ribosome encounters a stop codon, it release the mRNA and the protein. In more details, when after the translocation step of elongation the ribosome encounters at its A-site a stop codon, a release factor (either $RF_1$ or $RF_2$ depending on the stop codon) binds. Note that tRNA are unable to recognize a stop codon. A final GTPase $RF_3$ hydrolysis allows the release of the protein. It can be summarized as follows:
 $$
   \left\{
     \begin{array}{l}
@@ -283,10 +278,10 @@ $$
     \end{array}
   \right.
 $$
-with $RF_{3d}$ being GDP bounded form of $RF_3$. The released protein can be 'correct' or not.
+with $RF_{3d}$ being GDP bounded form of $RF_3$.
 
 \textcolor[rgb]{1.00,0.00,0.00}{From Olivier PhD, last AA not in the protein.}
 
 
-\paragraph{Biological error} The authors are not aware of any biological error that can happen during translation termination.
+%\paragraph{Biological error} The authors are not aware of any biological error that can happen during translation termination.
 
