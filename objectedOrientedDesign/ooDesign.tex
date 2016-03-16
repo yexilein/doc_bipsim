@@ -1,0 +1,101 @@
+% ----------------------------------------------------------------
+% Article Class (This is a LaTeX2e document)  ********************
+% ----------------------------------------------------------------
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2.5cm, bottom=2.5cm, left=2cm , right=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage[round]{natbib}
+\usepackage{makeidx}
+  \makeindex
+
+\graphicspath{{figures/}}
+
+% ----------------------------------------------------------------
+\begin{document}
+
+\title{Free introduction to object oriented design}%
+\author{S.~Fischer}%
+%\address{er}%
+%\thanks{zq}%
+\date{\today}%
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+This document is a very personal understanding of what object oriented design is. It was written by a non-expert for non-experts. The aim is to find language independent principles for reliable design of medium-sized projects. Contrary to a lot of computer science book that tend to make lengthy presentation of the topic, the intent is to strip everything down to key elements. Because this is my personal understanding of the subject, I may use first person sentences regularly. In my opinion, understanding object-oriented design goes through the understanding of 3 key points. First, we need to understand what a class is, more precisely what kind of abstraction it is and why it is a powerful tool. Second, it is important to understand the basic relations between classes and objects, namely heritage, composition and simple references. Finally, real design is about connecting multiple classes together. This is not as intuitive as it seems. Thankfully, a lot of work has already been done to find architectures that fit a specific task. Those standard architectures are called "Design patterns".
+
+A lot of books provide techniques to identify objects from project specifications. However, numerous books agree on the fact that there is no universal technique that works, but by gathering experiment, identification becomes easier. I agree with this last sentence, but I believe the road can be made shorter depending on the starting point. This is why I will not emphasis on all these heuristics to find objects. I believe that once the abstraction corresponding to classes is understood, studying design patterns is the best way to comprehend how object-oriented design works. Not only do they provide finely curated example of how classes are to communicate, they also provide practical solutions that will be reused in most projects. This high-level approach may be a bit harder to manipulate for a newcomer, but it makes understanding of classes and design more intuitive.
+
+
+\section{Classes and objects}
+
+The main topic of this section is about classes. We are going to try to understand what kind of abstraction it is (from an engineering and mathematical point of view) and how we can use it efficiently in future design
+
+\subsection{A first approach to the class abstraction}
+\subsubsection{Essential definition: the user/client}
+One of the most important conceptions is that a class has two part. A public part, sometimes referred to as an interface, and a private part. This distinction only makes sense for an outside person trying to use this class, who is referred to as a user or client. A user can only see the public part of a class and \emph{should not} care about the private part (examples will follow shortly). When evaluating if a class is well-designed, the programmer should try to find out who the potential users are, and if \emph{what they see} is satisfactory. Most of the time, the user will be the programmer him/herself! If the class is used by another class of the same project, the latter class is a client of the first class. The user can also be another programmer, if somebody is reusing your work. It could be someone you don't know if you are developping your own project. It could be someone you know who works on the same project as you. Generally, the user will \emph{not} be someone who is not able to program.
+
+\subsubsection{An engineering point of view of classes: the state machine}
+In engineering sciences, the distinction between interface and hidden parts is very common. Any electronic device or vehicle is a perfect example of it. Let us take the computer scientist's favorite example: a car. More precisely, the abstraction of how a car \emph{should} work from the \emph{user's perspective}. The work of an engineer is to provide the user only what he needs and hide all the details about how the car actually works. A user may, if he wishes, learn about hidden parts, but it \emph{should not} be required. The idea is that a user can \emph{act} on the machine in two ways.
+\begin{itemize}
+	\item \textbf{Commands} A command changes the state of an object. Typical commands on a car are pressing the accelerator/brake pedal, moving the wheel, etc.
+	\item \textbf{Accessors} An accessor gives information about the current state of the object. Typical accessor on a car are the speedometer, fuel level, engine temperature, etc. The accessor itself should not change the state of the machine, only commands can.
+\end{itemize}
+Most of the time, an engineer will hide nearly everything about how the machine works and only give commands and access that make sense for a specific use. Most people do not know and do not care how a car works, and that is what makes it easy and enjoyable to use. A high-level command will often be broken down into smaller commands passed over to autonomous subparts of the machine. For the user, it does not matter how and by who the command is executed as long as it is executed as promised in the machine's documentation. An important job of an engineer is to maintain the machine in a \emph{usable state}, for a reasonable sequence of commands. There are two ways to deal with this problem: (i) maintain a restricted of well-controlled commands, (ii) clearly specify in the documentation in which cases the machine will enter a corrupted state or at least temporarily not yield the desired behavior. Please note that point (i) implies that the user \emph{does not have access} to the hidden part of the machine. Otherwise it would be very easy for her/him to corrupt the machine...
+
+\subsubsection{A mathematical point of view of classes: abstract data type}
+This part is similar to the previous one, maybe in a little more abstract way (if you understood the previous point but not this one it's fine). The point is that the distinction between private and public is essential and the point of view of the user should guide the design of the public interface (commands and accessors). The rest is about writing specifications and boring stuff of the like. Interestingly this is something we can do also for things that still correspond to the state machine idea, but are way more abstract than a car. I will take here an example provided by \citet{meyer}.
+
+The aim is to develop a standard container for items of some type. Before starting to worry about implementation, he specifies what a user should be able to do with the container (\textit{i.e.} commands and accessors). blablabla recopier le truc.
+
+\subsubsection{Physical/logical state}
+In some way, even if it is abstract, the container introduced in the previous section is still some kind of state machine. An interesting distinction is that a state machine has two states: a logical state and a physical state. A machine can be in two different physical states but in the same logical state. Let us add a new accessor to our container class. It is a \texttt{find (item)} method that indicates whether an item is present in the container or not. For the programmer there are several options to implement this new method, but let us imagine two different strategies.
+\begin{description}
+	\item[Strategy 1:] We simply loop through the container and return true whenever the item is found.
+	\item[Strategy 2:] We put a marker on the last item searched and start from the marker instead of the start (because we suspect the user will tend to look for contiguous objects).
+\end{description}
+Both strategies will yield the same result, it is impossible for the user to tell which one has been used. Previously, we have seen that an accessor should not change the state of a machine. Here strategy 2 changes the position of the marker used, which contradicts this principle. This is when the distinction between logical and physical state of a class becomes important. Changing the marker changes the physical state of the machine (this is something that the programmer can clearly tell). However it does not change anything from the user's perspective: the logical state has not changed. One way to verify that two machines are in the same logical state is to do a thought experiment. Imagine you give the user two containers using Strategy 2 that contain exactly the same items. The only difference is that the marker used by the \texttt{find} method is not at the same position, so the machines are not in the same physical state. The user is allowed to use any sequence of commands and accessors on both machines to check whether they are different. I hope you can easily convince yourself that no matter what input sequence the user chooses, the 2 machines will always yield the same results. Therefore the user can only conclude that the machines are identical: they are in the same logical state.
+
+
+\subsection{Important properties of classes and objects}
+
+\subsubsection{Objects}
+
+Until now, we did not define what objects are. Truth is it is not really important, with a little experience it is obvious. What matters more is the abstraction represented by classes. It is often said that classes are blueprints defining how objects will work. Classes are purely conceptual, objects have a physical existence. They are instances of classes. Any specific car, any specific machine which stands before you is an object. You cannot use a command or an accessor on a abstraction (what is the speed of an abstraction of a car ?), you can on an object (what is the speed of your car ?).
+
+\subsubsection{Interface and implementation}
+
+I'll keep this short as I would only repeat what I have said in the previous section. A class has two parts. Methods (commands and accessors) that correspond to services provided to the user compose the interface of the class. Implementation defines how these functions are performed, possibly using attributes (data stored by the class - often instances of other classes) and hidden methods. Object-oriented design generally implies that implementation is hidden to the user (as is the case in C++, Java or Eiffel), but some languages chose to make implementation public (such as Python). In the latter case, the user can easily corrupt an object and, thus, the whole system. You may say that you trust your user or that this is his responsibility. But remember, the user of one class is often another class you designed, so it is yourself. I hope you trust yourself, but you may be aware that you sometimes make mistakes. In a moment of weakness, you may think that bypassing a class's interface is handy, but there is no warranty that at a later time, it breaks the class's intended behavior, leading to an incorrect behavior of the whole system that is not necessarily easy to detect.
+
+\subsubsection{Class invariant, preconditions and postconditions}
+
+Even though the internal mechanism of an object is hidden to the user, the person who engineered the class can often define a set of axioms that must remain true through the lifetime of an object. Examples could be that the engine temperature of a car should not go above a given temperature, or that some pieces of data stored in the class should always remain within some bound (positive for example). The set of clauses that must be respected through the object's lifetime is the \textbf{class invariant}. Ideally, the invariant is checked after an object at \textbf{construction} and after every input from any user. If any clause is broken, the object was corrupted (the question is how?) and there is no warranty that he will work as intended anymore. At this point, the program should be stopped. It must be established whether the implementation of the class is flawed or a user corrupted this specific object by misusing it.
+
+This leads us to the second part of this section. How can a user misuse an object? Some commands or accessors provide arguments when used or need the object to be in a specific state to work correctly. For example, if you try to access an object within an empty container, the behavior is undefined. There are two way to address this problem. Ideally, you can try to specify a behavior for every possible input in every possible state, but this can be rapidly overwhelming and involves many tests about the object's state and the inputs provided by the user. Alternatively, you can specify conditions in which a method will work correctly. It becomes the user's responsability to check that these conditions are fulfilled. They are called \emph{preconditions}. In return, if the preconditions are met, the object must work as intended (in particular maintain its class invariant). Additionally, a programmer can define \emph{postconditions} that ensures that specific conditions are met on an object after a command has been successfully used.
+
+example
+
+\subsubsection{Standard behavior}
+
+Ideally, a set of expected behaviors can be written down.
+
+\subsection{Good practice in class design}
+\subsubsection{Separate commands from accessors}
+
+
+\subsubsection{Keep the interface as simple as possible}
+\subsubsection{Use unit testing and programming by contract}
+
+\section{Basic interaction between classes: heritage, composition and references}
+
+\section{Design patterns}
+
+
+\end{document}
+% ----------------------------------------------------------------
