@@ -1,0 +1,24 @@
+This section is about the implementation of chemical sequences and their interaction with other molecules, mainly through binding sites. The design follows these general ideas:
+
+\paragraph{Ideas}
+\begin{itemize}
+	\item \texttt{ChemicalSequence} handles a \emph{pool} of polymers. A typical instance of this class would be blah blah
+\end{itemize}
+
+\paragraph{Challenges}
+\begin{itemize}
+	\item Keep site availability updated and notify sites only on change. Note that site availability depends on a number of factors: number of sequences, number and position of bound elements, number and position of newly polymerized sequence segments.
+\end{itemize}
+
+\paragraph{Simplifying assumption: no deviation from the default sequence, all instances are identical.}
+
+\paragraph{Simplifying assumption: bound elements are not assigned to a specific instance of the sequence, but to an ideal master sequence.}
+\subparagraph{Consequences}
+\begin{itemize}
+	\item No direct inference of collisions is possible.
+	\item A chemical can bind on a partial strand, yet move along the whole sequence freely.
+\end{itemize}
+
+\paragraph{Simplifying assumption: obstructed binding, but unobstructed movement.}
+
+\paragraph{Simplifying assumption: degradation does not cause unbinding.}

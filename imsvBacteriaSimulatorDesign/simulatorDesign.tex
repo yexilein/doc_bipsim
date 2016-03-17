@@ -14,20 +14,8 @@
 \usepackage{makeidx}
   \makeindex
 \usepackage[hidelinks]{hyperref}
-%\AtBeginDocument{\let\textlabel\label} % When problem with \label in align environment
-%\usepackage{mdframed}
-\usepackage[framemethod=TikZ]{mdframed}
-  \mdfdefinestyle{MyFrame}{%
-    linecolor=blue,
-    outerlinewidth=1pt,
-%    roundcorner=20pt,
-%    innertopmargin=\baselineskip,
-    innertopmargin=3pt,
-%    innerbottommargin=\baselineskip,
-%    innerrightmargin=20pt,
-%    innerleftmargin=20pt,
-%    backgroundcolor=gray!50!white
-    }
+\usepackage{import}
+
 % THEOREMS -------------------------------------------------------
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{cor}[thm]{Corollary}
@@ -44,7 +32,10 @@
 \newcommand{\reactionRev}[4]{#1 \ce{<=>[#3][#4]} #2}
 \newcommand{\reactionIrr}[4]{#1 \ce{->[#3][#4]} #2}
 
-\graphicspath{{figures/}{global/figures/}}
+\graphicspath{{figures/}}
+\makeatletter
+  \def\relativepath{\import@path}
+\makeatother
 
 % ----------------------------------------------------------------
 \begin{document}
@@ -73,7 +64,11 @@ Once data protection and maintainability are ensured, speed issues are addressed
 To sum up, description at a global level gives critical insight into how the simulator works and where speed/design issues have been identified during development. It should facilitate discussions even with non-programmers (or at least non-C++-programmers).
 
 \section{Global presentation of the components of the simulator}
-\input{global/global.tex}
+\subimport{global/}{global.tex}
+\clearpage
+
+\section{Detailed design}
+\subimport{detailed/}{detailed.tex}
 \clearpage
 
 
