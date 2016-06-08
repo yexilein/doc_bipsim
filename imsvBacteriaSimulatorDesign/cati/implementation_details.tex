@@ -1,0 +1,53 @@
+
+\section{Implementation details}
+\label{sec:implementation_details}
+
+Implementation details fall into two categories. Optimization concerns ensure that implementations yield the claimed theoretical complexity. Numerical concerns address rounding problems that occur quite frequently in real-word situations.
+
+When optimization is addressed, structures and algorithms are proposed that yield the asymptotic complexities presented in this document. Only rarely do we insist on optimizations that will only improve the multiplicative or additive constants of the algorithms. The reader is free to use its own adapted/further optimized structures.
+
+Numerical issues are dangerous as algorithms ignoring them may lead to plausible, yet statistically flawed, results. They \emph{must} be addressed at all costs. We propose simple ways to treat them. We do not doubt that more rigorous treatments exist.
+
+\subsection{Numerical concern: updating total propensity on the fly}
+\label{ssec:total_numerical}
+We start with numerical issues, as all methods are impacted by rounding problems. For illustrative purposes, we focus on the computation of the total of a set of real values.
+
+\paragraph{Context} Suppose we have a vector $v$ of $n$ real values. The task is to maintain the total value $T := \sum_{1\leq i\leq n}v[i]$. Computing $T$ anew every time a value changes is too expensive. Suppose we want to set $v[i]$ to a new value $new\_v\_i$. Theoretically, the new value of $T$ will be $T - v[i] + new\_v\_i$. 
+
+\paragraph{Numerical issue: absorption} On a computer, such operations will \emph{always} lead to rounding problems. In other words, we must be aware that $T$ will always be different from the real total. Question is: how different? Here we need to get a little technical and talk about the problem of \emph{absorption}. Rougly speaking, a 64 bit \texttt{double} has a precision of 15 to 17 digits, the rest can be ignored. Take some number $a$. The next \texttt{double} a machine can represent is roughly $a + 10^{-15}a$. If we add $b$ such that $b < 10^{-16}a$, rounding leads to $a+b=a$: $a$ \emph{absorbs} $b$. Now imagine $b \simeq 10^{-n}a$ where $1 \leq n \leq 15$. $b$ is no longer absorbed by $a$, but its original precision will be lost in operations such as $b+a-a$. The first operation treated is $b+a$, where only $\simeq 16-n$ digits of $b$ that fall in the meaningful region of $a$ are really kept~\reffigp{fig:absorption}. When $a$ is removed, only these digits are restored: $b$ is left with only $16-n$ meaningful digits. To track absorption, we need to know how the \emph{largest} number treated in our operations compares to the current total. Let $M$ be that number and $T$ the total introduced in the context paragraph. The number of meaningful digits of $T$ is $\simeq 16 - \lceil\log_{10}M - \log_{10}T\rceil$.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{absorption}
+  \caption{Illustration of a rounding problem due to absorption. Gray areas show the decimals the computer has no real control of. They are chosen according to closest representation available. When summing terms, the sum can only be exact up to 17 decimals at most, so a part of the decimals of the smaller term of the sum are ignored and cannot be recovered. }
+  \label{fig:absorption}
+\end{figure}
+
+\paragraph{Solutions} One possible solution is to switch to higher precision. 128 bit \texttt{quadruple} offer 33 to 36 meaningful digits, spanning a larger range of magnitudes. But even with larger precision, it may be necessary to track the current precision of $T$. This can be achieved by recording the largest number $M$ used to compute $T$ and use $d = 16 - \lceil\log_{10}M - \log_{10}T\rceil$ (replace 16 with 34 for \texttt{quadruple}) as a proxy for the number of meaningful digits. Because of rounding problems affecting meaningful digits, this is rather an optimistic estimate. When $d$ falls below a predefined limit (somewhere between 5 and 10), $T$ has to be recomputed from scratch. This operation can also be dangerous in various ways (if $v$ has a lot of small values and a large value, compensation of large numbers that have opposite sign). In practice, these dangers do not naturally arise in our case, but they can be treated by sorting the numbers by magnitude and carefully considering the order in which they are added up.
+
+\subsection{Direct Method}
+The only concern with this method is to update the total propensity properly~\refsecp{ssec:total_numerical}.
+
+\subsection{Binary Tree}
+
+\subsubsection{Updating intermediate nodes at most once}
+This optimization is pretty straightforward. The tree is updated starting from the highest depth. We suppose the tree is built so that all leaves are at the same depth. We use an update queue that initially contains all nodes whose propensities are outdated. 
+
+We follow this simple rule: every time a node is updated, its parent is added to the update queue. Each node holds an \texttt{outdated} flag. If a node is marked \texttt{outdated}, we know it is already in the queue and we do not add it a second time. The flag is removed when the node is updated. 
+
+By applying this procedure, nodes are added layer by layer. As mentionned above, we start with leaves at the highest depth. As we progress through leaves, there parents are added at their succession and so on, until root is finally reached. By using the flag system, each node is queued and updated at most once.
+
+Note that the update queue will at most contain all nodes of the tree, \textit{i.e.} $\simeq 2N$ nodes. To avoid memory reallocation, it can (should) be represented by an array of size $2N$ and two pointers to the start and end of the queue. 
+
+This procedure can be adapted if the leaves are not all at the same depth.
+
+\subsubsection{Numerical concern: rounding problems}
+
+\subsection{Hybrid Method}
+
+\subsubsection{Numerical concerns}
+
+\subsubsection{Efficient inserting/removal in groups}
+
+\subsubsection{Choice of base rate}
+
