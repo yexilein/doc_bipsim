@@ -1,0 +1,101 @@
+
+\subsection{Reactant hierarchy}
+
+This section gives a quick overview of the contents of the \textbf{reactant} module. More details about how reactants are implemented can be found later.
+
+\subsubsection{UML class diagram}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{reactant_uml}
+\end{figure}
+
+\subsubsection{Reactant}
+
+\texttt{Reactant} is a global abstract interface. All entities that can participate in a reaction \emph{must} inherit from it.
+
+\subsubsection{Chemical}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.8]{chemical}
+\end{figure}
+
+\texttt{Chemical} is an abstract class. It defines all standard chemical entities. \texttt{Chemical} represents a \emph{pool} of a given chemical species, meaning that one may access its current number at any time.
+
+\subsubsection{FreeChemical}
+
+\paragraph{Input format}
+\begin{verbatim}
+FreeChemical <name> [<initial quantity>]
+\end{verbatim}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.8]{freechemical}
+\end{figure}
+
+\texttt{FreeChemical} is a subclass of \texttt{Chemical} that represents free chemical (\textit{e.g.} molecules diffusing in the cytosol or extracellular medium).
+
+\subsubsection{BoundChemical}
+
+\paragraph{Input format}
+\begin{verbatim}
+BoundChemical <name>
+\end{verbatim}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.8]{boundchemical}
+\end{figure}
+
+\texttt{BoundChemical} is a subclass of \texttt{Chemical} that represents chemicals that are bound to a sequence. It is important to note it only represents molecules bound to the sequence, \emph{not} the complex formed by the chemical and the sequence. Even though \texttt{BoundChemical} represents a pool of molecules, single elements are not interchangeable, they are defined by their position on a sequence. \texttt{BoundChemical} uses two classes \texttt{BoundUnit} and \texttt{BoundUnitList} to represent molecules individually. It uses \texttt{BoundUnitFilter} to organize bound units according to outside criteria needed for reactions (classify according to binding sites, templates read, etc.).
+
+\subsubsection{ChemicalSequence}
+
+\paragraph{Input format}
+\begin{verbatim}
+ChemicalSequence <name> sequence <sequence> [<initial quantity>]
+TransformationTable <name> [<parent_letter> <product_letter>,]^{1..n}
+ProductTable <name> <transformation table>
+ChemicalSequence <name> product_of <parent sequence> \
+  <starting position> <ending position> <product table> [<initial quantity>]
+\end{verbatim}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.7]{chemicalsequence}
+\end{figure}
+
+\texttt{ChemicalSequence} is a subclass of \texttt{FreeChemical}. It is defined by a sequence and the ability to bind elements. However, instances of a sequence are \emph{not} treated individually, it is impossible to tell to which instance a given chemical bound. An object called \texttt{SequenceOccupation} maintains occupation levels at sites of interest. For example, suppose the sequence is an mRNA carrying a ribosome binding site for the protein DnaA. The number of available sites is obtained by removing the number of bound chemicals occupying the site from the number of instances of the mRNA currently in the cell. A \texttt{ChemicalSequence} can be appariated to another \texttt{ChemicalSequence}. New instances can be created segment wise, which is handled by classes \texttt{PartialStrand} and \texttt{Segment}. A \texttt{ChemicalSequence} can be created from a sequence or as a product of another sequence, in which case a \texttt{TransformationTable} is needed to generate the product's sequence from the parent's, and a \texttt{ProductTable} stores the parent/product relationship.
+
+\subsubsection{DoubleStrand}
+
+\paragraph{Input format}
+\begin{verbatim}
+TransformationTable <name> [<letter> <complementary_letter>,]^{1..n}
+DoubleStrandSequence <name> <name_sense_sequence> <sense_sequence> \
+  <name_antisense_sequence> <transformation_table> [<initial quantity>]
+\end{verbatim}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.8]{doublestrand}
+\end{figure}
+
+\texttt{DoubleStrand} links two \texttt{ChemicalSequence} together that are biochemically linked (\textit{e.g.} DNA), one sequence being complementary to the other. It enables segment extension on the appariated strand and free end binding (see interface of \texttt{ChemicalSequence}). A \texttt{DoubleStrand} is created from a sense sequence that is specified similarly to a \texttt{ChemicalSequence}. However, the complementary sequence is created from a \texttt{TransformationTable} that specifies how to transform the sense sequence into antisense sequence (\textit{e.g.} for DNA, $A\rightarrow T$, $T\rightarrow A$, $C\rightarrow G$, $G\rightarrow C$).
+
+\subsubsection{BindingSiteFamily}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.8]{bindingsitefamily}
+\end{figure}
+
+\texttt{BindingSiteFamily} is a subclass of \texttt{Reactant}. Contrary to \texttt{Chemical}, it does not represent a countable pool of molecules. Each family contains a number of related instances of \texttt{BindingSite} (\textit{e.g.} ribosome binding sites). \texttt{BindingSiteFamily}, \texttt{BindingSite} and \texttt{ChemicalSequence} use a notification pattern (via \texttt{update} methods) to dynamically maintain the number of available sites for each binding site as well as binding rates up to date. If a binding site is used to load polymerases, a reading frame should be provided to specify where a polymerase will start reading the sequence after binding.
+
+\paragraph{Input format}
+\begin{verbatim}
+BindingSite <binding site family name> <chemical sequence> \
+  <start> <end> <k_on> <k_off> [<reading frame>]
+\end{verbatim}
