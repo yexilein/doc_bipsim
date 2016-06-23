@@ -1,0 +1,39 @@
+
+\section{Tests}
+
+\subsection{Testing philosophy}
+
+Tests are usually divided in several categories. Because of the size of the project, the program includes three types of tests: \emph{programming by contract}, \emph{unit tests}, \emph{integration tests}~\reftabp{tab:tests}. They are designed to make the program fail as rapidly as possible and help find the origin of the problem.
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{|c||M{0.25\textwidth}|M{0.25\textwidth}|M{0.25\textwidth}|}
+    \hline
+    Test type & Preconditions \newline Postconditions \newline Invariants & Unit Tests & Integration Tests \\
+    \hline\hline
+    Test level & Implementation details & Class interface & Systemic\\
+    \hline
+    Time per test & a few instructions (ns) & ms to a few seconds & seconds to several minutes\\
+    \hline
+    Use frequency & Permanent & Very frequent & Less frequent\\
+    \hline
+  \end{tabular}
+
+  \caption{Comparisons of tests used to develop the simulator}
+  \label{tab:tests}
+\end{table}
+
+
+
+\subsubsection{Programming by contract} 
+
+These tests typically apply to attributes of classes and arguments of methods. They are usually divided into three subcategories: \emph{preconditions}, \emph{postconditions} and \emph{invariants}. They check whether the class interact correctly with the outside world, generally other classes.
+
+\paragraph{Preconditions} Preconditions.
+
+\subsubsection{Unit tests}
+
+\subsubsection{Integration tests}
+
+\subsection{Organizing and running tests}
