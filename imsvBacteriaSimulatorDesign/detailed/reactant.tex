@@ -7,8 +7,6 @@
 
 \subsubsection{\texttt{BoundChemical}}
 
-\texttt{BoundChemical} represents molecules of the same chemical species, but there are specifities for each unit of a \texttt{BoundChemical}, as all units are bound at different locations of different \texttt{ChemicalSequence}~\reffigp{fig:bound_chemical}. A \texttt{BoundUnitFactory} is used to recycle \texttt{BoundUnit}s, avoiding memory reallocation throughout simulation. \texttt{BoundUnitFilters} are used to sort \texttt{BoundUnit}s according to criteria useful for reactions~\reffigp{fig:bound_chemical}.
-
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\linewidth]{boundchemical}
@@ -16,9 +14,19 @@
   \label{fig:bound_chemical}
 \end{figure}
 
+\texttt{BoundChemical} represents molecules of the same chemical species, but there are specifities for each unit of a \texttt{BoundChemical}, as all units are bound at different locations of different \texttt{ChemicalSequence}~\reffigp{fig:bound_chemical}. A \texttt{BoundUnitFactory} is used to recycle \texttt{BoundUnit}s, avoiding memory reallocation throughout simulation. \texttt{BoundUnitFilters} are used to sort \texttt{BoundUnit}s according to criteria useful for reactions~\reffigp{fig:bound_chemical}.
+
+
 \texttt{BoundUnit}s are passed from one \texttt{BoundChemical} species to another through reactions, their attributes are updated if needed. They are only destroyed once they are unbound from their \texttt{ChemicalSequence}.
 
 \subsubsection{\texttt{ChemicalSequence}}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\linewidth]{chemicalsequence}
+  \caption{\texttt{ChemicalSequence} represents a pool of polymeres that can be elongated and on which \texttt{BoundUnit}s bind through \texttt{BindingSite}s. For binding to occur, availability of \texttt{BindingSite} is assessed using a utility class \texttt{SequenceOccupation} that records the number of instances of the polymer, the position of \texttt{BoundUnit}s and elongation of \texttt{PartialStrand}s. \texttt{SiteGroup} is used to notify sites of availability changes more efficiently.}
+  \label{fig:chemical_sequence}
+\end{figure}
 
 \texttt{ChemicalSequence} handles a pool of polymers. A pool is defined by a \emph{master sequence} describing what a typical polymer looks like (\textit{e.g.} the sequence of DnaA protein) and the number of \emph{instances} of the master sequence in the pool. For efficiency reason, we do the following assumptions.
 
@@ -37,13 +45,6 @@
 
 \paragraph{Site availability}
 Despite our simplifying assumptions it is still possible to provide an accurate description of site availability. Availability depends of the number of sequences, number and position of bound elements, number and position of newly polymerized sequence segments~\reffigp{fig:chemical_sequence}.
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=\linewidth]{chemicalsequence}
-  \caption{\texttt{ChemicalSequence} represents a pool of polymeres that can be elongated and on which \texttt{BoundUnit}s bind through \texttt{BindingSite}s. For binding to occur, availability of \texttt{BindingSite} is assessed using a utility class \texttt{SequenceOccupation} that records the number of instances of the polymer, the position of \texttt{BoundUnit}s and elongation of \texttt{PartialStrand}s.}
-  \label{fig:chemical_sequence}
-\end{figure}
 
 \subsubsection{\texttt{BindingSiteFamily}}
 

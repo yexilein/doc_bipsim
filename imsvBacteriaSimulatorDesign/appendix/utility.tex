@@ -1,0 +1,34 @@
+
+\section{Utility classes}
+
+\subsection{Exceptions}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\linewidth]{exception}
+  \caption{Exceptions used in the simulator.}
+  \label{fig:exception}
+\end{figure}
+
+Programming by contract (see Section~\ref{sec:tests}) covers most internal errors that might happen. Exceptions are only used when user input is treated. They are used to signify inconstencies in input files during the parsing step~\reffigp{fig:exception}.
+
+\paragraph{Why are exceptions useful?} The nice thing about exceptions is that they can be caught and treated at a level that makes sense. In the parsing system, a format error is discovered by an \texttt{Interpreter}, which has no idea where the input line comes from and could not display a useful error message on its own. It is caught at the \texttt{Parser} level, enriched with information about input file, input line and so on, before being displayed.
+
+\paragraph{Perspectives} Errors occurring during simulation are displayed without using exceptions and suffer the bias described above. If a \texttt{Release} fails, there is a low level message such as ``Unknown product''. We could throw an exception and catch it at the \texttt{Simulation} level, then use \texttt{CellState} to get the name of the \texttt{ChemicalSequence}, the \texttt{ProductTable} and the polymerase involved in the \texttt{Release}, providing useful information for the user.
+
+\subsection{Random handler}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{randomhandler}
+  \caption{\texttt{RandomHandler} and \texttt{BiasedWheel} used for multinomial drawing. \texttt{RandomHandler} uses the Singleton pattern, meaning exactly one instance of the class is created and used throughout the simulator. It has to be accessed using the \texttt{instance()} accessor.}
+  \label{fig:random_handler}
+\end{figure}
+
+A unique \texttt{RandomHandler} is used throughout the simulation to control the random seed by using a Singleton pattern~\reffigp{fig:random_handler}.
+
+\subsection{Factories}
+
+\paragraph{Why are factories useful?}
+
+\subsection{Vector-based containers}
