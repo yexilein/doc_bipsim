@@ -3,20 +3,20 @@
 \section{Global presentation of the components of the simulator}
 \subsection{Components of the simulator}
 
-The simulator can be decomposed into several large modules that handle specific tasks during simulation (Fig. \ref{presentation}). First of all, there is an \textbf{input/output} module that creates everything that is needed for the simulation from an input file (Fig.~\ref{presentation} - Initialization). \textbf{Reactants} and \textbf{reactions} are user-specified and need to be created on demand, as well as \textbf{events} happening throughout the simulations and more technical aspects about which algorithm to use to perform the integration. Once everything is set up, the \textbf{solver} follows a simple loop that can be decomposed in three steps (Fig.~\ref{presentation} - Loop). Integration occurs reaction by reaction, at each loop, we go forward one reaction, update the simulation time, concentrations and reaction rates.
+\begin{figure}[!ht]
+        \centering
+        \includegraphics[width=\linewidth]{presentation}
+	\caption{Schematical view of the simulator.}
+	\label{fig:presentation}
+\end{figure}
+
+The simulator can be decomposed into several large modules that handle specific tasks during simulation~\reffigp{fig:presentation}. First of all, there is an \textbf{input/output} module that creates everything that is needed for the simulation from an input file. \textbf{Reactants} and \textbf{reactions} are user-specified and need to be created on demand, as well as \textbf{events} happening throughout the simulations and more technical aspects about which algorithm to use to perform the integration. Once everything is set up, the \textbf{solver} follows a simple loop that can be decomposed in three steps. Integration occurs reaction by reaction, at each loop, we go forward one reaction, update the simulation time, concentrations and reaction rates.
 
 \begin{enumerate}
 	\item At the beginning of the loop, the \textbf{input/output} process checks whether \textbf{events} should occur at the current simulation time and whether it needs to write some concentrations to an output file.
 	\item It then hands control over to the \textbf{solver}, which is based on Gillespie's approach to integrate a network of chemical reactions. The Gillespie algorithm needs the current reaction rates of all \textbf{reactions} and draws a random reaction with a probability proportional to its rate. This task is delegated to a \textbf{rate manager}, which uses state-of-the-art methods to maintain the rate list updated and perform the drawing efficiently.
 	\item Once a \textbf{reaction} is drawn, it is performed \textit{i.e.} the concentrations (and the state, see below) of its \textbf{reactants} is modified.
 \end{enumerate}
-
-\begin{figure}[!ht]
-        \centering
-        \includegraphics[width=\linewidth]{presentation}
-	\caption{Schematical view of the simulator.}
-	\label{presentation}
-\end{figure}
 
 
 % subsection presenting reactant classes

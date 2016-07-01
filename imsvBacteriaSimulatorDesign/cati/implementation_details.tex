@@ -43,11 +43,40 @@ This procedure can be adapted if the leaves are not all at the same depth.
 
 \subsubsection{Numerical concern: rounding problems}
 
+Because of rounding problems in the summation, it is possible (but extremely rare) that a node carrying a zero rate will be selected. This must be avoided at all cost because a reaction that is theoretically impossible will be performed, yielding unknown results. Such an event must be avoided or at least simply tested. Because this happens extremely rarely we did not try to avoid but simply perform a test. If a zero leaf is selected we know the drawing was supposed to fall in the area and simply take the next nonzero leaf.
+
 \subsection{Hybrid Method}
 
 \subsubsection{Numerical concerns}
 
+Because the total propensities of groups are stored and drawn according to a classical multinomial drawing method, it must be made sure that the total is updated properly, as stated in~\ref{ssec:total_numerical}.
+
 \subsubsection{Efficient inserting/removal in groups}
 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\textwidth]{hybrid_structure}
+  \caption{Example of structure warranting optimal complexity. Propensities are stored in their \texttt{RateGroup} as \texttt{RateToken}s containing additional information, enabling $O(1)$ operations.}
+  \label{fig:hybrid_structure}
+\end {figure}
+
+In order to achieve $O(1)$ complexity, each operation of the algorithm has to be performed with care. \reffigt{fig:hybrid_structure} shows an example of a design achieving optimal complexity using tokens to represent propensities. A basic operation that must be $O(1)$ is the update of a propensity, generally leading to the removal from the current group and adding it to a new group.
+
+\paragraph{Removal from group} The structure must know instantly were the propensity is located. In our design, the \texttt{Ratetoken} records the current group. The token is then withdrawn from the \texttt{RateGroup}. To avoid memory reallocation and instantly locating the token inside the group, tokens are stored in an array. The \texttt{RateToken} carries its own position within that array, so it is located and removed from the array in only a few instructions (this is only an example, many variants exist with different time/memory trade offs). The total propensity of the group is updated.
+
+\paragraph{Inserting into a new group} This operation is a little simpler. The costly step is to determine the new group where to place the token. A logarithmic-like function has to be used, but if groups are delemited by powers of 2, more efficient low level functions can be used, such as \texttt{frexp} in C. The token is then placed in its \texttt{RateGroup}, total propensity of group is updated, as well as information about current position of the token. All these operations are quite obviously $O(1)$.
+
+\paragraph{Random drawing} The last pieces of information carried by a \texttt{RateToken} are the value and index of the propensity it represents. When the multinomial drawing is performed, a random group is selected, then a random token within this group based on the value inscribed on them. The index carried by the token is the reaction that should be performed.
+
+\paragraph{Performance?} It is easy to design a similar structure without actual tokens, but in a language like C++, all these classes can be inlined and do not actually exist in the compiled code. If the design is careful enough, it can be both human-readable by using classes representing clear abstractions AND efficient.
+
 \subsubsection{Choice of base rate}
+
+This is the trickiest part of the algorithm. The choice can be left to the user, but it is also possible to imagine a structure that adapts dynamically. We did not have time to put much thought into it, but some ideas would be
+\begin{itemize}
+  \item Create a base group at some arbirary rate. Each time a propensity (or too many propensities) falls into that group, subdivide the group into new groups, thus lowering the base group rate.
+  \item Replace the base group with any container adapted to multinomial drawing, possible a hybrid drawing structure. If the value drawn falls into that group, the drawing method of the structure chosen is applied by reusing the same value to avoid additionnal random generator costs.
+\end{itemize}
+
+In both cases, the question is: at what point is it worth creating subgroups/substructures? This question has to be carefully analyzed before a choice of implementation is actually made.
 

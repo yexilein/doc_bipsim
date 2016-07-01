@@ -4,7 +4,9 @@
 
 \subsection{Testing philosophy}
 
-Tests are usually divided in several categories. Because of the size of the project, the program includes three types of tests: \emph{programming by contract}, \emph{unit tests}, \emph{integration tests}~\reftabp{tab:tests}. They are designed to make the program fail as rapidly as possible and help find the origin of the problem.
+\paragraph{Fail fast} Tests are designed to make the program fail as rapidly as possible and help find the origin of the problem.
+
+\paragraph{Automated testing} The only plausible way to fail fast is to automate testing. A framework must be designed where tests can be easily incorporated, activated/deactivated and run in a short time. Every time a piece of code is added, it should be easy to write tests for it and rerun all existing tests to detect simple mistakes as well as bad interactions. Without a real testing framework, there is a risk that some tests will be forgotten or that tests will be run more rarely. In the latter case, large bunches of code might have been added between tests and it will be hard to find out exactly what piece of added code lead to program failure.
 
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 \begin{table}[!h]
@@ -25,16 +27,79 @@ Tests are usually divided in several categories. Because of the size of the proj
   \label{tab:tests}
 \end{table}
 
+\paragraph{Testing layers} Tests are usually divided in several layers. Because of the size of the project, the program includes three types of tests: \emph{programming by contract}, \emph{unit tests}, \emph{integration tests}~\reftabp{tab:tests}. The lower the level of failure, the easier the debugging. Failing at the precondtion/postcondition level will give a very precise picture of what went wrong, while failing at the integration level might lead to a more thorough investigation. Ideally, we will always try to \emph{fail faster}. If something went wrong at the integration level, we check whether this could have been detected already at the unit level or the precondition level. If yes, we implement these tests, and we know that next time the problem comes up, we will fail faster and solve the problem more rapidly.
 
 
-\subsubsection{Programming by contract} 
+\subsection{Programming by contract} 
 
-These tests typically apply to attributes of classes and arguments of methods. They are usually divided into three subcategories: \emph{preconditions}, \emph{postconditions} and \emph{invariants}. They check whether the class interact correctly with the outside world, generally other classes.
+These tests typically apply to attributes of classes and arguments of methods. They are usually divided into three subcategories: \emph{preconditions}, \emph{postconditions} and \emph{invariants}. They check whether the class interacts correctly with the outside world, generally other classes. In the simulator, we defined two macros \texttt{REQUIRE} and \texttt{ENSURE} to test pre- and postconditions. We left invariants out because they are hard to check in a language that does not support them natively.
 
-\paragraph{Preconditions} Preconditions.
+\begin{figure}[!h]
+  \centering
+\begin{verbatim}
+int RateTree::find (double value) const
+{
+  /** @pre value must be smaller than total tree rate. */
+  REQUIRE (value <= total_rate());
+  /** @pre value must be strictly positive. */
+  REQUIRE (value > 0);
+  int index = _root->find (value);
+  // rarely, the algorithm will fail because of rounding problems and 
+  // return a leaf with zero rate. We just take the next nonzero rate.
+  while (_leaves [index]->rate() == 0) 
+    { ++index; if (index == _leaves.size()) { index = 0; } }
+  /** @post Rate of returned leaf must be strictly positive. */
+  ENSURE (_leaves [index]->rate() > 0);
+  return index;
+}
+\end{verbatim}
+\caption{Example of the use of preconditions with \texttt{REQUIRE} and postconditions with \texttt{ENSURE}. Here the postcondition helped discover a rare bug due to rounding problems that is now adressed in the code.}
+\label{fig:prepostconditions}
+\end{figure}
 
-\subsubsection{Unit tests}
+The example shown in~\reffigt{fig:prepostconditions} shows typical uses of pre- and postconditions. With preconditions, we test that the user provides valid parameter values. This is the part of the contract the user has to respect. With postconditions, we check that return values or attribute values are valid. This is the part of the contract the class/method has to respect. Finally, the invariant are rules that attributes must respect throughout the life cycle of the class instance (for \texttt{RateTree}, an invariant rule is that all nodes of the tree carry a value that is positive). Preconditions and postconditions are extremely useful for detecting simple typing mistakes, numerical issues (as in the example shown) and so on. Each time a precondition or a postcondition is broken, the program is interrupted and the condition that was broken is displayed (using \texttt{assert()}).
 
-\subsubsection{Integration tests}
+\paragraph{Why not use tests?} Testing parameter validity and return value for every method of every class is very expensive. For the simulator, testing preconditions and postconditions nearly doubles simulation time. By using macros, we can activate/desactivate them during compilation (by using \texttt{./configure} \texttt{--enable-pre-check} \texttt{--enable-post-check}). In developpment phase, they are usually left on (except when performance is tested) and they are desactivated for real runs. Therefore, the programer should not worry about their cost and add them \textbf{for every. single. method}: our only goal is to fail fast!
+
+\paragraph{Exceptions instead of preconditions?} Exceptions and preconditions are used in different cases. \emph{Preconditions} are used for internal interactions, when the \emph{user is another class of the program}. In this case, the programer can actually control the input and make sure precondtions are true. \emph{Exceptions} are used when the \emph{user is an external user} and provides free input. In this case, the programer does not control input. However, bad input can be filtered using \emph{exceptions} until all outside input complies with internal \emph{preconditions}. In the simulator, exceptions are used extensively in the \texttt{Parser} and \texttt{Builder} classes that treat input files. But afterwards, when input is cleaned and the simulation is run, there are nearly no exceptions, everything is checked through preconditions.
+
+\subsection{Unit tests}
+
+Unit tests are probably the most famoust tests used. Unit tests generally test the behavior at the class level. There is a lot of documentaion on them, we used some simple guidelines to try and write useful and maintainable tests.
+
+\paragraph{Test a use case scenario, not the class implementation} This is the basis of test-driven developpement. The test should not care about how a class has been implemented, only what it has been designed to do. Usually a test is described by three elements: the method tested, the scenario tested and the expected output (example for \texttt{FreeChemical}: \texttt{add\_addTenMolecules\_numberIsTen}). If the class was designed correctly, it is likely that its interface will not change much, but its implementation may change over time. Use case tests will remain valid as long as the interface to the class is the same, no matter whether implementation changed. Implementation details should be tested using preconditions or postconditions.
+
+\paragraph{Tests should be simple} The aim is to find problems by failing. The simpler the tests, the easier the debugging. Several simple tests are better than a single complex test.
+
+\paragraph{Tests should be independent} The test framework should reset the class after every test to be sure that a test does not fail because of previous operations. Even if a test fails, the framework should run all other tests to detect as many problems as possible, yielding a better picture of the problem we are facing.
+
+\paragraph{Use mock classes to test interaction with other classes} If some input is needed or the output expected is some interaction with another class, mock classes should be used. For example, \texttt{SequenceOccupation} is responsible of notifying a \texttt{BindingSite} when its availability changes. The scenario is: when the availability of a site changes, the \texttt{update()} method of the \texttt{BindingSite} is called. In the simulator, this action has several implications: the \texttt{BindingSiteFamily} should be notified, the rate of possible associated \texttt{SequenceBinding} should be invalidated, etc. Therefore we could assess the interaction by testing whether the rate has been invalidated. However, this would be rather complex and hard to maintain if at some point this cascade is changed. The original intention was simply to test whether \texttt{SequenceOccupation} and \texttt{BindingSite} interact. The solution is fairly easy: we derive and use a child class \texttt{MockBindingSite} which overrides the \texttt{update()} and records whether it has been called.
+
+\subsection{Integration tests}
+
+This is the last layer of test. The whole simulator or large pieces of it are used. The idea is to test more systematic behaviors, in which the interaction of classes is crucial. Often, user input will be used and the scenario are very high level. Typical examples are:
+\begin{itemize}
+  \item Check that we control the random seed correctly by testing whether the same input leads to exactly the same output.  
+  \item If we provide known DNA and define RNAs and proteins correctly according to simulator input, the sequence of proteins as processed by the simulator should match known proteins.
+  \item If we provide DNA, define RNAs, provide a transcription pathway but activate only one promoter, only the RNA associated to that promoter should be transcribed.
+\end{itemize}
+
+Tests should remain as simple as possible and easy to write. However, because they depend a lot on the global interface of the simulator, they are much harder to maintain. Some programs try to translate scenarios into a form adapted to the current interface to simplify maintainability, but we did not have the time to investigate the matter.
 
 \subsection{Organizing and running tests}
+
+Tests are associated to the source code of the simulator in order to be run as frequently and as simply as possible. We did not implement a fancy infrastructure, tests are driven by Unix Autotools and use the BOOST Test Framework. Preconditions and postconditions are written inside the code, unit tests are regrouped in a \texttt{tests/unit\_tests} directory and intergration tests are stored in \texttt{tests/integration}.
+
+Options of \texttt{./configure} are used to activate every layer of test individually. By default, all tests are turned off. Several layers can be activated simultaneously.
+\begin{itemize}
+  \item \texttt{--enable-pre-check} enables preconditions.
+  \item \texttt{--enable-post-check} enables postconditions.
+  \item \texttt{--enable-unit-tests} enables unit tests and the possibility to create mock objects.
+  \item \texttt{--enable-integration-tests} enables integration tests and the possibility to create mock objects.
+\end{itemize}
+
+Code needs to be recompiled after it has been configured.
+\begin{itemize}
+  \item Preconditions and postconditions are automatically checked every time the program is run (for unit tests, integration tests or any kind of other run).
+  \item Unit tests and/or integration tests are run by running \texttt{make check}. BOOST automatically generates useful and human readable messages about tests that failed or clearly indicates that all tests have passed.
+\end{itemize}

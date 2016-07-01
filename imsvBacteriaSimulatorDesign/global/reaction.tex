@@ -1,29 +1,33 @@
 
 \subsection{Reaction hierarchy}
 
-This section gives a quick overview of the reaction module. More details about how reactions are implemented can be found later.
-
-\subsubsection{UML class diagram}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=\linewidth]{reaction_uml}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\linewidth]{reaction_uml}
+  \caption{UML diagram of \texttt{Reaction} hierarchy.}
+  \label{fig:reaction_uml}
 \end{figure}
+
+This section gives a quick overview of the reaction hierarchy~\reffigp{fig:reaction_uml}. More details about how reactions are implemented can be found later.
 
 \subsubsection{Reaction}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.8\linewidth]{reaction}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{reaction}
+  \caption{\texttt{Reaction} and \texttt{BidirectionalReaction} classes.}
+  \label{fig:reaction}
 \end{figure}
 
-There are two abstract classes used to define reactions: \texttt{Reaction} for one-way reactions and \texttt{BidirectionalReaction} for reversible reactions. Two adapter classes \texttt{ForwardReaction} and \texttt{BackwardReaction} split reversible reactions in two one-way reactions. In the end, the solver only handles one-way reactions. A reaction can necessarily be performed, its rate updated and accessed and is composed of reactants and products.
+There are two abstract classes used to define reactions: \texttt{Reaction} for one-way reactions and \texttt{BidirectionalReaction} for reversible reactions. Two adapter classes \texttt{ForwardReaction} and \texttt{BackwardReaction} split reversible reactions in two one-way reactions\reffigp{fig:reaction}. In the end, the solver only handles one-way reactions. A reaction can necessarily be performed, its rate updated and accessed and is composed of reactants and products.
 
 \subsubsection{ChemicalReaction}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=\linewidth]{chemicalreaction}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=\linewidth]{chemicalreaction}
+  \caption{Schematic view of a \texttt{ChemicalReaction}.}
+  \label{fig:chemical_reaction}
 \end{figure}
 
 \paragraph{Input format}
@@ -31,42 +35,44 @@ There are two abstract classes used to define reactions: \texttt{Reaction} for o
 ChemicalReaction [<chemical> <stoichiometry>]^{1..n} rates <k_1> <k_-1>
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{ChemicalReaction} represents association/dissociation of an arbitrary number of elements. It is defined by
+\paragraph{Formula} A \texttt{ChemicalReaction} represents association/dissociation of an arbitrary number of elements~\reffigp{fig:chemical_reaction}. It is defined by
 \[
 	\reactionRev{a_1 A_1 + a_2 A_2 + ... + a_r A_r}{b_1 B_1 + ... + b_p B_p}{k_1}{k_{-1}}
 \]
 where
 \begin{itemize}
-	\item $A_i$ and $B_i$ are of type \texttt{FreeChemical}. They can be of type \texttt{BoundChemical} in two cases: (i) a reaction containing a \texttt{BoundChemical} on each side, (ii) an \emph{irreversible} reaction where a \emph{reactant} is a \texttt{BoundChemical} and where there are no bound product. In both cases, the associated stoichiometric coefficient must be 1.
-	\item $a_i$ and $b_i$ are stoichiometric coefficients.
-	\item $k_1$ and $k_{-1}$ are rate constants.
+\item $A_i$ and $B_i$ are of type \texttt{FreeChemical}. They can be of type \texttt{BoundChemical} in two cases: (i) a reaction containing a \texttt{BoundChemical} on each side, (ii) an \emph{irreversible} reaction where a \emph{reactant} is a \texttt{BoundChemical} and where there are no bound product. In both cases, the associated stoichiometric coefficient must be 1.
+\item $a_i$ and $b_i$ are stoichiometric coefficients.
+\item $k_1$ and $k_{-1}$ are rate constants.
 \end{itemize}
 
 \paragraph{Action} When the reaction is performed, the number of chemicals involved is changed according to their stoichiometric coefficient. If \texttt{BoundChemical} are involved on each side, the simulator will assume that the bound chemical that is consumed is replaced by the bound chemical on the other side of the equation (\textit{i.e.} it will be bound at the location previously occupied by the precursor). If there is a \texttt{BoundChemical} on the reactant side of an irreversible reaction, the simulator will assume that the reaction describes the unbinding of this bound unit into the cytosol.
 
 \paragraph{Rate} The rates are given by
 \[
-	\lambda_{forward} = k_1 \prod\limits_{i=1}^{r} [A_i]^{a_i}
+\lambda_{forward} = k_1 \prod\limits_{i=1}^{r} [A_i]^{a_i}
 \]
 \[
-	\lambda_{backward} = k_{-1} \prod\limits_{i=1}^{p} [B_i]^{b_i}
+\lambda_{backward} = k_{-1} \prod\limits_{i=1}^{p} [B_i]^{b_i}
 \]
 
 \subsubsection{SequenceBinding}
 \paragraph{Input format}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.8]{sequencebinding}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.8]{sequencebinding}
+  \caption{Schematic view of a \texttt{SequenceBinding}.}
+  \label{fig:sequence_binding}
 \end{figure}
 
 \begin{verbatim}
 SequenceBinding <chemical> <bound form> <binding site family>
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{SequenceBinding} represents binding of a free element on a binding site of a sequence. It is defined by
+\paragraph{Formula} A \texttt{SequenceBinding} represents binding of a free element on a binding site of a sequence~\reffigp{fig:sequence_binding}. It is defined by
 \[
-	\reactionRev{C_{free} + BSF}{C_{bound}}{}{}
+\reactionRev{C_{free} + BSF}{C_{bound}}{}{}
 \]
 where
 \begin{itemize}
@@ -92,9 +98,11 @@ where
 
 \subsubsection{Translocation}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.8]{translocation}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.8]{translocation}
+  \caption{Schematic view of a \texttt{Translocation}.}
+  \label{fig:translocation}
 \end{figure}
 
 \paragraph{Input format}
@@ -104,7 +112,7 @@ Translocation <bound chemical> <form after step> <stalled form> \
   <step size> <rate> [<termination site family>]^{0..n}
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{Translocation} represents movement of a bound element along a sequence. It is defined by
+\paragraph{Formula} A \texttt{Translocation} represents movement of a bound element along a sequence~\reffigp{fig:translocation}. It is defined by
 \[
 	\reactionIrr{C}{C_\text{after step}}{k}{}
 \]
@@ -129,9 +137,11 @@ where
 
 \subsubsection{Loading}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.8]{loading}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.8]{loading}
+  \caption{Schematic view of a \texttt{Loading}.}
+  \label{fig:loading}
 \end{figure}
 
 \paragraph{Input format}
@@ -142,9 +152,9 @@ ProductLoading <bound chemical> <loading table>
 DoubleStrandLoading <bound chemical> <loading table> <stalled form>
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{Loading} typically represents loading of elements by a polymerase onto a template sequence. It is defined by
+\paragraph{Formula} A \texttt{Loading} typically represents loading of elements by a polymerase onto a template sequence~\reffigp{fig:loading}. It is defined by
 \[
-	\reactionIrr{L + E}{LE}{}{}
+\reactionIrr{L + E}{LE}{}{}
 \]
 where
 \begin{itemize}
@@ -157,7 +167,7 @@ where
 
 \paragraph{Rate} The rate is given by
 \[
-	\lambda = \sum_{t\in templates} k_t[L_t][E_t]
+\lambda = \sum_{t\in templates} k_t[L_t][E_t]
 \]
 where
 \begin{itemize}
@@ -166,11 +176,46 @@ where
 	\item $E_t$ is the chemical to load onto template $t$.
 \end{itemize}
 
+\subsubsection{DoubleStrandRecruitment}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.8]{doublestrandrecruitment}
+  \caption{Schematic view of a \texttt{DoubleStrandRecruitment}.}
+  \label{fig:double_strand_recruitment}
+\end{figure}
+
+\paragraph{Input format}
+\begin{verbatim}
+DoubleStrandRecruitment <BoundChemical> <FreeChemical> <bound form> <rate>
+\end{verbatim}
+
+\paragraph{Formula} A \texttt{DoubleStrandRecruitment} typically represents recruitment of a DNA polymerase by the replication fork on the opposite strand~\reffigp{fig:double_strand_rcruitment}. It is defined by
+\[
+\reactionIrr{A + B_{free}}{A + B_{bound}}{k}{}
+\]
+where
+\begin{itemize}
+  \item $A$ is of type \texttt{BoundChemical}
+  \item $B_{free}$ is of type \texttt{FreeChemical}
+  \item $B_{bound}$ is a \texttt{BoundChemical} representing the bound form of $B_{free}$.
+  \item $k$ is a rate constant.
+\end{itemize}
+
+\paragraph{Action} When the reaction is performed, a random $A$ is chosen. If $A$ is not bound to a \texttt{DoubleStrand}, the reaction is ignored. If the position opposite to a on the \texttt{DoubleStrand} is already occupied, the reaction is ignored. Else, a $B_{free}$ is bound on the complementary \texttt{ChemicalSequence}, opposite to $A$ as a $B_{bound}$.
+
+\paragraph{Rate} The rate is given by
+\[
+\lambda = k[A][B_{free}]
+\]
+
 \subsubsection{Release}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.8]{release}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.8]{release}
+  \caption{Schematic view of a \texttt{Release}.}
+  \label{fig:release}
 \end{figure}
 
 \paragraph{Input format}
@@ -181,7 +226,7 @@ Release <polymerase> <empty_polymerase> <fail_polymerase> \
   <product table> <rate>
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{Release} represents release of a product from a polymerase
+\paragraph{Formula} A \texttt{Release} represents release of a product from a polymerase~\reffigp{fig:release}.
 \[
 	\reactionIrr{PolP}{Pol + P}{k}{}
 \]
@@ -207,9 +252,11 @@ where
 
 \subsubsection{Degradation}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.8]{degradation}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=0.8]{degradation}
+  \caption{Schematic view of degradation reaction.}
+  \label{fig:degradation}
 \end{figure}
 
 \paragraph{Input format}
@@ -218,7 +265,7 @@ CompositionTable <name> [<letter> [<chemical composing letter>]^{1..m}]^{1..n}
 Degradation <chemical sequence> <composition table> <rate>	
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{Degradation} represents decomposition of a sequence into base components. It is defined by
+\paragraph{Formula} A \texttt{Degradation} represents decomposition of a sequence into base components~\reffigp{fig:degradation}. It is defined by
 \[
 \reactionIrr{CS}{b_1 + b_2 + ... + b_N}{k}{}
 \]
