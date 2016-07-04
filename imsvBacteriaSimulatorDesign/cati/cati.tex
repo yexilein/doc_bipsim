@@ -127,16 +127,20 @@ r = k_1 \prod\limits_{i=0}^{r}n_{A_i}(n_{A_i}-1)...(n_{A_i}-a_i+1)
   Under the current assumptions, at any time, the next reaction timing is determined by the first reaction that fires. Because the next reaction timings of all reactions are given by exponential distributions, the next reaction timing is the minimum of all these exponential drawings. Mathematically the minimum of exponentially distributed random variables is still exponentially distributed. More precisely, suppose there are $N$ reactions and let $r_1$, ..., $r_N$ be their propensities, then the next reaction timing follows an exponential distribution with parameter $\sum_{i=0..N}r_i$ and the probability that the next reaction is reaction $k$ is $r_k/\sum_{i=0..N}r_i$.
 \end {property}
 
-\subsection{The Stochastic S Algorithm (SSA) and its variants}
+\subsection{The Stochastic Simulaton Algorithm (SSA) and its variants}
 
-Description of SSA algorithm in its simplest form.
+\citet{gillespie_perspective:_2013} propose a good review of the original algorithm and some of its variants. The original SSA algorithm that can be summarized as follows:
 
-STEP 1: select reaction to perform
-STEP 2: update propensity function
+\begin{itemize}
+\item STEP 1: Update propensity functions.
+\item STEP 2: Select reaction to perform and next reaction time.
+\end{itemize}
+
+Most of the effort is spent on studying how to optimize the second step, but we will see that the two steps are actually interrelated. Drawing statistics have to follow the properties described above. In a sense, the SSA and its variants are said to be (statistically) exact.
 
 \subsection{Aim of this document}
 
-Our aim was to try various method to optimize the two steps of the SSA for a large biological system while keeping it exact. We reviewed the literature and implemented the main alternatives and compared them on a benchmark inspired by our research project. We provide some perspectives that could be worked on on every axis.
+Our aim was to try various methods to optimize the second step of the SSA for a large biological system. We reviewed the literature and implemented the main alternatives and compared them on a benchmark inspired by our research project. We provide some perspectives that could be worked on to improve the algorithms or the way they interact with the updating step.
 
 \input{reaction_selection}
 \input{reaction_update}
@@ -146,7 +150,7 @@ Our aim was to try various method to optimize the two steps of the SSA for a lar
 \appendix
 \input{implementation_details}
 
-\bibliographystyle{plainnat}
+\bibliographystyle{myplainnat}
 \bibliography{cati}
 
 \end{document}

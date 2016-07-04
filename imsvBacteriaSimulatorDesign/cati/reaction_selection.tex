@@ -1,7 +1,7 @@
 \section {Selecting reaction to perform}
 \label{sec:reaction_selection}
 
-We start with the first step of the SSA, selecting a reaction given some propensities. 
+We start with the second step of the SSA, selecting a reaction given some propensities. Most algorithms presented here are reviewed in~\citet{gillespie_perspective:_2013}.
 
 Formally, the problem is quite simple: we are given a set of $N$ real values $\{ r_1, r_2, ..., r_N \}$ and we draw index $i$ with probability $p_i = r_i / \sum r_i$. Mathematically, this is a multinomial distribution and thus could be drawn as such by any standard random number library.
 
@@ -59,7 +59,9 @@ Worst case of the drawing~\reffigp{fig:direct_search} occurs when $u$ is in the 
 
 \subsection {Next reaction method}
 
-Can't remember what this is...
+The next reaction method is based on the direct method. It is used in systems where it is known that propensities are not uniform. The point is to accelerate the direct method by sorting (at least rougly) propensities within the vector. This does not change drawing statistics but accelerates finding where a drawing is located on the wheel. For example, say a propensity takes up 50\% of total propensity and is located at the beginning of the vector. Then each random drawing $u < 0.5$ will be instantly found to fall into the first sector of the biased wheel. In a non-sorted vector, we would have to loop through several small sectors before finding the big one.
+
+Because the next reaction method is only a twist of the direct method, we do not go into furter details now. We will also omit it in complexity analysis, as it has the same worst-case complexity as the direct method. We will only reference it again in the Experiment section.
 
 \subsection {Binary tree}
 
@@ -141,7 +143,7 @@ Complexity for updating the tree~\reffigp{fig:tree_update} is also given by dept
 
 \subsubsection {Principle}
 
-In this approach, we organize propensities into groups and use a different drawing method: \emph{rejection-base drawing}.
+In this approach, we organize propensities into groups and use a different drawing method: \emph{rejection-base drawing}. This approach has been presented in~\citet{slepoy_constant-time_2008}.
 
 \paragraph{Rejection-based drawing} The aim is to perform a multinomial drawing, similar to what is done by a biased wheel or a binary tree. The problem with the latter methods is that we need to iterate through some structure before finding the right value. With rejection-based drawing, we attempt to \emph{jump} to the right solution. Let $\{r_i\}$ be the propensities of the $N$ reactions in the system and $R = \sum_{1 \leq i \leq N} r_i$.
 \begin{enumerate}
@@ -153,7 +155,7 @@ In this approach, we organize propensities into groups and use a different drawi
   \end{enumerate}
 \end{enumerate}
 
-A careful proof shows that the probability of drawing index $i$ is equal to $r_i / R$ (\textcolor{red}{ref. équivalence méthode avec et sans rejet}). Note that the choice of $r_M$ is critical for the efficiency of the method~\reffigp{fig:rejection_based_drawing}. Formally, the probability to accept a candidate is $\sum_i\prob{\textrm{draw }i}$ $\prob{\textrm{accept }i} = \sum_i1/N \times r_i/r_M = R/(Nr_M)$. If applied naively, the number of candidates to loop through is a geometric law with parameter $R/(Nr_M)$. The expected number of candidates is thus $Nr_M/R$. For a uniform distribution, this value can be 1, but in general, it yields bad results~\reffigp{fig:rejection_based_drawing}.
+A careful proof shows that the probability of drawing index $i$ is equal to $r_i / R$~\citep{serebrinsky_physical_2011}. Note that the choice of $r_M$ is critical for the efficiency of the method~\reffigp{fig:rejection_based_drawing}. Formally, the probability to accept a candidate is $\sum_i\prob{\textrm{draw }i}$ $\prob{\textrm{accept }i} = \sum_i1/N \times r_i/r_M = R/(Nr_M)$. If applied naively, the number of candidates to loop through is a geometric law with parameter $R/(Nr_M)$. The expected number of candidates is thus $Nr_M/R$. For a uniform distribution, this value can be 1, but in general, it yields bad results~\reffigp{fig:rejection_based_drawing}.
 
 \begin{figure}[!h]
   \centering
