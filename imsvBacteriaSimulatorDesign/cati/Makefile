@@ -1,7 +1,10 @@
 
 
-cati.pdf: *.tex figures/*.pdf
-	pdflatex cati.tex && pdflatex cati.tex
+cati.pdf: *.tex cati.bib figures/*.pdf
+	pdflatex cati
+	bibtex cati
+	pdflatex cati
+	pdflatex cati
 
 %.pdf: %.svg
 	~/svg2pdf.sh $<

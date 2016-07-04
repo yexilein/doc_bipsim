@@ -393,7 +393,7 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.1942147"
-     inkscape:cx="343.33417"
+     inkscape:cx="345.00891"
      inkscape:cy="503.52499"
      inkscape:window-x="0"
      inkscape:window-y="25"
@@ -492,6 +492,7 @@
 
 
 
+
 <g
    id="g5573-2-6"
    transform="translate(-284.92175,16.383711)"><path
@@ -510,6 +511,7 @@
      y="-477.49045"
      sodipodi:role="line"
      id="tspan108-1-2">RateContainer</tspan></text>
+
 
 
 <path
@@ -561,6 +563,7 @@
      id="tspan3089-5-7" /></text>
 
 
+
 </g>
 <g
    id="g3203"
@@ -581,6 +584,7 @@
      x="116.82325"
      style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateVector</tspan></text>
 
+
 </g><g
    id="g3203-0"
    transform="translate(56.271288,-136.31933)"><path
@@ -599,6 +603,7 @@
      y="-576.17413"
      x="123.2627"
      style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateTree</tspan></text>
+
 
 </g><g
    id="g3203-0-1"
@@ -619,6 +624,7 @@
      x="88.768562"
      style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">HybridRateContainer</tspan></text>
 
+
 </g><g
    id="g3203-60"
    transform="translate(63.167296,-71.934486)"><path
@@ -637,6 +643,7 @@
      y="-576.8006"
      x="108.74044"
      style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">FlyRateVector</tspan></text>
+
 
 </g><path
    style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker3165)"
@@ -695,6 +702,7 @@
      y="-326.11856"
      id="tspan4540">in binary groups.</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -711,6 +719,7 @@
      x="94.037605"
      y="-406.67114"
      id="tspan4538">in a binary tree.</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -737,6 +746,7 @@
      y="-499.04932"
      id="tspan4579">when random_index() is called.</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -754,78 +764,83 @@
      y="-580.13586"
      id="tspan4581">(naive implementation).</tspan></text>
 
+
 <g
    id="g3203-0-2"
    transform="translate(227.06862,-123.28516)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12"
+   x="123.2627"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5"
+     sodipodi:role="line"
+     y="-576.17413"
      x="123.2627"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="123.2627"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateNode</tspan></text>
+     style="font-size:11.19999980999999956px;font-style:oblique;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans Oblique">RateNode</tspan></text>
+
 </g><g
    id="g3203-0-2-2"
    transform="translate(255.38724,-164.21278)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2-4"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12-8"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2-4"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12-8"
+   x="108.8627"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5-4"
+     sodipodi:role="line"
+     y="-576.17413"
      x="108.8627"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5-4"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="108.8627"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">ReactionNode</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">ReactionNode</tspan></text>
+
 </g><g
    id="g3203-0-2-2-7"
    transform="translate(389.50761,-140.98518)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2-4-1"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12-8-2"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2-4-1"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12-8-2"
+   x="120.7963"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5-4-7"
+     sodipodi:role="line"
+     y="-576.17413"
      x="120.7963"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5-4-7"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="120.7963"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">SumNode</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">SumNode</tspan></text>
+
 </g><g
    id="g3203-0-2-2-0"
    transform="translate(382.91194,-103.26694)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2-4-8"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12-8-3"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2-4-8"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12-8-3"
+   x="112.0627"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5-4-3"
+     sodipodi:role="line"
+     y="-576.17413"
      x="112.0627"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5-4-3"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="112.0627"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">DummyNode</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">DummyNode</tspan></text>
+
 </g><path
    style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    d="m 331.62234,111.89189 61.04791,-4.65879"
@@ -888,6 +903,7 @@
      id="tspan3204"
      x="269.44778"
      y="-453.11014">0..n</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -900,78 +916,83 @@
      id="tspan3208"
      x="270.11771"
      y="-434.87344">0..n</tspan></text>
+
 <g
    id="g3203-0-2-7"
    transform="translate(154.74605,-249.91839)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2-9"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12-9"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2-9"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12-9"
+   x="117.88966"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5-3"
+     sodipodi:role="line"
+     y="-576.17413"
      x="117.88966"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5-3"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="117.88966"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateGroup</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateGroup</tspan></text>
+
 </g><g
    id="g3203-0-2-24"
    transform="translate(161.56951,-299.80642)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2-5"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12-5"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2-5"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12-5"
+   x="119.19122"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5-7"
+     sodipodi:role="line"
+     y="-576.17413"
      x="119.19122"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5-7"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="119.19122"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateToken</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateToken</tspan></text>
+
 </g><g
    id="g3203-60-9"
    transform="translate(29.442223,-311.36615)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-6-0"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-48-6"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-6-0"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-48-6"
+   x="108.74044"
+   y="-576.8006"><tspan
+     id="tspan108-1-2-9-7-0"
+     sodipodi:role="line"
+     y="-576.8006"
      x="108.74044"
-     y="-576.8006"><tspan
-       id="tspan108-1-2-9-7-0"
-       sodipodi:role="line"
-       y="-576.8006"
-       x="108.74044"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">FlyRateVector</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">FlyRateVector</tspan></text>
+
 </g><g
    id="g3203-0-2-2-00"
    transform="translate(113.8104,-177.49761)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-8-2-4-9"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-3-12-8-4"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-8-2-4-9"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-3-12-8-4"
+   x="108.8627"
+   y="-576.17413"><tspan
+     id="tspan108-1-2-9-2-5-4-1"
+     sodipodi:role="line"
+     y="-576.17413"
      x="108.8627"
-     y="-576.17413"><tspan
-       id="tspan108-1-2-9-2-5-4-1"
-       sodipodi:role="line"
-       y="-576.17413"
-       x="108.8627"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">VectorQueue</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">VectorQueue</tspan></text>
+
 </g><path
    style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    d="m 273.68884,130.79885 35.34213,25.29285"
@@ -994,6 +1015,7 @@
      id="tspan4520"
      x="212.91628"
      y="-420.69489">1</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1006,6 +1028,7 @@
      id="tspan4524"
      x="473.6167"
      y="-455.52951">(used to balance tree)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1018,6 +1041,7 @@
      id="tspan4528"
      x="478.45541"
      y="-416.83649">(intermediate nodes)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1030,6 +1054,7 @@
      id="tspan4532"
      x="381.73013"
      y="-394.30875">(leaves)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1042,24 +1067,26 @@
      id="tspan4536"
      x="215.0367"
      y="-380.50113">(nodes to update)</tspan></text>
+
 <g
    id="g3203-60-9-3"
    transform="translate(-101.78548,-305.2651)"><path
-     d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-     id="path104-1-9-7-6-0-1"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="ccccc" /><text
-     transform="scale(1,-1)"
-     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-     id="text106-6-9-5-48-6-9"
+   d="m 87.067581,590.64927 121.958999,0 0,-20.944 -121.958999,0 z"
+   style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+   id="path104-1-9-7-6-0-1"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="ccccc" /><text
+   transform="scale(1,-1)"
+   style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+   id="text106-6-9-5-48-6-9"
+   x="114.25021"
+   y="-576.8006"><tspan
+     id="tspan108-1-2-9-7-0-0"
+     sodipodi:role="line"
+     y="-576.8006"
      x="114.25021"
-     y="-576.8006"><tspan
-       id="tspan108-1-2-9-7-0-0"
-       sodipodi:role="line"
-       y="-576.8006"
-       x="114.25021"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateValidity</tspan></text>
+     style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">RateValidity</tspan></text>
+
 </g><path
    style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    d="m 214.90039,262.36824 134.3804,46.60947"
@@ -1130,6 +1157,7 @@
      x="-6.6989632"
      y="-224.10252"
      id="tspan4586">has changed)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1142,6 +1170,7 @@
      id="tspan4590"
      x="120.06093"
      y="-245.55302">(total rate of groups)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1154,6 +1183,7 @@
      id="tspan4594"
      x="461.39108"
      y="263.05713">(stores rates in a (a, 2a] range)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1170,6 +1200,7 @@
      x="374.43332"
      y="-271.22638"
      id="tspan4600">current group and position in group)</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1182,6 +1213,7 @@
      id="tspan4604"
      x="206.73773"
      y="-338.03745">0..n</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1194,6 +1226,7 @@
      id="tspan4608"
      x="98.325272"
      y="-317.53085">1</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1206,6 +1239,7 @@
      id="tspan4612"
      x="140.26852"
      y="-316.0416">1</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1218,6 +1252,7 @@
      id="tspan4616"
      x="205.76891"
      y="-318.09003">0..n</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
@@ -1230,4 +1265,5 @@
      id="tspan4620"
      x="310.31146"
      y="-308.15231">0..n</tspan></text>
+
 </g></svg>
