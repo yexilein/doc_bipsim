@@ -25,7 +25,7 @@ The first method that was used historically is staightforward and sometimes refe
       \includegraphics[width=\textwidth]{ratevector_update}
     \end{minipage}
   \end{minipage}
-  \caption{(Left) Illustration of drawing along a biased wheel and its equivalent representation of the wheel as a segment. (Right) Container and algorithms used to maintain the structure.}
+  \caption{(Left) Illustration of drawing along a biased wheel and its equivalent representation as a segment. (Right) Container and algorithms used to maintain the structure.}
   \label{fig:biased_wheel}
 \end {figure}
 
@@ -172,7 +172,7 @@ A careful proof shows that the probability of drawing index $i$ is equal to $r_i
     \textbf{C}\\
     \includegraphics[width=\textwidth]{rejection_groups}  
   \end{minipage}
-  \caption{Rejection based drawing (adapted from \ref{}). (A) Geometric illustration of rejection principle. Drawing occurs in a 2D space, with propensities aligned along the $x$ axis and their value given by gray bars along the $y$ axis. A drawing is accepted if it falls into the gray domain. Note that the probability to draw a propensity is proportional to its value, as an accepted drawing will be distributed uniformly across the gray domain. (B) Examples displaying variance in efficiency of the technique (maximal for uniform propensities, minimal when some are very high and most are very low). (C) Sorting propensities into groups whose limits are powers of 2 ensures a minimal 1/2 acceptation probability \emph{within a given group}.}
+  \caption{Rejection based drawing (adapted from \citet{slepoy_constant-time_2008}). (A) Geometric illustration of rejection principle. Drawing occurs in a 2D space, with propensities aligned along the $x$ axis and their value given by gray bars along the $y$ axis. A drawing is accepted if it falls into the gray domain. Note that the probability to draw a propensity is proportional to its value, as an accepted drawing will be distributed uniformly across the gray domain. (B) Examples displaying variance in efficiency of the technique (maximal for uniform propensities, minimal when some are very high and most are very low). (C) Sorting propensities into groups whose limits are powers of 2 ensures a minimal 1/2 acceptation probability \emph{within a given group}.}
   \label{fig:rejection_based_drawing}
 \end {figure}
 
