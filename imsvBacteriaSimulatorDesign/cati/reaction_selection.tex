@@ -52,14 +52,14 @@ Generally the wheel is seen as a segment subdivided into $N$ subsegments of leng
     \end{algorithm}
   \end{minipage}
   \caption{Direct drawing method}
-  \label{fig:direct_search}
+  \label{fig:direct_drawing}
 \end {figure}
 
-Worst case of the drawing~\reffigp{fig:direct_search} occurs when $u$ is in the last subsegment, so the loop has to be iterated $N$ times, yielding $O(N)$ complexity.
+Worst case of the drawing~\reffigp{fig:direct_drawing} occurs when $u$ is in the last subsegment, so the loop has to be iterated $N$ times, yielding $O(N)$ complexity.
 
 \subsection {Next reaction method}
 
-The next reaction method is based on the direct method. It is used in systems where it is known that propensities are not uniform. The point is to accelerate the direct method by sorting (at least rougly) propensities within the vector. This does not change drawing statistics but accelerates finding where a drawing is located on the wheel. For example, say a propensity takes up 50\% of total propensity and is located at the beginning of the vector. Then each random drawing $u < 0.5$ will be instantly found to fall into the first sector of the biased wheel. In a non-sorted vector, we would have to loop through several small sectors before finding the big one.
+The next reaction method is based on the direct method. It is used in systems where it is known that propensities are not uniform. The point is to accelerate the direct method by sorting (at least rougly) propensities within the vector. This does not change drawing statistics but accelerates finding where a drawing is located on the wheel. For example, say a propensity takes up 50\% of total propensity and is located at the beginning of the vector. Then each random drawing $u < 0.5\sum r_i$ will be instantly found to fall into the first sector of the biased wheel. In a non-sorted vector, we would have to loop through several small sectors before finding the big one.
 
 Because the next reaction method is only a twist of the direct method, we do not go into furter details now. We will also omit it in complexity analysis, as it has the same worst-case complexity as the direct method. We will only reference it again in the Experiment section.
 
@@ -108,11 +108,11 @@ This procedure is actually very similar to the biased wheel method, except we pe
               \KwRet{node.index}
     \end{algorithm}
   \end{minipage}
-  \caption{Binary tree: search method.}
-  \label{fig:tree_search}
+  \caption{Binary tree: drawing method.}
+  \label{fig:tree_drawing}
 \end{figure}
 
-Complexity for performing the drawing~\reffigp{fig:tree_search} is given by the depth of the tree, $\lceil\log_2 N\rceil$, which is $O(\log N)$.
+Complexity for performing the drawing~\reffigp{fig:tree_drawing} is given by the depth of the tree, $\lceil\log_2 N\rceil$, which is $O(\log N)$.
 
 \begin{figure}[!h]
   \begin{minipage}{0.5\textwidth}
@@ -150,12 +150,12 @@ In this approach, we organize propensities into groups and use a different drawi
 \item We choose a value $r_M$ such that $\forall i, r_M \geq r_i$.
 \item Until a good candidate is found.
   \begin{enumerate}
-  \item We draw a random number $i$ between 1 and $N$.
+  \item We draw a random number $i$ between 1 and $N$ (with replacement).
   \item We draw a random number $u$ on the $[0, r_M]$ segment. If $u > r_i$, we reject $i$, else we keep it.
   \end{enumerate}
 \end{enumerate}
 
-A careful proof shows that the probability of drawing index $i$ is equal to $r_i / R$~\citep{serebrinsky_physical_2011}. Note that the choice of $r_M$ is critical for the efficiency of the method~\reffigp{fig:rejection_based_drawing}. Formally, the probability to accept a candidate is $\sum_i\prob{\textrm{draw }i}$ $\prob{\textrm{accept }i} = \sum_i1/N \times r_i/r_M = R/(Nr_M)$. If applied naively, the number of candidates to loop through is a geometric law with parameter $R/(Nr_M)$. The expected number of candidates is thus $Nr_M/R$. For a uniform distribution, this value can be 1, but in general, it yields bad results~\reffigp{fig:rejection_based_drawing}.
+A careful proof shows that the probability of drawing index $i$ is equal to $r_i / R$~\citep{serebrinsky_physical_2011}. Note that the choice of $r_M$ is critical for the efficiency of the method~\reffigp[A]{fig:rejection_based_drawing}. Formally, the probability to accept a candidate is $\sum_i\prob{\textrm{draw }i}$ $\prob{\textrm{accept }i} = \sum_i1/N \times r_i/r_M = R/(Nr_M)$. If applied naively, the number of candidates to loop through is a geometric law with parameter $R/(Nr_M)$. The expected number of candidates is thus $Nr_M/R$. For a uniform distribution, this value can be 1, but in general, it yields bad results~\reffigp[B]{fig:rejection_based_drawing}.
 
 \begin{figure}[!h]
   \centering
@@ -172,16 +172,19 @@ A careful proof shows that the probability of drawing index $i$ is equal to $r_i
     \textbf{C}\\
     \includegraphics[width=\textwidth]{rejection_groups}  
   \end{minipage}
-  \caption{Rejection based drawing (adapted from \citet{slepoy_constant-time_2008}). (A) Geometric illustration of rejection principle. Drawing occurs in a 2D space, with propensities aligned along the $x$ axis and their value given by gray bars along the $y$ axis. A drawing is accepted if it falls into the gray domain. Note that the probability to draw a propensity is proportional to its value, as an accepted drawing will be distributed uniformly across the gray domain. (B) Examples displaying variance in efficiency of the technique (maximal for uniform propensities, minimal when some are very high and most are very low). (C) Sorting propensities into groups whose limits are powers of 2 ensures a minimal 1/2 acceptation probability \emph{within a given group}.}
+  \caption{Rejection based drawing (adapted from \citet{slepoy_constant-time_2008}). (A) Geometric illustration of rejection principle. Drawing occurs in a 2D space, with propensities aligned along the $x$ axis and their value given by gray bars along the $y$ axis. A drawing is accepted if it falls into the gray domain. Note that the probability to draw a propensity is proportional to its value, as an accepted drawing will be distributed uniformly across the gray domain. (B) Examples displaying efficiency of the technique (maximal for uniform propensities, minimal when some are very high and most are very low). (C) Sorting propensities into groups whose limits are powers of 2 ensures a minimal 1/2 acceptation probability \emph{within a given group}.}
   \label{fig:rejection_based_drawing}
 \end {figure}
 
- \paragraph{Group method} The idea behind the algorithm is to improve the acceptation probability by placing propensitiess in \emph{groups}. A group is delimited by two values $r_{min}$ and $r_{max}$. Propensity $r_i$ belongs to the latter group if $r_{min} < r_i \leq r_{max}$. If the rejection method is applied to the propensities in this group, we can choose $r_M = r_{max}$ and the acceptation probability is necessarily $\geq (r_{max}-r_{min})/r_M$. The simplest case is to choose groups that are powers of 2. Then $r_{max} = 2r_{min}$ and the acception probability is $\geq 1/2$. If we choose some base rate $b$, we can delimit $K$ groups of the form $\{(2^{k-1}b, 2^kb]\}_{1\leq k \leq K}$ and a base group $\{(0, b]\}$. $b$ and $K$ have to be chosen such that they encompass all propensities in the system. Note that $K$ does not generally depend on $N$, it reflects the highest propensity value, so that it remains relatively small.
+ \paragraph{Group method} The idea behind the algorithm is to improve the acceptation probability by placing propensities in \emph{groups}:
 \begin{enumerate}
 \item We draw a group index by using a classical method (biased wheel or binary tree).
 \item We draw a propensity inside the group by using the rejection-based method.
 \end{enumerate}
-We suppose the structure is already in place, \textit{i.e.} propensities are placed in the right group and the total propensity for each group is known. Step 1 is at most $O(K)$, which is independent of $N$. Step 2 requires less than 2 candidates on average, so it is $O(1)$. This results in $O(1)$ globally, making it significantly more efficient than the two previous method. However, we will see that its implementation is also trickier in order to preserve this theoretical complexity.
+
+\citet{slepoy_constant-time_2008} propose placing propensities into binary groups. They choose a base rate $b$. Groups are of the form $(0, b]$, $(b, 2b]$, $(2b, 4b]$, \textit{etc.} $(0,b]$ contains all propensities between 0 and $b$, and so on. When applying the rejection method to any of these groups (except $(0, b]$), the acceptation probability is $\geq 1/2$~\reffigp[C]{fig:rejection_based_drawing}. Note that the number of groups $K$ does not generally depend on $N$, it only depends on the highest propensity value. In general, it remains relatively small.
+
+Suppose the structure is already in place, \textit{i.e.} propensities are placed in the right group and the total propensity for each group is known. Step 1 is at most $O(K)$, which is independent of $N$. Step 2 requires less than 2 candidates on average, so it is $O(1)$. This results in $O(1)$ globally, making it significantly more efficient than the two previous methods. However, we will see that its implementation is also trickier in order to preserve this theoretical complexity.
 
 \begin{figure}[!h]
   \centering
@@ -198,6 +201,7 @@ We suppose the structure is already in place, \textit{i.e.} propensities are pla
   \centering
   \begin{minipage}{\textwidth}
     \centering
+    \includegraphics[width=0.8\textwidth]{hybrid_drawing}
     \begin{algorithm}[H]
       \SetAlgoLined
       \KwData{$K+1$ groups, group k containing propensities whose value falls in the interval $(0,b]$ if k=0, $(2^{k-1}b, 2^kb]$ if k $>$ 0. Propensities are stored as a couple containing their value and original index.}
@@ -210,19 +214,19 @@ We suppose the structure is already in place, \textit{i.e.} propensities are pla
       }
       \KwRet{candidate.index}
     \end{algorithm}
-    \includegraphics[width=0.8\textwidth]{hybrid_drawing}
   \end{minipage}
-  \caption{Hybrid method: search method.}
-  \label{fig:hybrid_search}
+  \caption{Hybrid method: drawing method.}
+  \label{fig:hybrid_drawing}
 \end{figure}
 
-Because of the group structure, the loop in \reffigt{fig:hybrid_search} is $O(1)$ (see above). The first multinomial drawing is at most $O(K)$, so the complexity is globally $O(K)$. Because $K$, the number of groups, does not naturally scale with $N$, the number of reactions, the complexity is overall $O(1)$, as $N$ is the real variable of interest here.
+Because of the group structure, the loop in \reffigt{fig:hybrid_drawing} is $O(1)$ (see above). The first multinomial drawing is at most $O(K)$, so the complexity is globally $O(K)$. Because $K$, the number of groups, does not naturally scale with $N$, the number of reactions, the complexity is overall $O(1)$, as $N$ is the real variable of interest here.
 
 
 \begin{figure}[!h]
   \centering
   \begin{minipage}{\textwidth}
     \centering
+    \includegraphics[width=0.8\textwidth]{hybrid_update}
     \begin{algorithm}[H]
       \SetAlgoLined
       \KwData{$K+1$ groups, group k containing propensities whose value falls in the interval $(0,b]$ if k=0, $(2^{k-1}b, 2^kb]$ if k $>$ 0. Propensities are stored as a couple containing their value and original index. Index i\_update of propensity to update, new propensity value p\_update.}
@@ -241,7 +245,6 @@ Because of the group structure, the loop in \reffigt{fig:hybrid_search} is $O(1)
   propensity.value = p\_update\;
   Add propensity to new\_group and update group's total propensity\;
     \end{algorithm}
-    \includegraphics[width=0.8\textwidth]{hybrid_update}
   \end{minipage}
   \caption{Hybrid method: update method.}
   \label{fig:hybrid_update}

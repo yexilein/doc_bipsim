@@ -7,8 +7,8 @@
 \usepackage[round]{natbib}
 \usepackage{color}
 
-\newcommand\reft[2]{#1~\ref{#2}}
-\newcommand\refp[2]{(#1~\ref{#2})}
+\newcommand\reft[3][]{#2~\ref{#3}#1}
+\newcommand\refp[3][]{(#2~\ref{#3}#1)}
 \newcommand\refsect[1]{\reft{Section}{#1}}
 \newcommand\refsecp[1]{\refp{Sec.}{#1}}
 \newcommand\reftabt[1]{\reft{Table}{#1}}
@@ -57,8 +57,8 @@
 \makeatletter
   \def\relativepath{\import@path}
 \makeatother
-\newcommand\reffigt[1]{\reft{Figure}{#1}}
-\newcommand\reffigp[1]{\refp{Fig.}{#1}}
+\newcommand\reffigt[2][]{\reft[#1]{Figure}{#2}}
+\newcommand\reffigp[2][]{\refp[#1]{Fig.}{#2}}
 
 % ==========
 %  Document
@@ -133,7 +133,7 @@ r = k_1 \prod\limits_{i=0}^{r}n_{A_i}(n_{A_i}-1)...(n_{A_i}-a_i+1)
 
 \begin{itemize}
 \item STEP 1: Update propensity functions.
-\item STEP 2: Select reaction to perform and next reaction time.
+\item STEP 2: Select reaction to perform and next reaction time, perform reaction.
 \end{itemize}
 
 Most of the effort is spent on studying how to optimize the second step, but we will see that the two steps are actually interrelated. Drawing statistics have to follow the properties described above. In a sense, the SSA and its variants are said to be (statistically) exact.
