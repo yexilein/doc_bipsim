@@ -20,7 +20,7 @@ The parsing system used by the simulator is pretty simple~\reffigp{fig:text_pars
   \centering
   \includegraphics[width=\linewidth]{interpreter}
   \caption{Interpreter system used. For each class of the simulator, a \texttt{Builder} is responsible for interpreting current line, solving dependencies, checking validity of parameters. If format is invalid or dependencies could not be resolved, exceptions are raised to warn the user.}
-  \label{fig:intepreter}
+  \label{fig:interpreter}
 \end{figure}
 
 The parsing system is designed to cut each line into words, then the words are interpreted by \texttt{Builder}s that try to create instances of each of the class of the simulator. The \texttt{Parser} loops through the \texttt{Builder}s until an instance was successfully created. Line format is checked token-wise by an \texttt{Interpreter}~\reffigp{fig:interpreter}. If no \texttt{Builder} is able to match the line, a \texttt{FormatException} is raised. If some dependency could not be solved, a \texttt{DependencyException} is raised. In the latter case, the \texttt{Parser} will postpone the line until dependency can be successfully solved.

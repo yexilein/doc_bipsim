@@ -32,7 +32,7 @@
 
 \subsection{Programming by contract} 
 
-These tests typically apply to attributes of classes and arguments of methods. They are usually divided into three subcategories: \emph{preconditions}, \emph{postconditions} and \emph{invariants}. They check whether the class interacts correctly with the outside world, generally other classes. In the simulator, we defined two macros \texttt{REQUIRE} and \texttt{ENSURE} to test pre- and postconditions. We left invariants out because they are hard to check in a language that does not support them natively.
+These tests typically apply to attributes of classes and arguments of methods. They are usually divided into three subcategories: \emph{preconditions}, \emph{postconditions} and \emph{invariants}. They check whether the class interacts correctly with the outside world, generally other classes. We left invariants out because they are hard to check in a language that does not support them natively. In theory, invariants are conditions on attributes that must always be true, from construction to destruction. They are checked after construction and every method call. In C++, we would have to implement these calls manually for all methods, which is a little tedious. In the simulator, we defined two macros \texttt{REQUIRE} and \texttt{ENSURE} to test pre- and postconditions.
 
 \begin{figure}[!h]
   \centering
@@ -57,7 +57,7 @@ int RateTree::find (double value) const
 \label{fig:prepostconditions}
 \end{figure}
 
-The example shown in~\reffigt{fig:prepostconditions} shows typical uses of pre- and postconditions. With preconditions, we test that the user provides valid parameter values. This is the part of the contract the user has to respect. With postconditions, we check that return values or attribute values are valid. This is the part of the contract the class/method has to respect. Finally, the invariant are rules that attributes must respect throughout the life cycle of the class instance (for \texttt{RateTree}, an invariant rule is that all nodes of the tree carry a value that is positive). Preconditions and postconditions are extremely useful for detecting simple typing mistakes, numerical issues (as in the example shown) and so on. Each time a precondition or a postcondition is broken, the program is interrupted and the condition that was broken is displayed (using \texttt{assert()}).
+The example shown in~\reffigt{fig:prepostconditions} shows typical uses of pre- and postconditions. With preconditions, we test that the user provides valid parameter values. This is the part of the contract the user has to respect. With postconditions, we check that return values or attribute values are valid. This is the part of the contract the class/method has to respect. As mentioned, invariants are rules that attributes must respect throughout the life cycle of the class instance (for \texttt{RateTree}, an invariant rule is that all nodes of the tree carry a value that is positive). Preconditions and postconditions are extremely useful for detecting simple typing mistakes, numerical issues (as in the example shown) and so on. Each time a precondition or a postcondition is broken, the program is interrupted and the condition that was broken is displayed (using \texttt{assert()}).
 
 \paragraph{Why not use tests?} Testing parameter validity and return value for every method of every class is very expensive. For the simulator, testing preconditions and postconditions nearly doubles simulation time. By using macros, we can activate/desactivate them during compilation (by using \texttt{./configure} \texttt{--enable-pre-check} \texttt{--enable-post-check}). In developpment phase, they are usually left on (except when performance is tested) and they are desactivated for real runs. Therefore, the programer should not worry about their cost and add them \textbf{for every. single. method}: our only goal is to fail fast!
 
@@ -77,7 +77,7 @@ Unit tests are probably the most famoust tests used. Unit tests generally test t
 
 \subsection{Integration tests}
 
-This is the last layer of test. The whole simulator or large pieces of it are used. The idea is to test more systematic behaviors, in which the interaction of classes is crucial. Often, user input will be used and the scenario are very high level. Typical examples are:
+This is the last layer of test. The whole simulator or large pieces of it are used. The idea is to test more systemic behaviors, in which the interaction of classes is crucial. Often, user input will be used and the scenario are very high level. Typical examples are:
 \begin{itemize}
   \item Check that we control the random seed correctly by testing whether the same input leads to exactly the same output.  
   \item If we provide known DNA and define RNAs and proteins correctly according to simulator input, the sequence of proteins as processed by the simulator should match known proteins.

@@ -10,7 +10,7 @@ Once \texttt{Reaction}s and \texttt{Reactant}s are defined, they must be integra
   \label{fig:solver}
 \end{figure}
 
-The solving loop is depicted in~\reffigt{fig:solver}. The Gillespie algorithm has many variants. We decided to implement it using three \emph{abstract} classes. By using inheritance, variants can be implemented for each step of the algorithm and combined at will by the end user. The three central classes are:
+The solving loop is depicted in~\reffigt{fig:solver}. The Gillespie algorithm has many variants. We decided to implement it using three \emph{abstract} classes. By using inheritance, variants can be combined for each step of the algorithm (how to update reactions, how to select a reaction). The three central classes are:
 \begin{itemize}
   \item \texttt{Solver}: Children of this class decide how and when rates should be updated, \textit{e.g.} update rates after every reaction, only after a given time step, etc. Note that they do not perform any of these computations, they just organize how the algorithm should work.
   \item \texttt{RateManager}: Children of this class are responsible for updating reaction rates when prompted to by a \texttt{Solver} class. Recomputing all rates is generally inefficient, so various implementations of this task can be used to improve the global loop speed.

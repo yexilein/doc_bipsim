@@ -190,14 +190,14 @@ where
 DoubleStrandRecruitment <BoundChemical> <FreeChemical> <bound form> <rate>
 \end{verbatim}
 
-\paragraph{Formula} A \texttt{DoubleStrandRecruitment} typically represents recruitment of a DNA polymerase by the replication fork on the opposite strand~\reffigp{fig:double_strand_rcruitment}. It is defined by
+\paragraph{Formula} A \texttt{DoubleStrandRecruitment} typically represents recruitment of a DNA polymerase by the replication fork on the opposite strand~\reffigp{fig:double_strand_recruitment}. It is defined by
 \[
 \reactionIrr{A + B_{free}}{A + B_{bound}}{k}{}
 \]
 where
 \begin{itemize}
-  \item $A$ is of type \texttt{BoundChemical}
-  \item $B_{free}$ is of type \texttt{FreeChemical}
+  \item $A$ is of type \texttt{BoundChemical}, bound to a \texttt{DoubleStrand}.
+  \item $B_{free}$ is of type \texttt{FreeChemical}.
   \item $B_{bound}$ is a \texttt{BoundChemical} representing the bound form of $B_{free}$.
   \item $k$ is a rate constant.
 \end{itemize}
