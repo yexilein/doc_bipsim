@@ -1,7 +1,7 @@
 
 \section{Perspectives}
 
-There are many perspectives left open by the project. Some have already been proposed throughout the document. Here is a brief overview of some others.
+There are many perspectives left open by the project. Some have already been proposed throughout the document. Here is a brief overview of some others. The late introduction of \texttt{Switch}es actually does have a lot of impact on some of these perspectives, making them way more efficient as originally thought.
 
 \subsection{Handle partial polymerization products}
 
@@ -13,11 +13,13 @@ Upon \texttt{Translocation}, it could be easy to check whether a position on a \
 
 \subsection{Product format, position table?}
 
-The way products are handled is somewhat tedious. It could be interesting to specify the binding site, the +1 of the product and the termination site all at once (in something like a \texttt{PositionTable}). Other elements could be added in the table for each product (pause regions, alternative terminators and so on). This could simplify existing reactions and be closer to the way biological data is actually stored. Anyway, the current system seems to be a little too obscur, something in that direction would be nice.
+The way products are handled is somewhat tedious. It could be interesting to specify the binding site, the +1 of the product and the termination site all at once (in something like a \texttt{PositionTable}). Other elements could be added in the table for each product (pause regions, alternative terminators and so on). This could simplify existing reactions and be closer to the way biological data is actually stored. Anyway, the current system seems to be a little too obscur, something in that direction would be nice. From an implementation point of view, \texttt{Switch}es are great candidates to implement most of these elements (in conjunction with \texttt{BindingSite} for the binding part).
 
 \subsection{Less base reactions?}
 
 \texttt{ChemicalReaction} represents a lot of different reactions, what is done actually depends on the input. It could be nice continuing fusing other reacitons into \texttt{ChemicalReaction}. For example, the \texttt{Loading} reaction can be described as a reaction taking as an input a motif of a sequence, a polymerase and a free element and outputs an occupied polymerase. If we add a reactant type \texttt{SequenceMotif}, a \texttt{Loading} could be defined as multiple \texttt{ChemicalReaction}s which would replace the \texttt{LoadingTable}. This change is actually quite dangerous for performance reasons. Replacing a factorized reaction like \texttt{Loading} by multiple \texttt{ChemicalReaction}s is very expensive unless the latter reactions are automatically factorized. In other words, this would mean that for the use, only \texttt{ChemicalReaction}s are defined but, internally, the simulator would still factorize them as a \texttt{Loading} reaction. Before doing this change, we would have to make sure that it is actually more convenient for the user to only have \texttt{ChemicalReaction}s (think of the ontology as being a user!!!).
+
+Another way to replace loading would be using \texttt{Switch}es based on motifs. This approach could be better performance-wise and very easy to implement. (The previous paragraph was written before the introduction of \texttt{Switch}es, but it was kept for reference.) Anyway, before doing anything, we should compute exactly how performance would be impacted.
 
 \subsection{Serialization}
 

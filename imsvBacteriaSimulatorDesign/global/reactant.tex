@@ -55,7 +55,7 @@ BoundChemical <name>
   \label{fig:bound_chemical}
 \end{figure}
 
-\texttt{BoundChemical}~\reffigp{fig:bound_chemical} is a subclass of \texttt{Chemical} that represents chemicals that are bound to a sequence. It is important to note it only represents molecules bound to the sequence, \emph{not} the complex formed by the chemical and the sequence. Even though \texttt{BoundChemical} represents a pool of molecules, single elements are not interchangeable, they are defined by their position on a sequence. \texttt{BoundChemical} uses class \texttt{BoundUnit} to represent molecules individually. It uses \texttt{BoundUnitFilter} to organize bound units according to outside criteria needed for reactions (classify according to binding sites, motifs read, etc.).
+\texttt{BoundChemical}~\reffigp{fig:bound_chemical} is a subclass of \texttt{Chemical} that represents chemicals that are bound to a sequence. It is important to note it only represents molecules bound to the sequence, \emph{not} the complex formed by the chemical and the sequence. Even though \texttt{BoundChemical} represents a pool of molecules, single elements are not interchangeable, they are defined by their position on a sequence. \texttt{BoundChemical} uses class \texttt{BoundUnit} to represent molecules individually. It uses \texttt{BoundUnitFilter} to organize bound units according to outside criteria needed for reactions (classify according to binding sites, motifs read, etc.). It also uses \texttt{Switch}es on specific switch sites that are sequence dependent (this will be explained in detail later).
 
 \subsubsection{ChemicalSequence}
 

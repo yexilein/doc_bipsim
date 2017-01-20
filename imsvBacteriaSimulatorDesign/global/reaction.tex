@@ -109,7 +109,7 @@ where
 \begin{verbatim}
 TerminationSite <family name> <chemical sequence> <start> <end>
 Translocation <bound chemical> <form after step> <stalled form> \
-  <step size> <rate> [<termination site family>]^{0..n}
+  <step size> <rate>
 \end{verbatim}
 
 \paragraph{Formula} A \texttt{Translocation} represents movement of a bound element along a sequence~\reffigp{fig:translocation}. It is defined by
@@ -128,7 +128,7 @@ where
 	\item $k$ is a rate constant.
 \end{itemize}
 
-\paragraph{Action} When the reaction is performed, a random $C$ is chosen. Generally, it is replaced by a $C_\text{after step}$, moved by a step of a given size along the sequence the original $C$ is bound to. If the chemical cannot move because it reached the end of the sequence or it reaches a termination site, it is replaced by $C_\text{stalled form}$.
+\paragraph{Action} When the reaction is performed, a random $C$ is chosen. Generally, it is replaced by a $C_\text{after step}$, moved by a step of a given size along the sequence the original $C$ is bound to. If the chemical cannot move because it reached the end of the sequence, it is replaced by $C_\text{stalled form}$.
 
 \paragraph{Rate} The rate is given by
 \[

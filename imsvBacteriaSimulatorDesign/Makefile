@@ -6,4 +6,4 @@ simulatorDesign.pdf: simulatorDesign.tex simulatorDesign.bib global/*.tex global
 	pdflatex simulatorDesign
 
 %.pdf: %.svg
-	~/svg2pdf.sh $<
+	./svg2pdf.sh $<

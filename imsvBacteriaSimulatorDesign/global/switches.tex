@@ -1,0 +1,13 @@
+
+\subsection{Switches}
+
+\paragraph{Input format}
+\begin{verbatim}
+Switch <name> <input_bound_chemical> <output_bound_chemical>
+SwitchSite <chemical_sequence> <position> <switch_name>
+\end{verbatim}
+
+\texttt{Switch}es are intrinsically linked to \texttt{BoundChemical}s but apply to specific \texttt{BoundUnit}s through \texttt{SwitchSite}s located on \texttt{ChemicalSequence}s. Every time an instance of \texttt{input\_bound\_chemical} steps on a switch site, it \emph{immediately} becomes an \texttt{output\_bound\_chemical}.
+
+A \texttt{Switch} is not considered a reaction because there is no rate associated with it (the solver does not actually know anything about switches). We dedicate a section to these elements because they play a central role in the simulator's philosophy. The user can use generic reactions that apply in general (\textit{e.g.} transcription of any gene based on its sequence) and use switches every time something more specific is needed. Typically, termination sites for transcription are expected to be \textit{SwitchSite}s. Similarly, important regulation sites can be implemented using \textit{SwitchSite}s.
+
