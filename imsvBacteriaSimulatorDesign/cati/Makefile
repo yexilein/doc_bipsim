@@ -7,4 +7,4 @@ cati.pdf: *.tex cati.bib figures/*.pdf
 	pdflatex cati
 
 %.pdf: %.svg
-	~/svg2pdf.sh $<
+	../svg2pdf.sh $<

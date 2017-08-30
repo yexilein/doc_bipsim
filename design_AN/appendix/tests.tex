@@ -1,0 +1,112 @@
+
+\section{Tests}
+\label{sec:tests}
+
+\subsection{Testing philosophy}
+
+We use three layers of tests:
+\emph{programming by contract}, \emph{unit tests},
+\emph{integration tests}~\reftabp{tab:tests}.
+They are integrated in an automated framework to detect bugs rapidly
+and at the lowest possible level.
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{|c||M{0.25\textwidth}|M{0.25\textwidth}|M{0.25\textwidth}|}
+    \hline
+    Test type & Preconditions \newline Postconditions \newline Invariants & Unit Tests & Integration Tests \\
+    \hline\hline
+    Test level & Implementation details & Class interface & Systemic\\
+    \hline
+    Time per test & a few instructions (ns) & ms to a few seconds & seconds to several minutes\\
+    \hline
+    Use frequency & Permanent & Very frequent & Less frequent\\
+    \hline
+  \end{tabular}
+
+  \caption{Comparisons of tests used to develop the simulator}
+  \label{tab:tests}
+\end{table}
+
+
+\paragraph{Programming by contract}
+These tests typically apply to attributes of classes and arguments of methods.
+They are usually divided into three subcategories:
+\emph{preconditions}, \emph{postconditions} and \emph{invariants}.
+They check whether the class interacts correctly with the outside world, generally other classes.
+We left invariants out because they are hard to check in a language that does not support them natively.
+In the simulator, we defined two macros \texttt{REQUIRE} and \texttt{ENSURE} to test pre- and postconditions.
+Each time a precondition or a postcondition is broken, the program is interrupted
+and the condition that was broken is displayed (using \texttt{assert()}).
+Preconditions and postconditions are extremely useful for detecting simple typing mistakes,
+numerical issues and so on~\reffigp{fig:prepostconditions}.
+
+\begin{figure}[!h]
+  \centering
+\begin{verbatim}
+int RateTree::find (double value) const
+{
+  /** @pre value must be smaller than total tree rate. */
+  REQUIRE (value <= total_rate());
+  /** @pre value must be strictly positive. */
+  REQUIRE (value > 0);
+  int index = _root->find (value);
+  // rarely, the algorithm will fail because of rounding problems and
+  // return a leaf with zero rate. We just take the next nonzero rate.
+  while (_leaves [index]->rate() == 0)
+    { ++index; if (index == _leaves.size()) { index = 0; } }
+  /** @post Rate of returned leaf must be strictly positive. */
+  ENSURE (_leaves [index]->rate() > 0);
+  return index;
+}
+\end{verbatim}
+\caption{Example of the use of preconditions with \texttt{REQUIRE} and postconditions with \texttt{ENSURE}.
+Here the postcondition helped discover a rare bug due to rounding problems that is now adressed in the code.}
+\label{fig:prepostconditions}
+\end{figure}
+
+\paragraph{Unit tests}
+Unit tests test the behavior at the class level.
+We used some simple guidelines to try and write useful and maintainable tests.
+We only wrote tests for the most important classes of the simulator.
+
+\paragraph{Integration tests}
+This is the last layer of test.
+The whole simulator or large pieces of it are used.
+The idea is to test more systemic behaviors, in which the interaction of classes is crucial.
+Typical examples are:
+\begin{itemize}
+  \item If we provide known DNA and define RNAs and proteins correctly according to simulator input, the sequence of proteins as processed by the simulator should match known proteins.
+  \item If we provide DNA, define RNAs, provide a transcription pathway but activate only one promoter, only the RNA associated to that promoter should be transcribed.
+\end{itemize}
+
+
+\subsection{Organizing and running tests}
+
+Tests are associated to the source code of the simulator in order to be run
+as frequently and as simply as possible.
+Tests are driven by Unix Autotools and use the BOOST Test Framework.
+Preconditions and postconditions are written inside the code,
+unit tests are regrouped in a \texttt{tests/unit\_tests} directory
+and integration tests are stored in \texttt{tests/integration}.
+
+Options of \texttt{./configure} are used to activate every layer of test individually.
+By default, all tests are turned off.
+Several layers can be activated simultaneously.
+\begin{itemize}
+  \item \texttt{--enable-pre-check} enables preconditions.
+  \item \texttt{--enable-post-check} enables postconditions.
+  \item \texttt{--enable-unit-tests} enables unit tests and the possibility to create mock objects.
+  \item \texttt{--enable-integration-tests} enables integration tests and the possibility to create mock objects.
+\end{itemize}
+
+Code needs to be recompiled after it has been configured.
+\begin{itemize}
+  \item Preconditions and postconditions are automatically checked every time the program is run
+  (for unit tests, integration tests or any kind of other run).
+  Remember to turn them off for real simulations as they are very time consuming.
+  \item Unit tests and/or integration tests are run by running \texttt{make check}.
+  BOOST automatically generates useful and human readable messages
+  about tests that failed or clearly indicates that all tests have passed.
+\end{itemize}

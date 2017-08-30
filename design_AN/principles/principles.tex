@@ -1,0 +1,83 @@
+\section{Design principles}
+
+In this section, we present the ideas that guided the development of MyBacteria.
+
+\subsection{General requirements for the simulator}
+
+Before we started working on MyBacteria,
+we set up a list of requirements that the simulator should fulfill.
+We wanted to be able to integrate MyBacteria in a whole-cell framework
+applicable to several organisms.
+Such a simulator should meet the following requirements.
+\begin{itemize}
+  \item Simulate as many bacterial processes as possible.
+  \item Being able to integrate various levels of description
+  (coarse-grained processes and low level stochastic processes).
+  \item Generic formalism, applicable to any bacteria.
+  \item Efficient (not more than a couple of hours for one cell cycle).
+  \item Easy to extend and reuse
+  (either by extending the core or coupling with other modules).
+\end{itemize}
+
+\subsection{Design choices}
+
+In order to meet the requirements listed above,
+we opted for a Gillespie-based simulator.
+The Gillespie algorithm has two important features in our context:
+\begin{itemize}
+  \item It is a stochastic algorithm, so it naturally enables to simulate
+  low-level stochastic processes.
+  \item It offers a framework where an arbitrary number of reactions can
+  be added.
+\end{itemize}
+Using the Gillespie algorithm, we can both simulate events at the molecular
+level and aggregated processes.
+The description level of a process simply depends on the number of reactions
+that the user has chosen to represent the process.
+MyBacteria starts with an empty system of reactions.
+The user controls what reactions to add.
+Processes can easily be tuned to match a specific bacterial species.
+
+The standard Gillespie algorithm only implements chemical reactions.
+This does not meet our requirement of simulating a wide variety of processes.
+For example, it is extremely tedious (nearly impossible) to simulate
+translation accurately using only chemical reactions.
+We created a variant of the Gillespie algorithm where new types of reactants
+and reactions can be plugged in.
+We defined a minimal set of reactants and reactions that handles all
+sequence-based reactions (\textit{e.g.} binding, translation elongation).
+All reactions remain low-level, enabling flexible descriptions of
+complex processes.
+A lot of information that is provided as an input for these reactions comes from
+standard sequence annotation.
+When switching from an organism to another, the key reactions that define the
+process remain the same.
+Only sequence information (DNA, position of genes, promoters, etc.) and rates
+need to be adated.
+
+We evaluated performance by simulating protein production.
+Protein production (from gene to protein) is responsible for
+a large number of reactions in a bacterial cell (metabolism aside).
+Simulation is completed within hours even for detailed descriptions of all
+processes involved (stochastic base-by-base elongation with all cofactors).
+This objective was reached by using the latest implementations
+of the (exact) Gillespie algorithm.
+We also tuned all new types of reactions to be nearly as efficient as chemical
+reactions.
+
+Finally, we created clear modules in MyBacteria's structure.
+This allows for core changes and facilitates communication with external modules.
+Typical core changes involve:
+\begin{itemize}
+  \item Plugging in new solver variants
+  (\textit{e.g.} new implementation of the  exact Gillespie algorithm,
+  implementation of approximations such as $\tau$-leaping).
+  \item Plugging in new reactants and reactions.
+\end{itemize}
+Interfaces of the modules were designed for these operations to be pure
+plug-in operations (no need to change the code in existing modules).
+A similar design applies for external programs.
+Reactant concentrations can be modified during the course of a simulation.
+This enables to plug-in arbitrary external solvers.
+For example, we intend to plug-in a deterministic solver for metabolism on
+MyBacteria.
