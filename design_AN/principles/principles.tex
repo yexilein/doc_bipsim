@@ -1,26 +1,6 @@
 \section{Design principles}
 
-In this section, we present the ideas that guided the development of MyBacteria.
-
-\subsection{General requirements for the simulator}
-
-Before we started working on MyBacteria,
-we set up a list of requirements that the simulator should fulfill.
-We wanted to be able to integrate MyBacteria in a whole-cell framework
-applicable to several organisms.
-Such a simulator should meet the following requirements.
-\begin{itemize}
-  \item Simulate as many bacterial processes as possible.
-  \item Being able to integrate various levels of description
-  (coarse-grained processes and low level stochastic processes).
-  \item Generic formalism, applicable to any bacteria.
-  \item Efficient (not more than a couple of hours for one cell cycle).
-  \item Easy to extend and reuse
-  (either by extending the core or coupling with other modules).
-\end{itemize}
-
-\subsection{Design choices}
-
+\paragraph{Stochastic simulation}
 In order to meet the requirements listed above,
 we opted for a Gillespie-based simulator.
 The Gillespie algorithm has two important features in our context:
@@ -38,23 +18,72 @@ MyBacteria starts with an empty system of reactions.
 The user controls what reactions to add.
 Processes can easily be tuned to match a specific bacterial species.
 
-The standard Gillespie algorithm only implements chemical reactions.
+\paragraph{Sequence-based reactions}
+Standard Gillespie simulators only implement chemical reactions.
 This does not meet our requirement of simulating a wide variety of processes.
 For example, it is extremely tedious (nearly impossible) to simulate
 translation accurately using only chemical reactions.
+Take a simple molecule of species $A$ translocating along a sequence $S$
+of length 100.
+Here are three possible models for these translocation events:
+
+\[
+\begin{array}{c|c|c}
+  \text{Model A} & \text{Model B} & \text{MyBacteria}\\
+  & & \\
+  \begin{array}{rcl}
+    S + A & \rightarrow & SA_1 \\
+    SA_1 & \rightarrow & SA_2 \\
+    SA_2 & \rightarrow & SA_3 \\
+          & \cdots & \\
+    SA_{99} & \rightarrow & SA_{100}
+  \end{array}
+  &
+  \begin{array}{rcl}
+    S + A & \rightarrow & S + A^{bound}_1 \\
+    A^{bound}_1 & \rightarrow & A^{bound}_2 \\
+    A^{bound}_2 & \rightarrow & A^{bound}_3 \\
+          & \cdots & \\
+    A^{bound}_{99} & \rightarrow & A^{bound}_{100}
+  \end{array}
+  &
+  \begin{array}{rcl}
+    S + A & \rightarrow & S + A^{bound} \text{ (Binding)} \\
+    A^{bound}_i & \rightarrow & A^{bound}_{i+1} \text{ (Translocation)} \\
+  \end{array}
+\end{array}
+\]
+
+Subscripts show the position of $A$ along the sequence.
+Model A and B use only chemical reactions, both involve duplicating
+translocation events.
+In practice, this implies creating thousands of reactions and chemical
+species.
+In model A, the sequence $S$ can only bind one chemical at a time,
+which is not realistic for biological systems
+(there is a high number of ribosomes per mRNA for example).
+Model B enables several molecules to ``bind'' the sequence at a given time.
+However, bound molecules do not interact with each other,
+\textit{e.g.} it is impossible to handle sequestration of binding motifs.
+In MyBacteria, we define new types of reactants and reactions
+for sequence-based events.
+A single reaction and a single chemical species are used to represent
+all translocation events.
+
 We created a variant of the Gillespie algorithm where new types of reactants
 and reactions can be plugged in.
-We defined a minimal set of reactants and reactions that handles all
+We defined a minimal set of reactants and reactions that handles
 sequence-based reactions (\textit{e.g.} binding, translation elongation).
 All reactions remain low-level, enabling flexible descriptions of
-complex processes.
+complex processes using a limited number of reactions.
 A lot of information that is provided as an input for these reactions comes from
 standard sequence annotation.
 When switching from an organism to another, the key reactions that define the
 process remain the same.
 Only sequence information (DNA, position of genes, promoters, etc.) and rates
-need to be adated.
+need to be adapted.
 
+\paragraph{Efficiency}
 We evaluated performance by simulating protein production.
 Protein production (from gene to protein) is responsible for
 a large number of reactions in a bacterial cell (metabolism aside).
@@ -65,7 +94,8 @@ of the (exact) Gillespie algorithm.
 We also tuned all new types of reactions to be nearly as efficient as chemical
 reactions.
 
-Finally, we created clear modules in MyBacteria's structure.
+\paragraph{Modularity}
+We created clear modules in MyBacteria's structure.
 This allows for core changes and facilitates communication with external modules.
 Typical core changes involve:
 \begin{itemize}

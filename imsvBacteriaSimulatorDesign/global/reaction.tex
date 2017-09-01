@@ -3,7 +3,7 @@
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=\linewidth]{reaction_uml}
+  \includegraphics[scale=0.8]{reaction_uml}
   \caption{UML diagram of \texttt{Reaction} hierarchy.}
   \label{fig:reaction_uml}
 \end{figure}
@@ -86,7 +86,7 @@ where
 \paragraph{Rate} The rates are given by
 \[
 	\lambda_{forward} = \frac{[C_{free}]}{V_c} \sum_{\text{sites }s \in BSF} (k_{on})_s \times \text{Number of sites $s$ available}
-\] 
+\]
 \[
 	\lambda_{backward} = \frac{1}{V_c} \sum_{\text{molecules }m \in C_{bound}} (k_{off})_\text{site on which $m$ is bound}
 \]
@@ -230,7 +230,7 @@ Release <polymerase> <empty_polymerase> <fail_polymerase> \
 \[
 	\reactionIrr{PolP}{Pol + P}{k}{}
 \]
-or 
+or
 \[
 	\reactionIrr{PolP}{PolP_{fail}}{k}{}
 \]
@@ -262,7 +262,7 @@ where
 \paragraph{Input format}
 \begin{verbatim}
 CompositionTable <name> [<letter> [<chemical composing letter>]^{1..m}]^{1..n}
-Degradation <chemical sequence> <composition table> <rate>	
+Degradation <chemical sequence> <composition table> <rate>
 \end{verbatim}
 
 \paragraph{Formula} A \texttt{Degradation} represents decomposition of a sequence into base components~\reffigp{fig:degradation}. It is defined by

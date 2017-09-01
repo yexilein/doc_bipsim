@@ -83,10 +83,29 @@
 
 The aim of this document is go present the general design of MyBacteria's implementation
 (the code is documented using Doxygen, technical details are therefore best found in the Doxygen-generated manual).
-We present the main classes used in the simulator and the concepts behind them.
-We also show how we tackled a certain number of efficiency issues (should it be speed or maintainability).
 
-We start by listing the central principles that guided the development of MyBacteria.
+Before we started working on MyBacteria,
+we set up a list of requirements that the simulator should fulfill.
+We wanted to be able to integrate MyBacteria in a whole-cell framework
+applicable to several organisms.
+Such a simulator should meet the following requirements.
+\begin{itemize}
+  \item Simulate as many bacterial processes as possible.
+  \item Generic formalism, applicable to any bacteria.
+  Once a model has been built for some species, it should be easy to adapt it
+  for another species by modifying input files only.
+  \item Easy to use, inputs should be close to classical biochemical
+  descriptions.
+  \item Integrate various levels of description.
+  The user should be able to focus on a process of interest
+  with a very low level of description
+  while keeping the remaining processes at a higher level.
+  \item Efficient (not more than a couple of hours for one cell cycle).
+  \item Easy to extend and reuse
+  (either by extending the core or coupling with other modules).
+\end{itemize}
+
+We start by listing the central design choices of MyBacteria.
 Then we present the base components of the simulator, organized around reactants and reactions.
 The following section describes the same element again, but goes further into hypotheses and critical design elements.
 Finally, appendices are added to describe elements that have been important

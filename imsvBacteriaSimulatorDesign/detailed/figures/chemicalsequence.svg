@@ -290,9 +290,9 @@
      inkscape:window-height="1026"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.1942147"
-     inkscape:cx="471.10674"
-     inkscape:cy="460.00924"
+     inkscape:zoom="0.84443731"
+     inkscape:cx="272.69437"
+     inkscape:cy="438.62586"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -676,16 +676,16 @@
        inkscape:connection-end-point="d4"
        inkscape:connection-end="#g5573-5-8" /><text
        xml:space="preserve"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="257.27444"
-       y="-418.56021"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.19999981px;line-height:125%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="316.47467"
+       y="-442.5603"
        id="text4233"
        sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan4235"
-         x="257.27444"
-         y="-418.56021">1</tspan></text>
+         x="316.47467"
+         y="-442.5603">1</tspan></text>
 <g
        id="g5573-5-5"
        transform="translate(364.20341,-35.000774)"><path
@@ -754,16 +754,16 @@
        inkscape:connection-end="#g5573-5-5"
        inkscape:connection-end-point="d4" /><text
        xml:space="preserve"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="525.28223"
-       y="-422.66153"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.19999981px;line-height:125%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="546.08191"
+       y="-433.86157"
        id="text4496"
        sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan4498"
-         x="525.28223"
-         y="-422.66153">0..n</tspan></text>
+         x="546.08191"
+         y="-433.86157">0..n</tspan></text>
 <rect
        transform="scale(1,-1)"
        y="-328.72681"
@@ -859,14 +859,14 @@
        inkscape:connection-end-point="d4"
        transform="matrix(0.8,0,0,-0.8,0,538.02502)" /><text
        xml:space="preserve"
-       style="font-size:11.19999981px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
-       x="524.93848"
-       y="-487.27484"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.19999981px;line-height:125%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="545.73816"
+       y="-512.87494"
        id="text3186"
        sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3188"
-         x="524.93848"
-         y="-487.27484">0..n</tspan></text>
+         x="545.73816"
+         y="-512.87494">0..n</tspan></text>
 </g></svg>
