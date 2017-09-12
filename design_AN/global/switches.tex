@@ -10,7 +10,7 @@ SwitchSite <chemical_sequence> <position> <switch_name>
 \texttt{Switch}es are intrinsically linked to \texttt{BoundChemical}s
 but apply to specific \texttt{BoundUnit}s through \texttt{SwitchSite}s
 located on \texttt{ChemicalSequence}s.
-Every time an instance of \texttt{input\_bound\_chemical} steps on a switch site,
+Every time an instance of \texttt{input\_\allowbreak{}bound\_chemical} steps on a switch site,
 it \emph{immediately} becomes an \texttt{output\_bound\_chemical}.
 
 For example, during transcription, an RNA polymerase (RNAP) goes through an
@@ -23,7 +23,7 @@ and unbinds from DNA.\@
 
 A \texttt{Switch} is not considered a reaction because there is no rate associated with it
 (switches are performed automatically before the solver chooses the next reaction).
-We dedicate a section to these elements because they play a central role in the simulator's philosophy.
+\texttt{Switch}es play a central role in the simulator's philosophy.
 The user can use generic reactions that apply in general
 (\textit{e.g.} transcription of any gene based on its sequence)
 and use switches every time something more specific is needed.

@@ -27,7 +27,7 @@ will be the next reaction in the system is proportional to its rate
 \end{figure}
 
 The solving loop is depicted in~\reffigt{fig:solver}.
-The Gillespie algorithm has many variants.
+The Gillespie algorithm has many variants~\refsecp{sec:algorithm}.
 We decided to implement it using three \emph{abstract} classes.
 By using inheritance, variants can be combined for each step of the algorithm
 (how to update reactions, how to select a reaction).
@@ -47,4 +47,4 @@ The three central classes are:
   in a specific structure \emph{adapted} to multinomial drawing.
   Again many implementations exist, their efficiency depends on the system that is integrated.
 \end{itemize}
-The implementations of these three classes will be described later in the document.
+The implementations of these three classes will be described in \refsect{sec:detailed}.

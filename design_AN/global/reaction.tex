@@ -9,7 +9,7 @@
 \end{figure}
 
 This section gives a quick overview of the reaction hierarchy~\reffigp{fig:reaction_uml}.
-More details about how reactions are implemented can be found later.
+For implementation details, see \refsect{sec:detailed}.
 
 \subsubsection{Reaction}
 
@@ -295,11 +295,13 @@ where
 \begin{itemize}
 	\item $PolP$ is a \texttt{BoundChemical} representing a polymerase-product complex.
 	\item $P$ is of type \texttt{ChemicalSequence}.
-  It is a product that is released by $PolP$ defined in a \texttt{ProductTable} associated with reaction.
+  It is a product that is released by $PolP$.
+  The product released is defined in a \texttt{ProductTable} associated with the reaction.
 	\item $Pol$ is a \texttt{BoundChemical} representing an empty polymerase.
 	\item $PolP_{fail}$ is a \texttt{BoundChemical} representing the polymerase-product complex
-  in case release failed because $P$ was not a valid product
-  defined in the \texttt{ProductTable} associated with reaction.
+  in case release failed.
+  Release fails if no valid product was found in the
+  \texttt{ProductTable} associated with the reaction.
 	\item $k$ is a rate constant.
 \end{itemize}
 

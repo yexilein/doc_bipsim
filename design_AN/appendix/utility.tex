@@ -65,8 +65,9 @@ Therefore, in \texttt{BoundChemical} (and a lot of other places in the program),
 we replace \texttt{std::list} by a \texttt{VectorList}, where elements are placed in a \texttt{std::vector}.
 There is one trick to use: every time an element is removed,
 it is replaced by the last element in the vector, so that elements remain contiguous in memory.
-This means that order of elements is lost, but in the example above and every time we \texttt{VectorList},
-order is not important. The size of \texttt{std::vector} is automatically adjusted by C++.
+This means that order of elements is lost, but in the example above and in a lot of other contexts,
+order is not important.
+The size of \texttt{std::vector} is automatically adjusted by C++.
 Most of the time it will be larger than the number of elements it contains,
 but we prefer using a little more memory than constantly reallocating nodes.
 What is more, accessing the nth element is instantaneous.

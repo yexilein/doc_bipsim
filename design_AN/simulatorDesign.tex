@@ -88,23 +88,29 @@ we set up a list of requirements that the simulator should fulfill.
 We wanted to be able to integrate MyCellS in a whole-cell framework
 applicable to several organisms.
 Such a simulator should meet the following requirements.
-\begin{itemize}
-  \item Stochastic simulation of standard bacterial processes,
+\begin{enumerate}
+  \item Stochastic simulation of standard cell processes,
   in particular polymerization processes.
-  \item Easy to extend and reuse
-  (either by extending the core or coupling with external modules,
-  in particular deterministic simulation modules).
-  \item Efficient (not more than a couple of hours for one cell cycle).
-  \item Generic formalism, applicable to any bacteria.
+\label{itm:stochastic_processes}
+  \item Generic formalism, applicable to any cell.
   Once a model has been built for some species, it should be easy to adapt it
   for another species by modifying input files only.
-  \item Easy to use, inputs should be close to classical biochemical
-  descriptions.
+\label{itm:generic_formalism}
   \item Integrate various levels of description.
   The user should be able to focus on a process of interest
   with a very low level of description
   while keeping the remaining processes at a higher level.
-\end{itemize}
+\label{itm:granularity}
+  \item Easy to extend and reuse
+  (either by extending the core or coupling with external modules,
+  in particular deterministic simulation modules).
+\label{itm:extendable}
+  \item Efficient (not more than a couple of hours for one cell cycle).
+\label{itm:efficiency}
+  \item Easy to use, inputs should be close to classical biochemical
+  descriptions.
+\label{itm:simple_inputs}
+\end{enumerate}
 
 We start by listing the central design choices of MyCellS.
 Then we present the base components of the simulator, organized around reactants and reactions.

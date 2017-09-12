@@ -6,17 +6,18 @@ we opted for a Gillespie-based simulator.
 The Gillespie algorithm has two important features in our context:
 \begin{itemize}
   \item It is a stochastic algorithm, so it naturally enables to simulate
-  low-level stochastic processes.
+  low-level stochastic processes (requirement (\ref{itm:stochastic_processes})).
   \item It offers a framework where an arbitrary number of reactions can
-  be added.
+  be added (requirement (\ref{itm:generic_formalism})).
 \end{itemize}
 Using the Gillespie algorithm, we can both simulate events at the molecular
-level and aggregated processes.
+level and aggregated processes (requirement (\ref{itm:granularity})).
 The description level of a process simply depends on the number of reactions
 that the user has chosen to represent the process.
 MyCellS starts with an empty system of reactions.
 The user controls what reactions to add.
-Processes can easily be tuned to match a specific bacterial species.
+Processes can easily be tuned to match a specific species
+(requirement (\ref{itm:generic_formalism})).
 
 \paragraph{Sequence-based reactions}
 Standard Gillespie simulators only implement chemical reactions.
@@ -69,9 +70,14 @@ In MyCellS, we define new types of reactants and reactions
 for sequence-based events.
 A single reaction and a single chemical species are used to represent
 all translocation events.
+For the translocation along a gene of length 1000bp
+(\textit{e.g.} during transcription),
+model B contains 1,000 reactions.
+For an organism with 4000 genes, model B contains 4,000,000 reactions.
+In contrast, the same result can be reached with a single reaction in MyCellS.
 
 We created a variant of the Gillespie algorithm where new types of reactants
-and reactions can be plugged in.
+and reactions can be plugged in (requirement (\ref{itm:stochastic_processes})).
 We defined a minimal set of reactants and reactions that handles
 sequence-based reactions (\textit{e.g.} binding, translation elongation).
 All reactions remain low-level, enabling flexible descriptions of
@@ -83,18 +89,7 @@ process remain the same.
 Only sequence information (DNA, position of genes, promoters, etc.) and rates
 need to be adapted.
 
-\paragraph{Efficiency}
-We evaluated performance by simulating protein production.
-Protein production (from gene to protein) is responsible for
-a large number of reactions in a bacterial cell (metabolism aside).
-Simulation is completed within hours even for detailed descriptions of all
-processes involved (stochastic base-by-base elongation with all cofactors).
-This objective was reached by using the latest implementations
-of the (exact) Gillespie algorithm.
-We also tuned all new types of reactions to be nearly as efficient as chemical
-reactions.
-
-\paragraph{Modularity}
+\paragraph{Modularity (requirement (\ref{itm:extendable}))}
 We created clear modules in MyCellS's structure.
 This allows for core changes and facilitates communication with external modules.
 Typical core changes involve:
@@ -111,3 +106,20 @@ Reactant concentrations can be modified during the course of a simulation.
 This enables to plug-in arbitrary external solvers.
 For example, we intend to plug-in a deterministic solver for metabolism on
 MyCellS.
+
+\paragraph{Efficiency (requirement (\ref{itm:efficiency}))}
+We evaluated performance by simulating protein production.
+Protein production (from gene to protein) is responsible for
+a large number of reactions in a cell (metabolism aside).
+Simulation is completed within hours even for detailed descriptions of all
+processes involved (stochastic base-by-base elongation with all cofactors).
+This objective was reached by using the latest implementations
+of the (exact) Gillespie algorithm.
+We also tuned all new types of reactions to be nearly as efficient as chemical
+reactions.
+
+\paragraph{Input files (requirement (\ref{itm:simple_inputs}))}
+Formats were chosen to be close to classical biochemical descriptions.
+What is more, the simulator supports an arbitrary number of input files.
+This allows user to dispatch reactant and reaction definitions in a way that
+makes most sense to them (for example one file for every process).

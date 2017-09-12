@@ -10,7 +10,7 @@
 
 This section gives a quick overview of the contents of the \texttt{Reactant}
 hierarchy~\reffigp{fig:reactant_uml}.
-More details about how reactants are implemented can be found later.
+For implementation details, see \refsect{sec:detailed}.
 
 \subsubsection{Reactant}
 
@@ -63,7 +63,7 @@ BoundChemical <name>
 \end{figure}
 
 \texttt{BoundChemical}~\reffigp{fig:bound_chemical} is a subclass of \texttt{Chemical}
-that represents chemicals that are bound to a sequence.
+representing chemicals that are bound to a sequence.
 Even though \texttt{BoundChemical} represents a pool of molecules,
 single elements are not interchangeable,
 they are defined by their position on a sequence.
@@ -71,7 +71,7 @@ they are defined by their position on a sequence.
 It uses \texttt{BoundUnitFilter} to organize bound units according to outside criteria
 needed for reactions (classify according to binding sites, motifs read, etc.).
 It also uses \texttt{Switch}es on specific switch sites that are sequence dependent
-(this will be explained in detail later).
+(see below for the description of \texttt{Switch}es).
 
 For example, a RNA polymerase (RNAP) bound to DNA is a \texttt{BoundChemical}.
 A typical instance would be a RNAP bound to DNA on position 1000,
@@ -100,8 +100,9 @@ ChemicalSequence <name> product_of <parent sequence> \
 
 \texttt{ChemicalSequence}~\reffigp{fig:chemical_sequence} is a subclass of \texttt{FreeChemical}.
 It is defined by a sequence and the ability to bind elements.
-However, instances of a sequence are \emph{not} treated individually,
-it is impossible to tell to which instance a given chemical bound.
+However, instances of a sequence are \emph{not} treated individually.
+For example, we know that a \texttt{BoundChemical} has bound to some copy
+of a \texttt{ChemicalSequence}, but we cannot tell which copy.
 An object called \texttt{SequenceOccupation} maintains occupation levels at sites of interest.
 For example, suppose the sequence is an mRNA carrying a ribosome binding site for the protein DnaA.
 The number of available sites is obtained by removing the number of bound chemicals
