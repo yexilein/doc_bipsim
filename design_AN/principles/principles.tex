@@ -14,7 +14,7 @@ Using the Gillespie algorithm, we can both simulate events at the molecular
 level and aggregated processes.
 The description level of a process simply depends on the number of reactions
 that the user has chosen to represent the process.
-MyBacteria starts with an empty system of reactions.
+MyCellS starts with an empty system of reactions.
 The user controls what reactions to add.
 Processes can easily be tuned to match a specific bacterial species.
 
@@ -29,7 +29,7 @@ Here are three possible models for these translocation events:
 
 \[
 \begin{array}{c|c|c}
-  \text{Model A} & \text{Model B} & \text{MyBacteria}\\
+  \text{Model A} & \text{Model B} & \text{MyCellS}\\
   & & \\
   \begin{array}{rcl}
     S + A & \rightarrow & SA_1 \\
@@ -65,7 +65,7 @@ which is not realistic for biological systems
 Model B enables several molecules to ``bind'' the sequence at a given time.
 However, bound molecules do not interact with each other,
 \textit{e.g.} it is impossible to handle sequestration of binding motifs.
-In MyBacteria, we define new types of reactants and reactions
+In MyCellS, we define new types of reactants and reactions
 for sequence-based events.
 A single reaction and a single chemical species are used to represent
 all translocation events.
@@ -95,7 +95,7 @@ We also tuned all new types of reactions to be nearly as efficient as chemical
 reactions.
 
 \paragraph{Modularity}
-We created clear modules in MyBacteria's structure.
+We created clear modules in MyCellS's structure.
 This allows for core changes and facilitates communication with external modules.
 Typical core changes involve:
 \begin{itemize}
@@ -110,4 +110,4 @@ A similar design applies for external programs.
 Reactant concentrations can be modified during the course of a simulation.
 This enables to plug-in arbitrary external solvers.
 For example, we intend to plug-in a deterministic solver for metabolism on
-MyBacteria.
+MyCellS.

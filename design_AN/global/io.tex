@@ -5,13 +5,20 @@
 
 The simulator needs the following to work:
 \begin{itemize}
-  \item A general input file defining simulation parameters. A sample file is provided were all options are described (\textit{e.g.} length of simulation, what to output, algorithm variants). One important parameter is the location of the files the simulator should open to read reactants, reactions and events.
-  \item An arbitrary number of files where reactants, reactions and events are declared. The simulator solves dependencies across files, it is not necessary to declare reactants in the same file as or before reactions using them.
+  \item A general input file defining simulation parameters.
+  A sample file is provided were all options are described
+  (\textit{e.g.} length of simulation, what to output, algorithm variants).
+  One important parameter is the location of the files the simulator
+  should open to read reactants, reactions and events.
+  \item An arbitrary number of files where reactants, reactions and events are declared.
+  The simulator solves dependencies across files, it is not necessary
+  to declare reactants in the same file as or before reactions using them.
 \end{itemize}
 
 Caution:
 \begin{itemize}
-\item All reactants must be declared in some file with their appropriate type (\textit{e.g.} \texttt{FreeChemical} or \texttt{BoundChemical}).
+\item All reactants must be declared in some file with their appropriate type
+(\textit{e.g.} \texttt{FreeChemical} or \texttt{BoundChemical}).
 \item Multiple declarations are forbidden, a name cannot be reused.
 \end{itemize}
 
@@ -19,7 +26,8 @@ Caution:
 
 Outputs provided by the simulator are:
 \begin{itemize}
-\item A general output file logging parametes used for simulation (input files used, random seed, algorithms used, etc.).
+\item A general output file logging parameters used for simulation (input files used, random seed, algorithms used, etc.).
 \item A concentration file with the number of molecules over time (for the chemicals and at a time step defined in the parameter file).
-\item If a \texttt{DoubleStrand} was added in the chemicals to ouput, a replication file describing replication advancement of that \texttt{DoubleStrand}.
+\item If a \texttt{DoubleStrand} was added in the chemicals to output,
+a replication file describing replication advancement of that \texttt{DoubleStrand}.
 \end{itemize}

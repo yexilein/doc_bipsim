@@ -8,8 +8,8 @@
 \usepackage{color}
 \usepackage{array}
 
-\newcommand\reft[2]{#1~\ref{#2}}
-\newcommand\refp[2]{(#1~\ref{#2})}
+\newcommand\reft[3][]{#2~\ref{#3}#1}
+\newcommand\refp[3][]{(#2~\ref{#3}#1)}
 \newcommand\refsect[1]{\reft{Section}{#1}}
 \newcommand\refsecp[1]{\refp{Sec.}{#1}}
 \newcommand\reftabt[1]{\reft{Table}{#1}}
@@ -58,16 +58,15 @@
 \makeatletter
   \def\relativepath{\import@path}
 \makeatother
-\newcommand\reffigt[1]{\reft{Figure}{#1}}
-\newcommand\reffigp[1]{\refp{Fig.}{#1}}
+\newcommand\reffigt[2][]{\reft[#1]{Figure}{#2}}
+\newcommand\reffigp[2][]{\refp[#1]{Fig.}{#2}}
 
 % ==========
 %  Document
 % ==========
 \begin{document}
 
-\title{MyBacteria design \\ Version 1.0}%
-\author{M.~Dinh and S.~Fischer}%
+\title{MyCellS design \\ Version 1.0}%
 %\address{er}%
 %\thanks{zq}%
 \date{\today}%
@@ -81,16 +80,21 @@
 
 \section{Introduction}
 
-The aim of this document is go present the general design of MyBacteria's implementation
+The aim of this document is to present the general design of MyCellS's implementation
 (the code is documented using Doxygen, technical details are therefore best found in the Doxygen-generated manual).
 
-Before we started working on MyBacteria,
+Before we started working on MyCellS,
 we set up a list of requirements that the simulator should fulfill.
-We wanted to be able to integrate MyBacteria in a whole-cell framework
+We wanted to be able to integrate MyCellS in a whole-cell framework
 applicable to several organisms.
 Such a simulator should meet the following requirements.
 \begin{itemize}
-  \item Simulate as many bacterial processes as possible.
+  \item Stochastic simulation of standard bacterial processes,
+  in particular polymerization processes.
+  \item Easy to extend and reuse
+  (either by extending the core or coupling with external modules,
+  in particular deterministic simulation modules).
+  \item Efficient (not more than a couple of hours for one cell cycle).
   \item Generic formalism, applicable to any bacteria.
   Once a model has been built for some species, it should be easy to adapt it
   for another species by modifying input files only.
@@ -100,14 +104,15 @@ Such a simulator should meet the following requirements.
   The user should be able to focus on a process of interest
   with a very low level of description
   while keeping the remaining processes at a higher level.
-  \item Efficient (not more than a couple of hours for one cell cycle).
-  \item Easy to extend and reuse
-  (either by extending the core or coupling with other modules).
 \end{itemize}
 
-We start by listing the central design choices of MyBacteria.
+We start by listing the central design choices of MyCellS.
 Then we present the base components of the simulator, organized around reactants and reactions.
-The following section describes the same element again, but goes further into hypotheses and critical design elements.
+The rest of the document is intended for persons who are interested in implementation details.
+Section~\ref{sec:detailed} describes all the components of the simulator again,
+but goes further into hypotheses and critical design elements.
+Section~\ref{sec:algorithm} provides detailed information
+on the drawing algorithms used in MyCellS.
 Finally, appendices are added to describe elements that have been important
 in the simulator development but did not fit naturally in the main document
 (testing strategies, utility classes, etc.).
@@ -115,6 +120,7 @@ in the simulator development but did not fit naturally in the main document
 \subimport{principles/}{principles.tex}
 \subimport{global/}{global.tex}
 \subimport{detailed/}{detailed.tex}
+\subimport{algorithm/}{algorithm.tex}
 \clearpage
 
 \appendix

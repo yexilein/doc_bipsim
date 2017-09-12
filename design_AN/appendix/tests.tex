@@ -26,7 +26,7 @@ and at the lowest possible level.
   \end{tabular}
 
   \caption{Comparisons of tests used to develop the simulator}
-  \label{tab:tests}
+\label{tab:tests}
 \end{table}
 
 
@@ -62,7 +62,7 @@ int RateTree::find (double value) const
 }
 \end{verbatim}
 \caption{Example of the use of preconditions with \texttt{REQUIRE} and postconditions with \texttt{ENSURE}.
-Here the postcondition helped discover a rare bug due to rounding problems that is now adressed in the code.}
+Here the postcondition helped discover a rare bug due to rounding problems that is now addressed in the code.}
 \label{fig:prepostconditions}
 \end{figure}
 
@@ -77,8 +77,10 @@ The whole simulator or large pieces of it are used.
 The idea is to test more systemic behaviors, in which the interaction of classes is crucial.
 Typical examples are:
 \begin{itemize}
-  \item If we provide known DNA and define RNAs and proteins correctly according to simulator input, the sequence of proteins as processed by the simulator should match known proteins.
-  \item If we provide DNA, define RNAs, provide a transcription pathway but activate only one promoter, only the RNA associated to that promoter should be transcribed.
+  \item If we provide known DNA and define RNAs and proteins correctly according to simulator input,
+  the sequence of proteins as processed by the simulator should match known proteins.
+  \item If we provide DNA, define RNAs, provide a transcription pathway but activate only one promoter,
+  only the RNA associated to that promoter should be transcribed.
 \end{itemize}
 
 
