@@ -1,4 +1,4 @@
-\section {Selecting reaction to perform}
+\subsection {Selecting reaction to perform}
 \label{sec:reaction_selection}
 
 We start with the second step of the SSA, selecting a reaction given some propensities. Most algorithms presented here are reviewed in~\citet{gillespie_perspective:_2013}.
@@ -7,9 +7,9 @@ Formally, the problem is quite simple: we are given a set of $N$ real values $\{
 
 We will start by stating a standard technique to perform mulitnomial drawings. We will then introduce methods that increase the speed of the drawing by using \textit {a priori} knowledge.
 
-\subsection {Direct method}
+\subsubsection {Direct method}
 
-\subsubsection {Principle}
+\paragraph {Principle}
 
 The first method that was used historically is staightforward and sometimes referred to as \textit {biased wheel}. Schematically speaking, you could imagine a wheel similar to ``wheel of fortune'', except the size allowed to each index on the wheel is proportional to its propensity value, so that large value have a larger probability to be drawn when the wheel is spinned~\reffigp{fig:biased_wheel}.
 
@@ -31,7 +31,7 @@ The first method that was used historically is staightforward and sometimes refe
 
 Generally the wheel is seen as a segment subdivided into $N$ subsegments of length $r_1$, ..., $r_N$. A value $u$ is drawn on this $[0, \sum r_i)$ segment. We proceed iteratively to find to which subsegment $u$ belongs. If $u < r_1$, it belongs to subsegment 1. If $r_1 \leq u < r_1+r_2$, it belongs to subsegment 2, etc.
 
-\subsubsection {Sketch of algorithm and complexity} 
+\paragraph {Sketch of algorithm and complexity}
 
 \begin{figure}[!h]
   \begin{minipage}{0.5\textwidth}
@@ -57,15 +57,15 @@ Generally the wheel is seen as a segment subdivided into $N$ subsegments of leng
 
 Worst case of the drawing~\reffigp{fig:direct_drawing} occurs when $u$ is in the last subsegment, so the loop has to be iterated $N$ times, yielding $O(N)$ complexity.
 
-\subsection {Next reaction method}
+\subsubsection {Next reaction method}
 
 The next reaction method is based on the direct method. It is used in systems where it is known that propensities are not uniform. The point is to accelerate the direct method by sorting (at least rougly) propensities within the vector. This does not change drawing statistics but accelerates finding where a drawing is located on the wheel. For example, say a propensity takes up 50\% of total propensity and is located at the beginning of the vector. Then each random drawing $u < 0.5\sum r_i$ will be instantly found to fall into the first sector of the biased wheel. In a non-sorted vector, we would have to loop through several small sectors before finding the big one.
 
 Because the next reaction method is only a twist of the direct method, we do not go into furter details now. We will also omit it in complexity analysis, as it has the same worst-case complexity as the direct method. We will only reference it again in the Experiment section.
 
-\subsection {Binary tree}
+\subsubsection {Binary tree}
 
-\subsubsection {Principle}
+\paragraph {Principle}
 
 In this approach, we organize propensities inside a tree. Propensities are placed in the leaves of the tree. Nodes are then assembled iteratively 2 by 2 to compute the sum of all propensities~\reffigp {fig:binary_tree}.
 
@@ -84,7 +84,7 @@ The idea is that with the structure \emph{in place}, finding the index that has 
 
 This procedure is actually very similar to the biased wheel method, except we perform some kind of progressive zooming in on the subsegments delimited by the propensity values~\reffigp {fig:binary_tree}.
 
-\subsubsection {Sketch of algorithm and complexity} 
+\paragraph {Sketch of algorithm and complexity}
 \begin{figure}[!h]
   \begin{minipage}{0.5\textwidth}
     \includegraphics[width=\textwidth]{ratetree_drawing}
@@ -139,13 +139,13 @@ Complexity for performing the drawing~\reffigp{fig:tree_drawing} is given by the
 Complexity for updating the tree~\reffigp{fig:tree_update} is also given by depth of the tree, $O(\log N)$. Note that we need not update every node in the tree, only the parents of the updated leaf up to the root node.
 
 
-\subsection {Hybrid method}
+\subsubsection {Hybrid method}
 
-\subsubsection {Principle}
+\paragraph {Principle}
 
 In this approach, we organize propensities into groups and use a different drawing method: \emph{rejection-base drawing}. This approach has been presented in~\citet{slepoy_constant-time_2008}.
 
-\paragraph{Rejection-based drawing} The aim is to perform a multinomial drawing, similar to what is done by a biased wheel or a binary tree. The problem with the latter methods is that we need to iterate through some structure before finding the right value. With rejection-based drawing, we attempt to \emph{jump} to the right solution. Let $\{r_i\}$ be the propensities of the $N$ reactions in the system and $R = \sum_{1 \leq i \leq N} r_i$.
+\subparagraph{Rejection-based drawing} The aim is to perform a multinomial drawing, similar to what is done by a biased wheel or a binary tree. The problem with the latter methods is that we need to iterate through some structure before finding the right value. With rejection-based drawing, we attempt to \emph{jump} to the right solution. Let $\{r_i\}$ be the propensities of the $N$ reactions in the system and $R = \sum_{1 \leq i \leq N} r_i$.
 \begin{enumerate}
 \item We choose a value $r_M$ such that $\forall i, r_M \geq r_i$.
 \item Until a good candidate is found.
@@ -170,13 +170,13 @@ A careful proof shows that the probability of drawing index $i$ is equal to $r_i
   \end{minipage}
   \begin{minipage}{0.6\textwidth}
     \textbf{C}\\
-    \includegraphics[width=\textwidth]{rejection_groups}  
+    \includegraphics[width=\textwidth]{rejection_groups}
   \end{minipage}
   \caption{Rejection based drawing (adapted from \citet{slepoy_constant-time_2008}). (A) Geometric illustration of rejection principle. Drawing occurs in a 2D space, with propensities aligned along the $x$ axis and their value given by gray bars along the $y$ axis. A drawing is accepted if it falls into the gray domain. Note that the probability to draw a propensity is proportional to its value, as an accepted drawing will be distributed uniformly across the gray domain. (B) Examples displaying efficiency of the technique (maximal for uniform propensities, minimal when some are very high and most are very low). (C) Sorting propensities into groups whose limits are powers of 2 ensures a minimal 1/2 acceptation probability \emph{within a given group}.}
   \label{fig:rejection_based_drawing}
 \end {figure}
 
- \paragraph{Group method} The idea behind the algorithm is to improve the acceptation probability by placing propensities in \emph{groups}:
+ \subparagraph{Group method} The idea behind the algorithm is to improve the acceptation probability by placing propensities in \emph{groups}:
 \begin{enumerate}
 \item We draw a group index by using a classical method (biased wheel or binary tree).
 \item We draw a propensity inside the group by using the rejection-based method.
@@ -195,7 +195,7 @@ Suppose the structure is already in place, \textit{i.e.} propensities are placed
   \label {fig:hybrid_method}
 \end {figure}
 
-\subsubsection {Sketch of algorithm and complexity} 
+\paragraph {Sketch of algorithm and complexity}
 
 \begin{figure}[!h]
   \centering
@@ -207,7 +207,7 @@ Suppose the structure is already in place, \textit{i.e.} propensities are placed
       \KwData{$K+1$ groups, group k containing propensities whose value falls in the interval $(0,b]$ if k=0, $(2^{k-1}b, 2^kb]$ if k $>$ 0. Propensities are stored as a couple containing their value and original index.}
       \KwResult{Index drawn according to multinomial drawing.}
       \tcp {drawing using a direct method like binary tree or biased wheel}
-      group = groups [multinomial (group[0].total\_propensity, ..., 
+      group = groups [multinomial (group[0].total\_propensity, ...,
         group[K].total\_propensity)]\;
       \Repeat{candidate.value $>$ uniform (0, group.max\_propensity)}{
         candidate = group.propensities [uniform (1, group.number\_propensities)]\;
@@ -252,7 +252,7 @@ Because of the group structure, the loop in \reffigt{fig:hybrid_drawing} is $O(1
 
 At first sight, updating the group structure is also $O(1)$~\reffigp{fig:hybrid_update}. However, the parts about removing or inserting a reaction into a group must be carefully implemented in order to achieve that result.
 
-\subsection {Summary}
+\subsubsection {Summary}
 
 \reftabt{tab:selection_summary} summarizes the worst case complexity of four methods presented. Note that the update complexity was derived in the case where onle one propensity needed to be updated. To obtain the overall complexity, we need to take into account the number of reactions $U$ whose propensity needs to be updated. A naive analysis indicates that the binary tree could be less efficient than the direct method depending on $U$ and $N$~\reftabp{tab:selection_summary}. In the next section, we will analyze how $U$ can influence the efficiency of each method.
 
@@ -270,4 +270,4 @@ At first sight, updating the group structure is also $O(1)$~\reffigp{fig:hybrid_
   \end{tabular}
   \caption{Comparison of worst-case complexities of methods presented here. $N$ is the number of reactions in the system, $U \leq N$ the number of reactions whose propensity needs to be updated. The last column is a projection based on the first two columns, real total complexities are given in the next section.}
   \label{tab:selection_summary}
-\end{table}	
+\end{table}

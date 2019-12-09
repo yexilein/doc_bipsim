@@ -1,8 +1,8 @@
-\subsection{Solver loop}
+\subsubsection{Solver loop}
 
 Here we describe the implementations provided for each step of the algorithm. Most of the details are explained in a side document~\citep{cati}. We only give a quick overview here.
 
-\subsubsection{\texttt{RateContainer} classes}
+\subsubsubsection{\texttt{RateContainer} classes}
 
 \begin{figure}[!h]
   \centering
@@ -17,7 +17,7 @@ Note that multinomial drawing occurs within the solver loop, but also within som
 
 \paragraph{Perspectives} These classes are the most sensitive classes from a numerical point of view. Stability of implementation should be checked more thouroughly (postconditions and or unit tests). \texttt{HybridRateContainer} needs a parameter to work. It is user provided for the moment but I think it should be determined automatically, probably by extending the group structure dynamically.
 
-\subsubsection{\texttt{RateManager} classes}
+\subsubsubsection{\texttt{RateManager} classes}
 
 \begin{figure}[!h]
   \centering
@@ -30,7 +30,7 @@ The second layer of the solver loop ensures that the rates are updated when need
 
 \paragraph{Perspectives} While \texttt{DependencyRateManager} performs fairly well in the general case. It is particularily inefficient if there is a molecule $A$ involved in a lot of reactions because a lot of rates have to be recomputed. It could be interesting to pool the reactions involving $A$ into a \texttt{RateContainer} of their own, the latter containing only the contribution to the rate of the \emph{other} reactants. The total rate of reactions involving $A$ would then be the total rate of the container multiplied by the concentration of $A$. This would be viewed by the system as \emph{one} mega reaction. When the concentration of $A$ changes, virtually \emph{nothing} is recomputed, except the total rate of the mega reaction (we suppose the contribution of other reactants has remained constant). If the mega reaction is to be performed, the \texttt{RateContainer} is used to draw which reaction will actually be performed according to their contributions. This change is not possible with the current architecture, the definition of \texttt{RateManager} and the computation of rates would have to be changed.
 
-\subsubsection{\texttt{Solver} classes}
+\subsubsubsection{\texttt{Solver} classes}
 
 \begin{figure}[!h]
   \centering

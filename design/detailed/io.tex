@@ -1,7 +1,7 @@
 
-\subsection{Input/Output handling}
+\subsubsection{Input/Output handling}
 
-\subsubsection{Parsing system}
+\subsubsubsection{Parsing system}
 
 \begin{figure}[!h]
   \centering
@@ -14,7 +14,7 @@ The parsing system used by the simulator is pretty simple~\reffigp{fig:text_pars
 
 \paragraph{Perspectives} Review \texttt{SimulatorInput} arborescence which seems uselessly complicated. Design an architecture that can handle multiple input formats (plain text or XML).
 
-\subsubsection{Builder and interpreter}
+\subsubsubsection{Builder and interpreter}
 
 \begin{figure}[!h]
   \centering
@@ -27,7 +27,7 @@ The parsing system is designed to cut each line into words, then the words are i
 
 \paragraph{Perspectives} Maybe create a \texttt{SimulatorToken} to automatically fetch the reference associated to a name? However, this has to be done with care because the right exceptions have to be raised.
 
-\subsubsection{Output}
+\subsubsubsection{Output}
 
 Two classes are used to produce output. \texttt{ChemicalLogger} logs chemical numbers through time. \texttt{DoubleStrandLogger} logs partial strands of a \texttt{DoubleStrand}.
 

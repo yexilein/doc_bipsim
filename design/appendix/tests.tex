@@ -1,8 +1,8 @@
 
-\section{Tests}
+\subsection{Tests}
 \label{sec:tests}
 
-\subsection{Testing philosophy}
+\subsubsection{Testing philosophy}
 
 \paragraph{Fail fast} Tests are designed to make the program fail as rapidly as possible and help find the origin of the problem.
 
@@ -30,7 +30,7 @@
 \paragraph{Testing layers} Tests are usually divided in several layers. Because of the size of the project, the program includes three types of tests: \emph{programming by contract}, \emph{unit tests}, \emph{integration tests}~\reftabp{tab:tests}. The lower the level of failure, the easier the debugging. Failing at the precondtion/postcondition level will give a very precise picture of what went wrong, while failing at the integration level might lead to a more thorough investigation. Ideally, we will always try to \emph{fail faster}. If something went wrong at the integration level, we check whether this could have been detected already at the unit level or the precondition level. If yes, we implement these tests, and we know that next time the problem comes up, we will fail faster and solve the problem more rapidly.
 
 
-\subsection{Programming by contract} 
+\subsubsection{Programming by contract} 
 
 These tests typically apply to attributes of classes and arguments of methods. They are usually divided into three subcategories: \emph{preconditions}, \emph{postconditions} and \emph{invariants}. They check whether the class interacts correctly with the outside world, generally other classes. We left invariants out because they are hard to check in a language that does not support them natively. In theory, invariants are conditions on attributes that must always be true, from construction to destruction. They are checked after construction and every method call. In C++, we would have to implement these calls manually for all methods, which is a little tedious. In the simulator, we defined two macros \texttt{REQUIRE} and \texttt{ENSURE} to test pre- and postconditions.
 
@@ -63,7 +63,7 @@ The example shown in~\reffigt{fig:prepostconditions} shows typical uses of pre- 
 
 \paragraph{Exceptions instead of preconditions?} Exceptions and preconditions are used in different cases. \emph{Preconditions} are used for internal interactions, when the \emph{user is another class of the program}. In this case, the programer can actually control the input and make sure precondtions are true. \emph{Exceptions} are used when the \emph{user is an external user} and provides free input. In this case, the programer does not control input. However, bad input can be filtered using \emph{exceptions} until all outside input complies with internal \emph{preconditions}. In the simulator, exceptions are used extensively in the \texttt{Parser} and \texttt{Builder} classes that treat input files. But afterwards, when input is cleaned and the simulation is run, there are nearly no exceptions, everything is checked through preconditions.
 
-\subsection{Unit tests}
+\subsubsection{Unit tests}
 
 Unit tests are probably the most famoust tests used. Unit tests generally test the behavior at the class level. There is a lot of documentaion on them, we used some simple guidelines to try and write useful and maintainable tests.
 
@@ -75,7 +75,7 @@ Unit tests are probably the most famoust tests used. Unit tests generally test t
 
 \paragraph{Use mock classes to test interaction with other classes} If some input is needed or the output expected is some interaction with another class, mock classes should be used. For example, \texttt{SequenceOccupation} is responsible of notifying a \texttt{BindingSite} when its availability changes. The scenario is: when the availability of a site changes, the \texttt{update()} method of the \texttt{BindingSite} is called. In the simulator, this action has several implications: the \texttt{BindingSiteFamily} should be notified, the rate of possible associated \texttt{SequenceBinding} should be invalidated, etc. Therefore we could assess the interaction by testing whether the rate has been invalidated. However, this would be rather complex and hard to maintain if at some point this cascade is changed. The original intention was simply to test whether \texttt{SequenceOccupation} and \texttt{BindingSite} interact. The solution is fairly easy: we derive and use a child class \texttt{MockBindingSite} which overrides the \texttt{update()} and records whether it has been called.
 
-\subsection{Integration tests}
+\subsubsection{Integration tests}
 
 This is the last layer of test. The whole simulator or large pieces of it are used. The idea is to test more systemic behaviors, in which the interaction of classes is crucial. Often, user input will be used and the scenario are very high level. Typical examples are:
 \begin{itemize}
@@ -86,7 +86,7 @@ This is the last layer of test. The whole simulator or large pieces of it are us
 
 Tests should remain as simple as possible and easy to write. However, because they depend a lot on the global interface of the simulator, they are much harder to maintain. Some programs try to translate scenarios into a form adapted to the current interface to simplify maintainability, but we did not have the time to investigate the matter.
 
-\subsection{Organizing and running tests}
+\subsubsection{Organizing and running tests}
 
 Tests are associated to the source code of the simulator in order to be run as frequently and as simply as possible. We did not implement a fancy infrastructure, tests are driven by Unix Autotools and use the BOOST Test Framework. Preconditions and postconditions are written inside the code, unit tests are regrouped in a \texttt{tests/unit\_tests} directory and intergration tests are stored in \texttt{tests/integration}.
 

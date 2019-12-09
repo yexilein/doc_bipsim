@@ -1,31 +1,31 @@
 
-\section{Perspectives}
+\subsection{Perspectives}
 
 There are many perspectives left open by the project. Some have already been proposed throughout the document. Here is a brief overview of some others. The late introduction of \texttt{Switch}es actually does have a lot of impact on some of these perspectives, making them way more efficient as originally thought.
 
-\subsection{Handle partial polymerization products}
+\subsubsection{Handle partial polymerization products}
 
 For the moment, \texttt{PartialStrand}s are only used to represent nascent \texttt{DoubleStrand} products. The system could be extended for normal products of \texttt{ProductLoading} reactions. The two \texttt{Loading} reactions could maybe event be fused.
 
-\subsection{Collision handling}
+\subsubsection{Collision handling}
 
 Upon \texttt{Translocation}, it could be easy to check whether a position on a \texttt{ChemicalSequence} is already occupied. The \texttt{Translocation} could then fail, but a more subtle behavior could also be implemented (a DNA polymerase ejecting a RNA polymerase). It is necessary to specify exactly what is wanted and what the user should input to make it work.
 
-\subsection{Product format, position table?}
+\subsubsection{Product format, position table?}
 
 The way products are handled is somewhat tedious. It could be interesting to specify the binding site, the +1 of the product and the termination site all at once (in something like a \texttt{PositionTable}). Other elements could be added in the table for each product (pause regions, alternative terminators and so on). This could simplify existing reactions and be closer to the way biological data is actually stored. Anyway, the current system seems to be a little too obscur, something in that direction would be nice. From an implementation point of view, \texttt{Switch}es are great candidates to implement most of these elements (in conjunction with \texttt{BindingSite} for the binding part).
 
-\subsection{Less base reactions?}
+\subsubsection{Less base reactions?}
 
 \texttt{ChemicalReaction} represents a lot of different reactions, what is done actually depends on the input. It could be nice continuing fusing other reacitons into \texttt{ChemicalReaction}. For example, the \texttt{Loading} reaction can be described as a reaction taking as an input a motif of a sequence, a polymerase and a free element and outputs an occupied polymerase. If we add a reactant type \texttt{SequenceMotif}, a \texttt{Loading} could be defined as multiple \texttt{ChemicalReaction}s which would replace the \texttt{LoadingTable}. This change is actually quite dangerous for performance reasons. Replacing a factorized reaction like \texttt{Loading} by multiple \texttt{ChemicalReaction}s is very expensive unless the latter reactions are automatically factorized. In other words, this would mean that for the use, only \texttt{ChemicalReaction}s are defined but, internally, the simulator would still factorize them as a \texttt{Loading} reaction. Before doing this change, we would have to make sure that it is actually more convenient for the user to only have \texttt{ChemicalReaction}s (think of the ontology as being a user!!!).
 
 Another way to replace loading would be using \texttt{Switch}es based on motifs. This approach could be better performance-wise and very easy to implement. (The previous paragraph was written before the introduction of \texttt{Switch}es, but it was kept for reference.) Anyway, before doing anything, we should compute exactly how performance would be impacted.
 
-\subsection{Serialization}
+\subsubsection{Serialization}
 
 An important missing feature is the ability to save the current state of the simulator and (a) resume it or (b) use it as an initial condition. This is important for example for \texttt{BoundChemical}, as they are originally no \texttt{BoundUnit} at the start of the simulation. C++ does not implement a way to do this natively, so a we need a design to make this automatically. I made a few tests with BOOST Serialization library which could be useful, as it automatically stores instances in a maintainable way. To make things easier, I think only a few classes need to be stored (\texttt{Handler}s, \texttt{BoundUnit}s for example), most can be reconstructed from scratch.
 
-\subsection{Known bugs}
+\subsubsection{Known bugs}
 
 \paragraph{BOOST random library} The simulator has been designed with an obsolete version of the BOOST random library. We need to implement two versions of \texttt{RandomHandler} depending on BOOST library version. We need the implementation for the current interface of the library!!!
 

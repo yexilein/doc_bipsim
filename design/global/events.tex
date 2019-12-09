@@ -1,4 +1,4 @@
-\subsection{Events}
+\subsubsection{Events}
 
 \texttt{Event}s enable users to change molecule numbers outside of the solver loop at specific times~\reffigp{fig:events}. A \texttt{Simulation} instance handles both a \texttt{Solver} instance and an \texttt{EventHandler} instance. Every time an event timing is reached, the solver loop is stopped, the event(s) is (are) performed, the solver is reinitialized and the simulation resumes. Different \texttt{Event} implementations are offered to modify molecule numbers in a convenient way.
 

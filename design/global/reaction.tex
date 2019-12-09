@@ -1,5 +1,5 @@
 
-\subsection{Reaction hierarchy}
+\subsubsection{Reaction hierarchy}
 
 \begin{figure}[!h]
   \centering
@@ -10,7 +10,7 @@
 
 This section gives a quick overview of the reaction hierarchy~\reffigp{fig:reaction_uml}. More details about how reactions are implemented can be found later.
 
-\subsubsection{Reaction}
+\subsubsubsection{Reaction}
 
 \begin{figure}[!h]
   \centering
@@ -21,7 +21,7 @@ This section gives a quick overview of the reaction hierarchy~\reffigp{fig:react
 
 There are two abstract classes used to define reactions: \texttt{Reaction} for one-way reactions and \texttt{BidirectionalReaction} for reversible reactions. Two adapter classes \texttt{ForwardReaction} and \texttt{BackwardReaction} split reversible reactions in two one-way reactions\reffigp{fig:reaction}. In the end, the solver only handles one-way reactions. A reaction can necessarily be performed, its rate updated and accessed and is composed of reactants and products.
 
-\subsubsection{ChemicalReaction}
+\subsubsubsection{ChemicalReaction}
 
 \begin{figure}[!h]
   \centering
@@ -56,7 +56,7 @@ where
 \lambda_{backward} = k_{-1} \prod\limits_{i=1}^{p} [B_i]^{b_i}
 \]
 
-\subsubsection{SequenceBinding}
+\subsubsubsection{SequenceBinding}
 \paragraph{Input format}
 
 \begin{figure}[!h]
@@ -96,7 +96,7 @@ where
 	\item $V_c$ is the volume of the cell.
 \end{itemize}
 
-\subsubsection{Translocation}
+\subsubsubsection{Translocation}
 
 \begin{figure}[!h]
   \centering
@@ -135,7 +135,7 @@ where
 	\lambda = k [C]
 \]
 
-\subsubsection{Loading}
+\subsubsubsection{Loading}
 
 \begin{figure}[!h]
   \centering
@@ -176,7 +176,7 @@ where
 	\item $E_t$ is the chemical to load onto template $t$.
 \end{itemize}
 
-\subsubsection{DoubleStrandRecruitment}
+\subsubsubsection{DoubleStrandRecruitment}
 
 \begin{figure}[!h]
   \centering
@@ -209,7 +209,7 @@ where
 \lambda = k[A][B_{free}]
 \]
 
-\subsubsection{Release}
+\subsubsubsection{Release}
 
 \begin{figure}[!h]
   \centering
@@ -250,7 +250,7 @@ where
 \lambda = k[PolP]
 \]
 
-\subsubsection{Degradation}
+\subsubsubsection{Degradation}
 
 \begin{figure}[!h]
   \centering

@@ -1,23 +1,23 @@
 
-\subsection{Reactions}
+\subsubsection{Reactions}
 
-\subsubsection{\texttt{ChemicalReaction}}
+\subsubsubsection{\texttt{ChemicalReaction}}
 
 Nothing particular.
 
-\subsubsection{\texttt{SequenceBinding}}
+\subsubsubsection{\texttt{SequenceBinding}}
 
 \paragraph{Binding} Because of the way \texttt{BindingSiteFamily} is implemented, the reaction can easily and efficiently access the binding rate at all times, no matter what reactions have occured previously and how site availability changed in the meantime.
 
 \paragraph{Unbinding} \texttt{SequenceBinding} uses a \texttt{FamilyFilter} (see detailed description of \texttt{BoundChemical}) to filter out all \texttt{BoundUnit}s that are bound to a binding site of the \texttt{BindingSiteFamily} associated with the reaction. \texttt{BoundUnit}s that have bound to sites of a different family or that have moved away from the binding site through \texttt{Translocation} are \emph{not} candidates for unbiding.
 
-\subsubsection{\texttt{Translocation}}
+\subsubsubsection{\texttt{Translocation}}
 
 \paragraph{Collisions} For now, \texttt{Translocation} ignores collisions, making its implementation straightforward.
 
 \paragraph{Stalled form} Translocation enters stalled form if a \texttt{BoundUnit} reached the end of a sequence.
 
-\subsubsection{\texttt{Loading}}
+\subsubsubsection{\texttt{Loading}}
 
 \begin{figure}[!h]
   \centering
@@ -30,7 +30,7 @@ Nothing particular.
 
 \paragraph{\texttt{ProductLoading} vs \texttt{DoubleStrandLoading}} There difference between the two processes is rather small. We just added a failure condition in the case of \texttt{DoubleStrandLoading} for convenience. Depending on what reactions are used to synthesize a \texttt{DoubleStrand} it might be possible that a polymerase arrives upon a position that has already been synthesized. In this case, the \texttt{DoubleStrandLoading} fails and the polymerase is replaced by the polymerase in its stalled form.
 
-\subsubsection{\texttt{Release}}
+\subsubsubsection{\texttt{Release}}
 
 \paragraph{Fail polymerase (unknown product)} When a release is triggered, a \texttt{BoundUnit} from the \texttt{BoundChemical} associated with the \texttt{Release} reaction is randomly chosen. Because the \texttt{BoundUnit} knows its current position and its binding site, it will assume that product it has synthesized starts the \emph{reading frame of the binding site} and ends \emph{at the position directly preceding its current reading frame} (we assume that the polymerase translocates onto a terminating sequence which does not contribute to product synthesis). If the product is found in the \texttt{ProductTable}, everything works normally. 
 

@@ -1,87 +1,9 @@
-% ============================================
-%  Article Class (This is a LaTeX2e document)  
-% ============================================
-\documentclass[12pt]{scrartcl}
-\usepackage[english]{babel}
-\usepackage{enumitem}
-\usepackage[round]{natbib}
-\usepackage{color}
 
-\newcommand\reft[3][]{#2~\ref{#3}#1}
-\newcommand\refp[3][]{(#2~\ref{#3}#1)}
-\newcommand\refsect[1]{\reft{Section}{#1}}
-\newcommand\refsecp[1]{\refp{Sec.}{#1}}
-\newcommand\reftabt[1]{\reft{Table}{#1}}
-\newcommand\reftabp[1]{\refp{Tab.}{#1}}
-
-% ============
-%  Algorithms
-% ============
-\usepackage{algorithm2e}
-\SetKwProg{Fn}{Function}{}{}
-\newcommand\refalgt[1]{\reft{Algorithm}{#1}}
-\newcommand\refalgp[1]{\refp{Alg.}{#1}}
-
-% ======
-%  Math
-% ======
-\usepackage{amsmath}
-\usepackage{amsthm}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{property}[thm]{Property}
-\theoremstyle{definition}
-\newtheorem{defn}[thm]{Definition}
-\newtheorem{assum}[thm]{Assumption}
-\theoremstyle{remark}
-\newtheorem{rem}[thm]{Remark}
-\numberwithin{equation}{section}
-\usepackage{amssymb}
-\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
-
-% ====================
-%  Chemical reactions
-% ====================
-\usepackage[version=3]{mhchem}
-\newcommand{\reactionRev}[4]{#1 \ce{<=>[#3][#4]} #2}
-\newcommand{\reactionIrr}[4]{#1 \ce{->[#3][#4]} #2}
-
-% ============================
-%  Figures and relative paths
-% ============================
-\usepackage{graphicx}
-\graphicspath{{figures/}}
-\usepackage{import}
-\makeatletter
-  \def\relativepath{\import@path}
-\makeatother
-\newcommand\reffigt[2][]{\reft[#1]{Figure}{#2}}
-\newcommand\reffigp[2][]{\refp[#1]{Fig.}{#2}}
-
-% ==========
-%  Document
-% ==========
-\begin{document}
-
-\title{{CATI MIAGO}: comparing algorithms for Gillespie based simulations}%
-\author{M.~Dinh, S.~Fischer, A.~Goelzer}%
-\date{\today}%
-
-\maketitle
-
-\newpage
-
-\tableofcontents
-
-\newpage
-
-\section{Introduction}
+\subsection{Introduction}
 
 Gillespie's algorithm was designed to simulate chemical reaction networks, even in conditions where there are only a few molecules. In this section we briefly present how it was conceived and implemented.
 
-\subsection{Principles underlying Gillespie's algorithm}
+\subsubsection{Principles underlying Gillespie's algorithm}
 
 We suppose we are given a set of chemical reactions that we can write, in general as
 \[
@@ -92,15 +14,15 @@ the simplest reaction being a complexation reaction of the form
 \reactionRev{A + B}{C}{k_1}{k_{-1}}
 \]
 
-\begin {assum}[Well-mixed medium] 
+\begin {assum}[Well-mixed medium]
   The first important hypothesis is that the molecules of every chemical species are distributed uniformly across space at all times. Then the probability that a molecule of species $A$ encounters a molecule of species $B$ is proportional to $n_An_B$ where $n_A$ is the number of molecules of species A and $n_B$ the number of molecules of species $B$. Note that the probability that a molecule of species $A$ encounters another molecule of species $A$ is proportional to $n_A(n_A-1)$.
 \end {assum}
 
-\begin {assum}[Low-order reactions] 
+\begin {assum}[Low-order reactions]
   The second hypothesis is that reactions represent low-order phenomena, \textit{i.e.} they result uniquely of the concomitant encounter of all species involved (as opposed to a sequence of events implying one or the other species).
 \end {assum}
 
-\begin {defn}[Propensity] 
+\begin {defn}[Propensity]
   The propensity of a reaction is the rate at which it occurs. In the simplest case
 \[
 \reactionRev{A + B}{C}{k_1}{k_{-1}}
@@ -115,19 +37,19 @@ r = k_1 \prod\limits_{i=0}^{r}n_{A_i}(n_{A_i}-1)...(n_{A_i}-a_i+1)
 \]
 \end {defn}
 
-\begin {property}[Exponential distribution of reaction timing.] 
+\begin {property}[Exponential distribution of reaction timing.]
   Under the two assumptions above, it can be shown that the timing of reactions are distributed exponentially, where the parameter of the exponential distribution is the propensity of the reactions. Because the propensity depends on the number of molecules, the probability density evolves over time.
 \end {property}
 
-\begin {assum}[Memorylessness of reaction network.] 
+\begin {assum}[Memorylessness of reaction network.]
   We suppose that in the system of reactions considered, the occurrences of reactions are determined only based on their propensity. Occurrences of reactions are not independent in the sense that a reaction may change the propensity of another reaction (if they have chemicals in common). However, a reaction may not facilitate another reaction in any other way than changing its propensity.
 \end {assum}
 
-\begin {property}[Next reaction in a network.] 
+\begin {property}[Next reaction in a network.]
   Under the current assumptions, at any time, the next reaction timing is determined by the first reaction that fires. Because the next reaction timings of all reactions are given by exponential distributions, the next reaction timing is the minimum of all these exponential drawings. Mathematically the minimum of exponentially distributed random variables is still exponentially distributed. More precisely, suppose there are $N$ reactions and let $r_1$, ..., $r_N$ be their propensities, then the next reaction timing follows an exponential distribution with parameter $\sum_{i=0..N}r_i$ and the probability that the next reaction is reaction $k$ is $r_k/\sum_{i=0..N}r_i$.
 \end {property}
 
-\subsection{The Stochastic Simulaton Algorithm (SSA) and its variants}
+\subsubsection{The Stochastic Simulaton Algorithm (SSA) and its variants}
 
 \citet{gillespie_perspective:_2013} propose a good review of the original algorithm and some of its variants. The original SSA algorithm that can be summarized as follows:
 
@@ -138,20 +60,10 @@ r = k_1 \prod\limits_{i=0}^{r}n_{A_i}(n_{A_i}-1)...(n_{A_i}-a_i+1)
 
 Most of the effort is spent on studying how to optimize the second step, but we will see that the two steps are actually interrelated. Drawing statistics have to follow the properties described above. In a sense, the SSA and its variants are said to be (statistically) exact.
 
-\subsection{Aim of this document}
+\subsubsection{Aim of this section}
 
 Our aim was to try various methods to optimize the second step of the SSA for a large biological system. We reviewed the literature and implemented the main alternatives and compared them on a benchmark inspired by our research project. We provide some perspectives that could be worked on to improve the algorithms or the way they interact with the updating step.
 
 \input{reaction_selection}
-\input{reaction_update}
-\input{experiments}
 \input{perspectives}
-
-\appendix
 \input{implementation_details}
-
-\bibliographystyle{myplainnat}
-\bibliography{cati}
-
-\end{document}
-% ----------------------------------------------------------------

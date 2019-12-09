@@ -1,5 +1,5 @@
 % ============================================
-%  Article Class (This is a LaTeX2e document)  
+%  Article Class (This is a LaTeX2e document)
 % ============================================
 \documentclass[12pt]{scrartcl}
 \usepackage[english]{babel}
@@ -8,8 +8,8 @@
 \usepackage{color}
 \usepackage{array}
 
-\newcommand\reft[2]{#1~\ref{#2}}
-\newcommand\refp[2]{(#1~\ref{#2})}
+\newcommand\reft[3][]{#2~\ref{#3}#1}
+\newcommand\refp[3][]{(#2~\ref{#3}#1)}
 \newcommand\refsect[1]{\reft{Section}{#1}}
 \newcommand\refsecp[1]{\refp{Sec.}{#1}}
 \newcommand\reftabt[1]{\reft{Table}{#1}}
@@ -53,21 +53,22 @@
 %  Figures and relative paths
 % ============================
 \usepackage{graphicx}
-\graphicspath{{figures/}}
+\graphicspath{{figures/}{cati/figures/}}
 \usepackage{import}
 \makeatletter
   \def\relativepath{\import@path}
 \makeatother
-\newcommand\reffigt[1]{\reft{Figure}{#1}}
-\newcommand\reffigp[1]{\refp{Fig.}{#1}}
+\newcommand\reffigt[2][]{\reft[#1]{Figure}{#2}}
+\newcommand\reffigp[2][]{\refp[#1]{Fig.}{#2}}
+
 
 % ==========
 %  Document
 % ==========
 \begin{document}
 
-\title{{IMSV}: bacteria simulator design \\ Version 0.0}%
-\author{M.~Dinh and S.~Fischer}%
+\title{BiPSim: a flexible and generic stochastic simulator for cell processes - Supplementary Information}%
+\author{}%
 %\address{er}%
 %\thanks{zq}%
 \date{\today}%
@@ -81,16 +82,38 @@
 
 \section{Introduction}
 
-The aim of this document is not to go into technical details of the implementation (the code is documented using Doxygen, technical details are therefore best found in the Doxygen-generated manual). Rather we wish to walk through the choices in design that have been made. The technical manual information for understanding the concept behind each class and how to use it. However it does not tell you what classes are central in the architecture and it is difficult to see at a glimpse how classes interact.
+This document walks through the choices in design that we made while developing BiPSim
+(the code is documented using Doxygen, technical details are therefore best found in the Doxygen-generated manual).
+It highlights the central classes in BiPSim's architecture and how classes interact.
 
-Describing global design should be more agreeable to read than the purely technical document. It helps understand how we tackled a certain number of efficiency issues (should it be speed or maintainability). The document should facilitate discussions even with non-programmers (or at least non-C++-programmers). We start by giving a global overview of the base components of the simulator, organized around reactants and reactions. A second section redescribes the same element again, but goes further into hypotheses and critical design elements. Finally, appendices are added to describe elements that have been important in the simulator development but did not fit naturally in the main document (testing strategies, utility classes, etc.).
+The first section focuses on the base components of the simulator, reactants and reactions.
+It starts with a global overview of all rectants and reactants.
+A second subsection describes the same element again,
+but goes further into hypotheses and critical design elements.
+Appendices are added to describe elements that have been important in the simulator development
+but did not fit naturally in the main document (testing strategies, utility classes, etc.).
+
+The second section focuses on the implementation of Gillespie's Stochastic Simulation Algorithm (SSA).
+It starts with an overview of the SSA, insisting the trade-off between two of its
+components: selecting the next reaction to perform and updating reaction rates.
+The second subsection presents various strategies to select the next reaction implemented in BiPSim:
+the direct method, the binary search and the composition-rejection method.
+The third subsection presents efficient strategies to update reaction rates as implemented
+in BiPSim, which play an essential role in the final performance of the simulator.
+Appendices provide additional information about the implementation and some perspectives.
+
+\section{Implementation of reactions and reactants}
 
 \subimport{global/}{global.tex}
-\subimport{detailed/}{detailed.tex}
+%\subimport{detailed/}{detailed.tex}
 \clearpage
 
-\appendix
-\subimport{appendix/}{appendix}
+%\subimport{appendix/}{appendix}
+\clearpage
+
+\section{Implementation of Gillespie's Stochatic Simulation Algorithm}
+
+\subimport{cati/}{cati.tex}
 \clearpage
 
 \bibliographystyle{plainnat}
