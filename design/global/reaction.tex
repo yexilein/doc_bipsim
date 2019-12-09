@@ -1,5 +1,5 @@
 
-\subsubsection{Reaction hierarchy}
+\subsection{Reaction hierarchy}
 
 \begin{figure}[!h]
   \centering
@@ -8,9 +8,9 @@
   \label{fig:reaction_uml}
 \end{figure}
 
-This section gives a quick overview of the reaction hierarchy~\reffigp{fig:reaction_uml}. More details about how reactions are implemented can be found later.
+The following sections gives a quick overview of the reaction hierarchy~\reffigp{fig:reaction_uml}. More details about how reactions are implemented can be found later.
 
-\subsubsubsection{Reaction}
+\subsubsection{Reaction}
 
 \begin{figure}[!h]
   \centering
@@ -21,7 +21,7 @@ This section gives a quick overview of the reaction hierarchy~\reffigp{fig:react
 
 There are two abstract classes used to define reactions: \texttt{Reaction} for one-way reactions and \texttt{BidirectionalReaction} for reversible reactions. Two adapter classes \texttt{ForwardReaction} and \texttt{BackwardReaction} split reversible reactions in two one-way reactions\reffigp{fig:reaction}. In the end, the solver only handles one-way reactions. A reaction can necessarily be performed, its rate updated and accessed and is composed of reactants and products.
 
-\subsubsubsection{ChemicalReaction}
+\subsubsection{ChemicalReaction}
 
 \begin{figure}[!h]
   \centering
@@ -56,7 +56,7 @@ where
 \lambda_{backward} = k_{-1} \prod\limits_{i=1}^{p} [B_i]^{b_i}
 \]
 
-\subsubsubsection{SequenceBinding}
+\subsubsection{SequenceBinding}
 \paragraph{Input format}
 
 \begin{figure}[!h]
@@ -96,7 +96,7 @@ where
 	\item $V_c$ is the volume of the cell.
 \end{itemize}
 
-\subsubsubsection{Translocation}
+\subsubsection{Translocation}
 
 \begin{figure}[!h]
   \centering
@@ -135,7 +135,7 @@ where
 	\lambda = k [C]
 \]
 
-\subsubsubsection{Loading}
+\subsubsection{Loading}
 
 \begin{figure}[!h]
   \centering
@@ -176,7 +176,7 @@ where
 	\item $E_t$ is the chemical to load onto template $t$.
 \end{itemize}
 
-\subsubsubsection{DoubleStrandRecruitment}
+\subsubsection{DoubleStrandRecruitment}
 
 \begin{figure}[!h]
   \centering
@@ -209,7 +209,7 @@ where
 \lambda = k[A][B_{free}]
 \]
 
-\subsubsubsection{Release}
+\subsubsection{Release}
 
 \begin{figure}[!h]
   \centering
@@ -250,7 +250,7 @@ where
 \lambda = k[PolP]
 \]
 
-\subsubsubsection{Degradation}
+\subsubsection{Degradation}
 
 \begin{figure}[!h]
   \centering

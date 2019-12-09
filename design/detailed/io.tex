@@ -1,7 +1,7 @@
 
 \subsubsection{Input/Output handling}
 
-\subsubsubsection{Parsing system}
+\paragraph{Parsing system}
 
 \begin{figure}[!h]
   \centering
@@ -12,9 +12,9 @@
 
 The parsing system used by the simulator is pretty simple~\reffigp{fig:text_parser}. A \texttt{SimulationParams} class is used to store simulation parameters (which will be used to create and drive the \texttt{Solver}), \texttt{CellState} stores reactions to integrate and \texttt{EventHandler} stores events. At the moment, an \textit{ad hoc} input format is used.
 
-\paragraph{Perspectives} Review \texttt{SimulatorInput} arborescence which seems uselessly complicated. Design an architecture that can handle multiple input formats (plain text or XML).
+\subparagraph{Perspectives} Review \texttt{SimulatorInput} arborescence which seems uselessly complicated. Design an architecture that can handle multiple input formats (plain text or XML).
 
-\subsubsubsection{Builder and interpreter}
+\paragraph{Builder and interpreter}
 
 \begin{figure}[!h]
   \centering
@@ -25,10 +25,10 @@ The parsing system used by the simulator is pretty simple~\reffigp{fig:text_pars
 
 The parsing system is designed to cut each line into words, then the words are interpreted by \texttt{Builder}s that try to create instances of each of the class of the simulator. The \texttt{Parser} loops through the \texttt{Builder}s until an instance was successfully created. Line format is checked token-wise by an \texttt{Interpreter}~\reffigp{fig:interpreter}. If no \texttt{Builder} is able to match the line, a \texttt{FormatException} is raised. If some dependency could not be solved, a \texttt{DependencyException} is raised. In the latter case, the \texttt{Parser} will postpone the line until dependency can be successfully solved.
 
-\paragraph{Perspectives} Maybe create a \texttt{SimulatorToken} to automatically fetch the reference associated to a name? However, this has to be done with care because the right exceptions have to be raised.
+\subparagraph{Perspectives} Maybe create a \texttt{SimulatorToken} to automatically fetch the reference associated to a name? However, this has to be done with care because the right exceptions have to be raised.
 
-\subsubsubsection{Output}
+\paragraph{Output}
 
 Two classes are used to produce output. \texttt{ChemicalLogger} logs chemical numbers through time. \texttt{DoubleStrandLogger} logs partial strands of a \texttt{DoubleStrand}.
 
-\paragraph{Perspectives} A \texttt{ReactionLogger} would actually be nice...
+\subparagraph{Perspectives} A \texttt{ReactionLogger} would actually be nice...

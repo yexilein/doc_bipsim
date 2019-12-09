@@ -1,11 +1,11 @@
 
 \subsubsection{Reactants}
 
-\subsubsubsection{\texttt{FreeChemical}}
+\paragraph{\texttt{FreeChemical}}
 
 \texttt{FreeChemical} simply represents a pool of interchangeable molecules distributed uniformly in the cell. Computationnally, only the number of molecules in the pool is relevant.
 
-\subsubsubsection{\texttt{BoundChemical}}
+\paragraph{\texttt{BoundChemical}}
 
 \begin{figure}[!h]
   \centering
@@ -19,7 +19,7 @@
 
 \texttt{BoundUnit}s are passed from one \texttt{BoundChemical} species to another through reactions, their attributes are updated if needed. They are only destroyed once they are unbound from their \texttt{ChemicalSequence}.
 
-\subsubsubsection{\texttt{ChemicalSequence}}
+\paragraph{\texttt{ChemicalSequence}}
 
 \begin{figure}[!h]
   \centering
@@ -30,7 +30,7 @@
 
 \texttt{ChemicalSequence} handles a pool of polymers. A pool is defined by a \emph{master sequence} describing what a typical polymer looks like (\textit{e.g.} the sequence of DnaA protein) and the number of \emph{instances} of the master sequence in the pool. For efficiency reason, we do the following assumptions.
 
-\paragraph{Simplifying assumptions}
+\subparagraph{Simplifying assumptions}
 \begin{itemize}
 \item No deviation from master sequence, all instances are identical.
 \item \texttt{BoundUnit}s are not assigned to a specific instance of the sequence, they are positioned on the  master sequence.
@@ -43,10 +43,10 @@
 \item Degradation of an instance does not cause unbinding.
 \end{itemize}
 
-\paragraph{Site availability}
+\subparagraph{Site availability}
 Despite our simplifying assumptions it is still possible to provide an accurate description of site availability. Availability depends of the number of sequences, number and position of bound elements, number and position of newly polymerized sequence segments~\reffigp{fig:det_chemical_sequence}.
 
-\subsubsubsection{\texttt{DoubleStrand}}
+\paragraph{\texttt{DoubleStrand}}
 
 \begin{figure}[!h]
   \centering
@@ -55,12 +55,12 @@ Despite our simplifying assumptions it is still possible to provide an accurate 
   \label{fig:strand_id}
 \end{figure}
 
-\paragraph{Strand identification} Because \texttt{DoubleStrand} typically reprensents DNA, we expect that the \texttt{DoubleStrand} will contain a lot of \texttt{PartialStrand}s. For replication, it is important to know exactly which strand are opposite to one another for \texttt{DoubleStrandRecruitment} to work properly. We use strand identification as shown in~\reffigt{fig:strand_id}.
+\subparagraph{Strand identification} Because \texttt{DoubleStrand} typically reprensents DNA, we expect that the \texttt{DoubleStrand} will contain a lot of \texttt{PartialStrand}s. For replication, it is important to know exactly which strand are opposite to one another for \texttt{DoubleStrandRecruitment} to work properly. We use strand identification as shown in~\reffigt{fig:strand_id}.
 
 
-\subsubsubsection{\texttt{BindingSiteFamily}}
+\paragraph{\texttt{BindingSiteFamily}}
 
-The task of a \texttt{BindingSiteFamily} is to regroup all the binding sites that can participate in a same \texttt{SequenceBinding} reaction. To simplify the reaction, it stores the subrate associated with each binding site. In order to update the rate properly when availability of sites changes, an \emph{observer pattern} is used~\reffigp{fig:det_bsf}. 
+The task of a \texttt{BindingSiteFamily} is to regroup all the binding sites that can participate in a same \texttt{SequenceBinding} reaction. To simplify the reaction, it stores the subrate associated with each binding site. In order to update the rate properly when availability of sites changes, an \emph{observer pattern} is used~\reffigp{fig:det_bsf}.
 
 \begin{figure}[!h]
   \centering
